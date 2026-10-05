@@ -22,7 +22,7 @@ Checks: `npm run typecheck`, `npm run lint`, `npm run build`.
 ## Public site — where things live
 
 - `lib/content.ts` — every word of marketing copy, prices and plan limits. Change copy here, not in components.
-- `components/marketing/` — the public site: `Header`, `Footer`, `ThemeToggle`, `MobileCtaBar`, the page sections in `sections/`, and the illustrated product screens in `screens/` (real text, theme-aware — no screenshots to keep in sync).
+- `components/marketing/` — the public site: `Header`, `Footer`, `ThemeToggle`, `CursorFx`, the page sections in `sections/` (Hero, Explore, Journey, Showcase, Evaluate, Crm, Revenue, Brand, Audience, Pricing, FinalCta) and the illustrated product screens in `screens/` (incl. the animated `LiveDashboard`). Animations use Motion (`motion/react`) and respect reduced motion.
 - `components/marketing/site.css` — design tokens (`--background`, `--foreground`, `--surface`, `--primary`, `--accent`, …) for light mode, redefined under `html[data-theme="dark"]`. Tailwind maps them to classes such as `bg-canvas`, `text-fg`, `bg-panel`, `text-primary`, `bg-accent`. The primitives (`.cta`, `.wrap`, `.kicker`, `.v-field`, …) are in `app/globals.css`'s components layer.
 - Theme: an inline script in `app/layout.tsx` sets `data-theme` before first paint (saved choice in `localStorage["vilms-theme"]`, else the system setting). `ThemeToggle` changes it; the CRM ignores it.
 - Lead flow is unchanged: every CTA uses `components/site/Cta.tsx` → the one `LeadForm` (dialog or `/demo`) → `/api/leads` → Supabase → CRM.

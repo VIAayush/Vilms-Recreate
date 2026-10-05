@@ -1,68 +1,86 @@
+"use client";
+
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Check } from "lucide-react";
 import { Cta } from "@/components/site/Cta";
 import { hero } from "@/lib/content";
-import { HeroField } from "../HeroField";
 import { Magnetic } from "../Magnetic";
-import { HeroAreas } from "./HeroAreas";
-import { HeroStage } from "./HeroStage";
+import { useReducedMotion } from "../motion";
+import { LiveDashboard } from "../screens/LiveDashboard";
 
+const rise = (delay: number) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] as const },
+});
+
+// Attention, positioning, the product, a button. Very little text: the live
+// dashboard underneath does the explaining. It starts tilted back, like a
+// screen on a desk, and straightens as the page scrolls.
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const rotateX = useTransform(scrollYProgress, [0, 0.35], [18, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.35], [0.93, 1]);
+  const y = useTransform(scrollYProgress, [0, 0.35], [0, -20]);
+
   return (
-    <section
-      aria-labelledby="hero-title"
-      data-parallax
-      className="relative isolate overflow-hidden bg-gradient-to-b from-canvas via-canvas to-wash-blue pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36"
-    >
-      {/* Move the cursor: the dots around it light up. */}
-      <HeroField />
+    <section ref={ref} aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-20 pt-32 sm:pt-36 lg:pb-28 lg:pt-40">
+      {/* backdrop: a faint dotted floor and one soft pool of blue */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute inset-x-0 top-0 h-[780px] bg-[radial-gradient(60%_50%_at_50%_0%,rgb(var(--primary)/0.10),transparent_70%)]" />
+        <div className="absolute inset-x-0 top-[420px] h-[900px] [background-image:radial-gradient(rgb(var(--foreground)/0.09)_1px,transparent_1.3px)] [background-size:24px_24px] [mask-image:linear-gradient(to_bottom,transparent,black_30%,black_60%,transparent)]" />
+      </div>
 
-      <div className="wrap">
-        <p className="mb-7 inline-flex animate-rise-in items-center gap-2 rounded-full bg-primary-tint px-3 py-1.5 text-[13px] font-medium text-primary">
+      <div className="wrap text-center">
+        <motion.p {...rise(0)} className="mx-auto inline-flex items-center gap-2 font-mono text-[11.5px] font-medium uppercase tracking-[0.2em] text-fg-muted">
           <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-          For coaching institutes · 0% revenue share
-        </p>
-        <h1 id="hero-title" className="display max-w-[15ch] text-[clamp(42px,7vw,104px)] lg:max-w-none">
-          <span className="block animate-rise-in text-balance">
-            {hero.titleTopLead}{" "}
-            <span className="relative whitespace-nowrap text-primary">
-              {hero.titleTopEmphasis}
-              {/* a gold stroke, the colour of the logo's inner V */}
-              <svg aria-hidden viewBox="0 0 300 16" preserveAspectRatio="none" className="absolute -bottom-[0.05em] left-[2%] h-[0.11em] w-[96%]">
-                <path d="M4 11C70 4 190 2 296 7" fill="none" strokeWidth="6" strokeLinecap="round" className="stroke-gold animate-[draw_1.1s_0.5s_cubic-bezier(.16,1,.3,1)_both] [stroke-dasharray:320] [stroke-dashoffset:320]" />
-              </svg>
-            </span>
-          </span>
-          <span className="serif-accent block animate-rise-in pl-[0.04em] text-fg-muted [animation-delay:120ms]">{hero.titleBottom}</span>
+          {hero.eyebrow}
+        </motion.p>
+        <h1 id="hero-title" className="display mx-auto mt-6 max-w-[14ch] text-balance text-[clamp(44px,7.6vw,112px)]">
+          <motion.span {...rise(0.08)} className="block">
+            {hero.lines[0]}
+          </motion.span>
+          <motion.span {...rise(0.18)} className="block text-primary">
+            {hero.lines[1]}
+          </motion.span>
         </h1>
+        <motion.p {...rise(0.3)} className="mx-auto mt-6 max-w-[560px] text-[17px] leading-relaxed text-fg-muted sm:text-[19px]">
+          {hero.sub}
+        </motion.p>
+        <motion.div {...rise(0.4)} className="mt-9 flex flex-col items-center justify-center gap-3 min-[460px]:flex-row">
+          <Magnetic>
+            <Cta intent="trial" location="hero" className="cta cta-primary cta-lg w-full min-[460px]:w-auto" arrow>
+              Start 14-Day Free Trial
+            </Cta>
+          </Magnetic>
+          <Cta intent="demo" location="hero" className="cta cta-outline cta-lg w-full min-[460px]:w-auto">
+            Book a Demo
+          </Cta>
+        </motion.div>
+        <motion.ul {...rise(0.5)} className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1 text-[13px] text-fg-muted">
+          {hero.notes.map((n) => (
+            <li key={n} className="flex items-center gap-1.5">
+              <Check aria-hidden className="h-3.5 w-3.5 text-green" strokeWidth={3} />
+              {n}
+            </li>
+          ))}
+        </motion.ul>
+      </div>
 
-        <div className="mt-10 grid items-start gap-12 lg:mt-14 lg:grid-cols-[minmax(0,4fr)_minmax(0,8fr)] lg:gap-14">
-          <div className="animate-rise-in [animation-delay:220ms] lg:pt-6">
-            <p className="sub max-w-[420px]">{hero.sub}</p>
-            <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
-              <Magnetic>
-                <Cta intent="trial" location="hero" className="cta cta-primary cta-lg w-full min-[420px]:w-auto" arrow>
-                  Start 14-Day Free Trial
-                </Cta>
-              </Magnetic>
-              <Cta intent="demo" location="hero" className="cta cta-outline cta-lg">
-                Book a Demo
-              </Cta>
-            </div>
-            <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[13.5px] text-fg-muted">
-              {hero.proof.map((p) => (
-                <li key={p} className="flex items-center gap-1.5">
-                  <Check aria-hidden className="h-3.5 w-3.5 text-green" strokeWidth={3} />
-                  {p}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="relative">
-            <HeroAreas />
-            <HeroStage />
-          </div>
-        </div>
+      <div className="wrap mt-14 sm:mt-16 [perspective:1600px]">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.1, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+          style={reduced ? undefined : { rotateX, scale, y, transformOrigin: "50% 0%" }}
+          className="mx-auto max-w-[1080px]"
+        >
+          <LiveDashboard />
+        </motion.div>
+        <p className="mt-5 text-center font-mono text-[10.5px] uppercase tracking-[0.14em] text-fg-faint">Illustrative interface · sample data</p>
       </div>
     </section>
   );

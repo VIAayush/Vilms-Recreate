@@ -63,6 +63,8 @@ const config: Config = {
         red: { DEFAULT: themed("red"), tint: themed("red-tint") },
         indigo: themed("indigo"),
         steel: { DEFAULT: themed("steel"), tint: themed("steel-tint") },
+        yellow: { DEFAULT: themed("yellow"), text: themed("yellow-text") },
+        purple: { DEFAULT: themed("purple"), tint: themed("purple-tint") },
         wash: { blue: themed("wash-blue"), green: themed("wash-green") },
       },
       boxShadow: {

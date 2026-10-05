@@ -1,18 +1,19 @@
 import Link from "next/link";
-import { brand, explorer } from "@/lib/content";
+import { about, brand, explore } from "@/lib/content";
 import { SIGNIN_URL } from "@/lib/env";
 import { Wordmark } from "./BrandMark";
 
 const COLUMNS = [
   {
     title: "Product",
-    links: explorer.tabs.map((t) => ({ href: `/#product-${t.id}`, label: t.label })),
+    links: explore.areas.map((a) => ({ href: `/#explore-${a.id}`, label: a.label })),
   },
   {
     title: "VILMS",
     links: [
       { href: "/#solutions", label: "Who it's for" },
-      { href: "/#why", label: "0% revenue share" },
+      { href: "/#revenue", label: "0% revenue share" },
+      { href: "/#platform", label: "See it in action" },
       { href: "/#pricing", label: "Pricing" },
       { href: "/demo", label: "Book a demo" },
       { href: SIGNIN_URL, label: "Customer sign-in" },
@@ -23,6 +24,10 @@ const COLUMNS = [
 export function Footer() {
   return (
     <footer className="border-t border-edge">
+      <div id="about" className="wrap scroll-mt-24 border-b border-edge py-16">
+        <p className="kicker">{about.title}</p>
+        <p className="mt-5 max-w-[860px] font-display text-[clamp(22px,2.6vw,34px)] font-medium leading-[1.3] tracking-[-0.02em] text-fg-muted">{about.line}</p>
+      </div>
       <div className="wrap grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1fr_1.3fr]">
         <div>
           <Link href="/" aria-label="VILMS home" className="inline-block rounded-lg">

@@ -2,128 +2,144 @@
    Colours are RGB triplets so Tailwind can apply opacity (bg-primary/10).
    The CRM never renders inside .site, so nothing here reaches it. */
 
-/* Palette taken from the VILMS logo:
-     navy   #003056   outer V + wordmark (light logo)
-     gold   #C9A24B   inner V (light logo) — fills, rings and lines only;
-                      a pale gold tint reads as beige, so there is none
-     blue   #1560A8   inner V of the dark logo, deepened for text contrast
-     steel  #BCBDC2   the silver of the dark logo
-     graphite #1B2026 the dark logo's background
-   Green and red stay as state colours (paid / live). White is the page. */
+/* Palette — Google Developers' colour language with the VILMS logo's navy:
+     white + cool neutrals (#F8F9FA, #F1F3F4, #DADCE0, #5F6368),
+     blue #1A73E8 for every action, deep navy #003056 (logo) for immersive
+     sections, and green / yellow / red / purple only as small meaningful
+     accents (paid, waiting, live, AI). No warm neutrals anywhere. */
 
 .site {
-  /* neutrals — cool, never warm */
   --background: 255 255 255;
-  --background-alt: 244 246 249; /* #F4F6F9 */
-  --sunken: 237 240 244; /* #EDF0F4 */
+  --background-alt: 248 249 250; /* #F8F9FA */
+  --sunken: 241 243 244; /* #F1F3F4 */
   --surface: 255 255 255;
   --surface-elevated: 255 255 255;
-  --foreground: 17 28 43; /* #111C2B — navy-black */
-  --muted: 84 96 112; /* #546070 */
-  --faint: 128 138 151; /* #808A97 */
-  --border: 220 225 232; /* #DCE1E8 */
-  --border-strong: 192 200 210; /* #C0C8D2 */
+  --foreground: 32 33 36; /* #202124 */
+  --muted: 95 99 104; /* #5F6368 */
+  --faint: 128 134 139; /* #80868B */
+  --border: 218 220 224; /* #DADCE0 */
+  --border-strong: 189 193 198;
 
-  /* brand */
-  --primary: 21 96 168; /* #1560A8 — every action */
-  --primary-hover: 14 74 135; /* #0E4A87 */
-  --primary-tint: 231 240 249; /* #E7F0F9 */
+  --primary: 26 115 232; /* #1A73E8 */
+  --primary-hover: 25 103 210; /* #1967D2 */
+  --primary-tint: 232 240 254; /* #E8F0FE */
   --primary-ink: 255 255 255;
-  --navy: 0 48 86; /* #003056 */
-  --navy-tint: 230 236 244; /* #E6ECF4 */
-  --gold: 201 162 75; /* #C9A24B */
-  --gold-text: 0 48 86; /* gold-toned text reads navy on white */
-  --steel: 90 101 116; /* #5A6574 */
-  --steel-tint: 237 240 244; /* #EDF0F4 */
+  --navy: 0 48 86; /* #003056 — logo */
+  --navy-tint: 230 236 244;
+  --gold: 201 162 75; /* logo gold — logo only */
+  --gold-text: 0 48 86;
+  --steel: 95 99 104;
+  --steel-tint: 241 243 244;
 
-  /* states */
-  --green: 25 128 86; /* #198056 */
-  --green-tint: 229 243 236; /* #E5F3EC */
-  --red: 192 57 48; /* #C03930 */
-  --red-tint: 250 232 230; /* #FAE8E6 */
-  --indigo: 59 92 154; /* AI touches: a navy-blue */
+  --green: 24 128 56; /* #188038 */
+  --green-tint: 230 244 234;
+  --yellow: 249 171 0; /* #F9AB00 */
+  --yellow-text: 176 96 0;
+  --red: 217 48 37; /* #D93025 */
+  --red-tint: 252 232 230;
+  --purple: 147 52 230; /* #9334E6 — AI */
+  --purple-tint: 243 232 253;
+  --indigo: 147 52 230;
 
-  /* section washes */
-  --wash-blue: 239 244 251; /* #EFF4FB */
-  --wash-green: 236 246 241; /* #ECF6F1 */
+  --wash-blue: 240 245 254;
+  --wash-green: 238 248 241;
 
-  --shadow-window: 0 1px 2px rgb(0 48 86 / 0.08), 0 14px 34px -14px rgb(0 48 86 / 0.28);
-  --shadow-soft: 0 1px 2px rgb(0 48 86 / 0.1), 0 2px 6px rgb(0 48 86 / 0.06);
+  --shadow-window: 0 1px 2px rgb(60 64 67 / 0.1), 0 16px 40px -18px rgb(60 64 67 / 0.35);
+  --shadow-soft: 0 1px 2px rgb(60 64 67 / 0.12), 0 2px 6px rgb(60 64 67 / 0.08);
 
   --font-display: var(--font-sans);
   background: rgb(var(--background));
   color: rgb(var(--foreground));
 }
 
-/* Dark mode follows the dark logo: graphite surfaces that lighten as they
-   rise, silver text, the logo's lighter blue, and real gold. The closing
-   and AI sections (.band-dark) use the same values in both themes. */
 html[data-theme="dark"] .site,
 .band-dark {
-  --background: 27 32 38; /* #1B2026 */
-  --background-alt: 20 24 29; /* #14181D */
-  --sunken: 43 50 59; /* #2B323B */
-  --surface: 35 41 49; /* #232931 */
-  --surface-elevated: 43 50 59;
-  --foreground: 241 243 245;
-  --muted: 174 181 191; /* #AEB5BF — silver */
-  --faint: 132 141 153;
-  --border: 56 64 75; /* #38404B */
-  --border-strong: 88 97 110;
+  --background: 32 33 36; /* #202124 */
+  --background-alt: 23 23 23; /* #171717 */
+  --sunken: 48 49 52;
+  --surface: 41 42 45; /* #292A2D */
+  --surface-elevated: 48 49 52; /* #303134 */
+  --foreground: 255 255 255;
+  --muted: 189 193 198; /* #BDC1C6 */
+  --faint: 154 160 166;
+  --border: 60 64 67;
+  --border-strong: 95 99 104;
 
-  --primary: 106 170 222; /* #6AAADE — the logo's blue highlight */
-  --primary-hover: 145 194 234;
-  --primary-tint: 30 46 66;
-  --primary-ink: 15 21 29;
-  --navy: 150 180 220; /* navy, lifted to read on graphite */
+  --primary: 138 180 248; /* #8AB4F8 */
+  --primary-hover: 168 199 250;
+  --primary-tint: 37 52 77;
+  --primary-ink: 32 33 36;
+  --navy: 168 199 250;
   --navy-tint: 31 42 60;
-  --gold: 214 178 96; /* #D6B260 */
+  --gold: 214 178 96;
   --gold-text: 222 190 112;
-  --steel: 190 197 207; /* #BEC5CF */
-  --steel-tint: 44 50 58;
+  --steel: 189 193 198;
+  --steel-tint: 48 49 52;
 
-  --green: 108 196 148;
-  --green-tint: 28 50 40;
-  --red: 238 133 122;
-  --red-tint: 62 36 34;
-  --indigo: 160 182 230;
+  --green: 129 201 149;
+  --green-tint: 30 52 38;
+  --yellow: 253 214 99;
+  --yellow-text: 253 214 99;
+  --red: 242 139 130;
+  --red-tint: 66 36 33;
+  --purple: 215 174 251;
+  --purple-tint: 52 36 70;
+  --indigo: 215 174 251;
 
-  --wash-blue: 26 34 46;
-  --wash-green: 24 36 31;
+  --wash-blue: 28 34 46;
+  --wash-green: 25 36 30;
 
   --shadow-window: 0 1px 2px rgb(0 0 0 / 0.45), 0 18px 40px -16px rgb(0 0 0 / 0.75);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.3);
 }
 .band-dark {
-  background: rgb(27 32 38);
+  background: rgb(23 23 23);
   color: rgb(var(--foreground));
 }
-html[data-theme="dark"] .band-dark {
-  background: rgb(17 20 24);
-}
 
-/* The navy moment (0% revenue share): the light logo's navy with gold. */
+/* Deep navy (the logo's) — the immersive sections. Tokens take their
+   dark values inside, with a navy surface. */
 .band-navy {
+  --background: 0 48 86;
+  --background-alt: 0 38 70;
+  --sunken: 14 64 106;
+  --surface: 10 58 99;
+  --surface-elevated: 18 70 116;
+  --foreground: 255 255 255;
+  --muted: 191 208 228;
+  --faint: 140 165 195;
+  --border: 34 84 128;
+  --border-strong: 60 108 150;
+  --primary: 138 180 248;
+  --primary-hover: 168 199 250;
+  --primary-tint: 22 74 124;
+  --primary-ink: 0 33 60;
+  --green: 129 201 149;
+  --green-tint: 20 74 74;
+  --yellow: 253 214 99;
+  --yellow-text: 253 214 99;
+  --red: 242 139 130;
+  --red-tint: 80 50 70;
+  --purple: 215 174 251;
+  --purple-tint: 50 52 112;
+  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.35), 0 24px 50px -20px rgb(0 0 0 / 0.6);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 10px rgb(0 0 0 / 0.2);
   background: rgb(0 48 86);
   color: #fff;
 }
-.band-navy .kicker {
-  color: rgb(255 255 255 / 0.8);
-}
-.band-navy .kicker::before {
-  background: rgb(201 162 75);
-}
 html[data-theme="dark"] .band-navy {
-  background: rgb(10 33 58);
+  background: rgb(9 30 54);
+  --background: 9 30 54;
+  --surface: 20 44 72;
+  --surface-elevated: 28 54 86;
 }
 
-/* The page behind the site (overscroll, scrollbars) follows the theme. */
 html:has(.site) {
   background: #fff;
   scroll-padding-top: 84px;
 }
 html[data-theme="dark"]:has(.site) {
-  background: rgb(27 32 38);
+  background: rgb(32 33 36);
   color-scheme: dark;
 }
 
@@ -395,14 +411,13 @@ html[data-theme="dark"] .answer-sheet {
 }
 
 /* ======================================================================
-   Cursor-driven effects. CursorFx (one pointer listener for the whole site)
-   writes the pointer position into --gx/--gy on the [data-glow] elements
-   under the cursor, --rx/--ry on [data-tilt], and --px/--py on
-   [data-parallax]. Everything below is pure CSS reading those variables.
+   Cursor-driven effects (driven by CursorFx). For smoothness, nothing here
+   depends on inherited variables written to big containers: section glows
+   are a small clipped layer moved with a transform, tilt and parallax are
+   transforms on the element itself, and only small cards read --gx/--gy.
    Colour comes from --glow (an RGB triplet), default blue.
    ====================================================================== */
 
-/* A soft pool of colour that follows the cursor across a section. */
 [data-glow] {
   --glow: var(--primary);
 }
@@ -412,17 +427,32 @@ html[data-theme="dark"] .answer-sheet {
   position: relative;
   isolation: isolate;
 }
-.glow-section::before {
-  content: "";
+/* <GlowSpot /> — a clip box the size of the section, holding one soft
+   pool of colour that CursorFx moves with translate3d. */
+.glow-clip {
   position: absolute;
   inset: 0;
   z-index: -1;
+  overflow: hidden;
   pointer-events: none;
-  background: radial-gradient(520px circle at var(--gx, 50%) var(--gy, 50%), rgb(var(--glow) / 0.13), transparent 65%);
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  contain: strict;
 }
-.glow-section:hover::before {
+.glow-spot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1040px;
+  height: 1040px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(var(--glow) / 0.14), rgb(var(--glow) / 0.05) 55%, transparent);
+  opacity: 0;
+  transform: translate3d(-2000px, -2000px, 0);
+  transition:
+    opacity 0.5s ease,
+    background 0.6s ease;
+  will-change: transform;
+}
+.glow-section:hover > .glow-clip > .glow-spot {
   opacity: 1;
 }
 
@@ -460,16 +490,14 @@ html[data-theme="dark"] .answer-sheet {
   opacity: 1;
 }
 
-/* Product windows lean toward the cursor, with a glare where it points. */
+/* Product windows lean toward the cursor (CursorFx writes the transform),
+   with a glare where it points. */
 [data-tilt] {
-  --rx: 0deg;
-  --ry: 0deg;
-  transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry));
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: transform;
 }
 [data-tilt][data-tilting] {
-  transition: transform 0.12s ease-out;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .tilt-glare {
   pointer-events: none;
@@ -482,18 +510,15 @@ html[data-theme="dark"] .answer-sheet {
   opacity: 0;
   transition: opacity 0.4s ease;
 }
-[data-tilt]:hover .tilt-glare {
+[data-tilt]:hover > .tilt-glare {
   opacity: 1;
 }
 
-/* Things that drift with the cursor: translate by --depth px per unit. */
-[data-parallax] {
-  --px: 0;
-  --py: 0;
-}
+/* Things that drift with the cursor (CursorFx sets the transform from
+   data-depth); the transition is what makes the drift feel weighty. */
 .parallax {
-  transform: translate3d(calc(var(--px) * var(--depth, 12) * 1px), calc(var(--py) * var(--depth, 12) * 1px), 0);
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
 }
 
 /* The cursor ring (CursorFx). It sits around the native pointer, grows over

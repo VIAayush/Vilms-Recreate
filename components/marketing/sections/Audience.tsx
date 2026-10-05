@@ -2,133 +2,181 @@
 
 import { useState } from "react";
 import clsx from "clsx";
-import { ArrowUpRight, FileText, Lock, Unlock } from "lucide-react";
-import { audience, type AudienceVisual } from "@/lib/content";
-import { CertScene, EvalScene, LiveScene, PayScene } from "../screens/scenes";
-import { Pill } from "../screens/primitives";
-import { TONE, type Tone } from "../tone";
+import { AnimatePresence, motion } from "motion/react";
+import { audience, type AudienceId } from "@/lib/content";
+import { BrowserFrame, Illustrative, LiveDot, Pill } from "../screens/primitives";
 
-// Each kind of institute brings its own colour into the section.
-const AUDIENCE_TONE: Record<string, Tone> = { coaching: "blue", testprep: "gold", skills: "navy", training: "steel", schools: "green", online: "blue" };
+type Row = { title: string; meta: string; pill: string; tone: "primary" | "green" | "yellow" | "red" | "purple" | "muted"; live?: boolean };
+type Dash = { url: string; title: string; kpis: [string, string][]; rows: Row[]; side: { title: string; lines: string[] } };
 
-function TeamMini() {
-  return (
-    <div className="rounded-xl border border-edge bg-panel p-3.5">
-      <p className="text-[11px] font-semibold text-fg-muted">Team &amp; roles</p>
-      <ul className="mt-2.5 space-y-2 text-[12.5px]">
-        {[
-          ["Owner / Admin", "Everything"],
-          ["Teacher", "Courses · grading · materials"],
-          ["Sales / Counsellor", "Leads · roster · payments"],
-        ].map(([r, a]) => (
-          <li key={r} className="flex items-center justify-between gap-3 rounded-lg bg-canvas-alt px-3 py-2">
-            <span className="font-semibold">{r}</span>
-            <span className="truncate text-[11px] text-fg-muted">{a}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-function MaterialsMini() {
-  return (
-    <div className="rounded-xl border border-edge bg-panel p-3.5">
-      <p className="text-[11px] font-semibold text-fg-muted">Study materials</p>
-      <ul className="mt-2.5 space-y-2 text-[12.5px]">
-        {[
-          { t: "Syllabus breakdown.pdf", tag: <Pill tone="green">Public</Pill>, icon: Unlock },
-          { t: "Topper's notes — Polity.pdf", tag: <Pill tone="gold">Lead-magnet gated</Pill>, icon: FileText },
-          { t: "Batch A worksheet 4.pdf", tag: <Pill tone="primary">Enrolled only</Pill>, icon: Lock },
-        ].map(({ t, tag, icon: Icon }) => (
-          <li key={t} className="flex items-center gap-2 rounded-lg bg-canvas-alt px-3 py-2">
-            <Icon aria-hidden className="h-3.5 w-3.5 shrink-0 text-fg-muted" />
-            <span className="truncate">{t}</span>
-            <span className="ml-auto shrink-0">{tag}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-
-const VISUALS: Record<AudienceVisual, () => React.ReactNode> = {
-  live: LiveScene,
-  test: () => <EvalScene approved={false} />,
-  cert: () => <CertScene />,
-  team: TeamMini,
-  invoice: PayScene,
-  materials: MaterialsMini,
+// Sample dashboards — one per kind of institute, all illustrative.
+const DASH: Record<AudienceId, Dash> = {
+  coaching: {
+    url: "yourinstitute.vilms.in/admin/batches",
+    title: "JEE & NEET batches",
+    kpis: [["Batches", "12"], ["Live today", "5"], ["Tests this week", "8"]],
+    rows: [
+      { title: "JEE Main 2027 · Batch A", meta: "Physics · live at 7 PM", pill: "Live", tone: "red", live: true },
+      { title: "NEET Repeaters", meta: "Biology · mock test 6 on Sun", pill: "Mock test", tone: "purple" },
+      { title: "Foundation Class 10", meta: "Maths · 3 answers to evaluate", pill: "To evaluate", tone: "yellow" },
+    ],
+    side: { title: "Admissions", lines: ["Webinar: “How to crack JEE” · 86 RSVPs", "Fee plan sent to 14 leads"] },
+  },
+  testprep: {
+    url: "yourinstitute.vilms.in/admin/tests",
+    title: "Mock tests & answer writing",
+    kpis: [["Mock tests", "24"], ["Answers this week", "312"], ["AI drafts ready", "41"]],
+    rows: [
+      { title: "UPSC Prelims Mock 12", meta: "Auto-graded · results out", pill: "Results out", tone: "green" },
+      { title: "Mains Answer Writing · GS2", meta: "Long-form · AI draft · mentor review", pill: "AI draft", tone: "purple" },
+      { title: "CSAT Practice 5", meta: "Opens Thursday", pill: "Scheduled", tone: "muted" },
+    ],
+    side: { title: "Exam cycle", lines: ["Prelims in 64 days", "Drip lessons unlock daily"] },
+  },
+  skills: {
+    url: "yourinstitute.vilms.in/admin/programmes",
+    title: "Hybrid programmes",
+    kpis: [["Programmes", "9"], ["Learners", "640"], ["Certificates", "212"]],
+    rows: [
+      { title: "Digital Marketing · Cohort 4", meta: "Recorded + weekly live", pill: "Hybrid", tone: "primary" },
+      { title: "Python for Beginners", meta: "Self-paced · 24 lessons", pill: "Recorded", tone: "muted" },
+      { title: "Data Analytics · Cohort 2", meta: "18 completed this week", pill: "Certificates", tone: "green" },
+    ],
+    side: { title: "Webinars", lines: ["Free masterclass · Sat 6 PM", "One-click upsell to Cohort 5"] },
+  },
+  training: {
+    url: "yourinstitute.vilms.in/admin/branches",
+    title: "Branches & teams",
+    kpis: [["Branches", "4"], ["Batches", "22"], ["Staff", "31"]],
+    rows: [
+      { title: "Pune · 7 batches", meta: "Branch admin: Rohit", pill: "Branch", tone: "primary" },
+      { title: "Nagpur · 5 batches", meta: "2 teachers, 1 counsellor", pill: "Branch", tone: "primary" },
+      { title: "Online · 10 batches", meta: "Recorded programmes", pill: "Online", tone: "green" },
+    ],
+    side: { title: "Roles", lines: ["Teachers: courses & grading", "Counsellors: leads & payments"] },
+  },
+  schools: {
+    url: "yourinstitute.vilms.in/admin/programmes",
+    title: "Paid add-on programmes",
+    kpis: [["Programmes", "5"], ["Enrolled", "380"], ["Invoices", "380"]],
+    rows: [
+      { title: "Olympiad Prep · Class 8–10", meta: "Fees to the school's Razorpay", pill: "Paid", tone: "green" },
+      { title: "Entrance Prep · Class 12", meta: "Tests + live doubt classes", pill: "Live", tone: "red", live: true },
+      { title: "Coding Certificate Course", meta: "Certificate on completion", pill: "Certificate", tone: "yellow" },
+    ],
+    side: { title: "Payments", lines: ["GST invoices sent automatically", "UPI & bank fallback on"] },
+  },
+  online: {
+    url: "yourinstitute.vilms.in/admin",
+    title: "Your online academy",
+    kpis: [["Courses", "6"], ["Students", "48"], ["Free PDF downloads", "1,120"]],
+    rows: [
+      { title: "Spoken English · Live", meta: "Mon–Fri · 8 PM", pill: "Live", tone: "red", live: true },
+      { title: "Grammar Masterclass", meta: "Recorded · 30 lessons", pill: "Recorded", tone: "muted" },
+      { title: "Free: 100 phrases PDF", meta: "Lead magnet · builds your list", pill: "Lead magnet", tone: "primary" },
+    ],
+    side: { title: "Plan", lines: ["Base · ₹499/month", "Upgrade any time — data stays"] },
+  },
 };
 
 export function Audience() {
-  const [activeId, setActiveId] = useState(audience.items[0].id);
-  const active = audience.items.find((i) => i.id === activeId) ?? audience.items[0];
-  const Visual = VISUALS[active.visual];
-  const tone = TONE[AUDIENCE_TONE[active.id]];
+  const [id, setId] = useState<AudienceId>("coaching");
+  const d = DASH[id];
+  const item = audience.items.find((i) => i.id === id)!;
 
   return (
-    <section
-      id="solutions"
-      aria-labelledby="solutions-title"
-      data-glow
-      style={{ "--glow": tone.rgb } as React.CSSProperties}
-      className={clsx("glow-section border-y border-edge py-24 transition-colors duration-700 sm:py-32", tone.wash)}
-    >
+    <section id="solutions" aria-labelledby="audience-title" className="py-24 sm:py-32">
       <div className="wrap">
         <p className="kicker">{audience.kicker}</p>
-        <h2 id="solutions-title" className="h2 mt-4 max-w-[18ch]">
+        <h2 id="audience-title" className="h2 mt-4 max-w-[17ch]">
           {audience.title}
         </h2>
 
-        <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:gap-16">
-          {/* Desktop: a typographic index. Phones: a swipeable row. */}
-          <ul className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:block lg:space-y-0 lg:overflow-visible lg:px-0" aria-label="Institute types">
-            {audience.items.map((item, i) => {
-              const on = item.id === active.id;
+        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-12">
+          {/* the selector */}
+          <div role="tablist" aria-label="Institute types" className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:block lg:overflow-visible lg:px-0">
+            {audience.items.map((a) => {
+              const on = a.id === id;
               return (
-                <li key={item.id} className="shrink-0 lg:border-b lg:border-edge lg:first:border-t">
-                  <button
-                    type="button"
-                    aria-pressed={on}
-                    onClick={() => setActiveId(item.id)}
-                    onPointerEnter={(e) => e.pointerType === "mouse" && setActiveId(item.id)}
-                    className={clsx(
-                      "group flex w-full items-baseline gap-4 rounded-full border px-4 py-2 text-left transition-colors lg:rounded-none lg:border-0 lg:px-0 lg:py-4",
-                      on ? clsx("border-[rgb(var(--glow)/0.45)] lg:bg-transparent", tone.tint, tone.text) : "border-edge bg-panel text-fg-muted hover:text-fg lg:bg-transparent",
-                    )}
-                  >
-                    <span className="hidden font-mono text-[12px] text-fg-faint lg:inline">0{i + 1}</span>
-                    <span className="whitespace-nowrap text-[14.5px] font-semibold lg:font-display lg:text-[clamp(26px,3vw,42px)] lg:tracking-[-0.035em]">{item.label}</span>
-                    <ArrowUpRight
-                      aria-hidden
-                      className={clsx("ml-auto hidden h-6 w-6 self-center transition-all duration-300 lg:block", on ? clsx("rotate-45 opacity-100", tone.text) : "opacity-0 group-hover:opacity-50")}
-                    />
-                  </button>
-                </li>
+                <button
+                  key={a.id}
+                  role="tab"
+                  aria-selected={on}
+                  onClick={() => setId(a.id)}
+                  onPointerEnter={(e) => e.pointerType === "mouse" && setId(a.id)}
+                  className={clsx(
+                    "relative shrink-0 rounded-full border px-4 py-2 text-left text-[14.5px] font-semibold transition-colors lg:block lg:w-full lg:rounded-none lg:border-0 lg:border-b lg:border-edge lg:px-0 lg:py-4",
+                    on ? "border-fg bg-fg text-canvas lg:bg-transparent lg:text-fg" : "border-edge bg-panel text-fg-muted hover:text-fg lg:bg-transparent",
+                  )}
+                >
+                  <span className="lg:font-display lg:text-[clamp(22px,2.2vw,30px)] lg:tracking-[-0.03em]">{a.label}</span>
+                  {on ? <motion.span layoutId="aud-line" className="absolute bottom-[-1px] left-0 hidden h-[2px] w-full bg-primary lg:block" /> : null}
+                  <span className={clsx("hidden text-[13.5px] font-normal text-fg-muted transition-[max-height,opacity] duration-500 lg:block lg:overflow-hidden", on ? "mt-1 max-h-12 opacity-100" : "max-h-0 opacity-0")}>{a.line}</span>
+                </button>
               );
             })}
-          </ul>
+          </div>
 
-          <div className="lg:sticky lg:top-28 lg:self-start" aria-live="polite">
-            <div key={active.id} className="animate-rise-in">
-              <p className="text-[19px] leading-relaxed sm:text-[21px]">{active.text}</p>
-              <ul className="mt-5 flex flex-wrap gap-2">
-                {active.tags.map((t) => (
-                  <li key={t} className="tag">
-                    {t}
-                  </li>
-                ))}
-              </ul>
-              <div data-glow data-tilt="3" className="glow-card relative mt-8 rounded-2xl border border-edge bg-panel p-4 sm:p-6">
-                <span aria-hidden className={clsx("absolute inset-x-6 top-0 h-1 rounded-b", tone.fill)} />
-                <Visual />
-              </div>
-            </div>
-            <p className="mt-6 text-[14px] leading-relaxed text-fg-muted">
-              <b className="font-semibold text-fg">A strong fit if</b>{" "}you run ads or webinars to find students, teach in batches, evaluate written answers — and
-              don&apos;t want your software taking a cut of your fees.
-            </p>
+          {/* the visual */}
+          <div>
+            <p className="mb-4 text-[15px] text-fg-muted lg:hidden">{item.line}</p>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={id}
+                initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <BrowserFrame url={d.url} tilt={2}>
+                  <div className="grid gap-3 p-4 sm:grid-cols-[1.5fr_1fr] sm:p-5">
+                    <div>
+                      <p className="text-[11px] text-fg-muted">Dashboard</p>
+                      <p className="text-[18px] font-semibold tracking-tight">{d.title}</p>
+                      <dl className="mt-3 grid grid-cols-3 gap-2">
+                        {d.kpis.map(([k, v]) => (
+                          <div key={k} className="rounded-xl border border-edge px-3 py-2">
+                            <dt className="truncate text-[10.5px] text-fg-muted">{k}</dt>
+                            <dd className="font-display text-[20px] font-semibold tabular-nums">{v}</dd>
+                          </div>
+                        ))}
+                      </dl>
+                      <ul className="mt-3 space-y-2">
+                        {d.rows.map((r, i) => (
+                          <motion.li
+                            key={r.title}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.15 + i * 0.08 }}
+                            className="flex items-center gap-3 rounded-xl bg-canvas-alt px-3 py-2.5"
+                          >
+                            <span className="min-w-0">
+                              <span className="block truncate text-[13px] font-semibold">{r.title}</span>
+                              <span className="block truncate text-[11.5px] text-fg-muted">{r.meta}</span>
+                            </span>
+                            <Pill tone={r.tone} className="ml-auto">
+                              {r.live ? <LiveDot className="mr-0.5" /> : null}
+                              {r.pill}
+                            </Pill>
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className="rounded-xl border border-edge p-3">
+                      <p className="text-[11.5px] font-semibold">{d.side.title}</p>
+                      <ul className="mt-2 space-y-2 text-[12px] text-fg-muted">
+                        {d.side.lines.map((l) => (
+                          <li key={l} className="rounded-lg bg-canvas-alt px-2.5 py-2">
+                            {l}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </BrowserFrame>
+              </motion.div>
+            </AnimatePresence>
+            <Illustrative className="mt-4" />
           </div>
         </div>
       </div>

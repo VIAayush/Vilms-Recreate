@@ -68,7 +68,7 @@ function TeachScreen({ active }: ScreenProps) {
           <li className="flex items-center gap-2 rounded-lg bg-canvas-alt px-2 py-2">
             <GripVertical aria-hidden className="h-3.5 w-3.5 text-fg-faint" />
             Mock test 1 — answer writing
-            <Pill tone="gold" className="ml-auto">
+            <Pill tone="yellow" className="ml-auto">
               Coming soon
             </Pill>
           </li>
@@ -272,7 +272,7 @@ function PaymentsScreen({ active }: ScreenProps) {
               <span className="font-mono text-[10.5px] text-fg-muted">#2033</span>
               <span className="truncate">Arjun T.</span>
               <span className="ml-auto font-semibold tabular-nums">₹4,500</span>
-              <Pill tone="gold">
+              <Pill tone="yellow">
                 <RotateCcw aria-hidden className="h-2.5 w-2.5" /> Refunded
               </Pill>
             </li>
@@ -351,11 +351,69 @@ function BrandScreen({ active }: ScreenProps) {
   );
 }
 
+function TeamScreen({ active }: ScreenProps) {
+  const roles = [
+    { r: "Owner / Admin", a: "Everything", n: "Priya S.", tone: "primary" as const },
+    { r: "Teacher", a: "Courses · grading · materials", n: "Meera I.", tone: "purple" as const },
+    { r: "Teacher", a: "Courses · grading · materials", n: "Arun K.", tone: "purple" as const },
+    { r: "Sales / Counsellor", a: "Leads · roster · payments", n: "Neha G.", tone: "green" as const },
+  ];
+  return (
+    <div className="grid gap-3 p-3 sm:grid-cols-[1.3fr_1fr] sm:p-4">
+      <div className={clsx(box, "p-3")} {...spot("roles", active)}>
+        <div className="flex items-center justify-between">
+          <p className="text-[10.5px] text-fg-muted">Team &amp; roles</p>
+          <span className="rounded-md bg-primary px-2 py-1 text-[10.5px] font-semibold text-primary-ink">Invite</span>
+        </div>
+        <ul className="mt-2.5 divide-y divide-edge text-[12px]">
+          {roles.map((x) => (
+            <li key={x.n} className="flex items-center gap-2.5 py-2">
+              <Avatar name={x.n} size="sm" />
+              <span className="min-w-0">
+                <span className="block truncate font-semibold">{x.n}</span>
+                <span className="block truncate text-[10.5px] text-fg-muted">{x.a}</span>
+              </span>
+              <Pill tone={x.tone} className="ml-auto">
+                {x.r}
+              </Pill>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="grid gap-3">
+        <div className={clsx(box, "p-3")} {...spot("branches", active)}>
+          <p className="text-[10.5px] text-fg-muted">Branches</p>
+          {[
+            ["Jaipur", "4 batches"],
+            ["Kota", "6 batches"],
+            ["Online", "3 batches"],
+          ].map(([b, m]) => (
+            <div key={b} className="mt-1.5 flex items-center justify-between rounded-md bg-canvas-alt px-2 py-1.5 text-[11.5px]">
+              <span className="font-semibold">{b}</span>
+              <span className="text-fg-muted">{m}</span>
+            </div>
+          ))}
+        </div>
+        <div className={clsx(box, "p-3")} {...spot("meters", active)}>
+          <p className="text-[10.5px] text-fg-muted">Plan meters</p>
+          <Meter label="Students" value={164} max={200} />
+          <div className="mt-1.5">
+            <Meter label="Staff" value={9} max={15} tone="green" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export const EXPLORER_SCREENS: Record<ExplorerTabId, { url: string; Screen: (p: ScreenProps) => React.ReactNode }> = {
   teach: { url: "yourinstitute.vilms.in/admin/courses", Screen: TeachScreen },
   assess: { url: "yourinstitute.vilms.in/admin/evaluations", Screen: AssessScreen },
   grow: { url: "yourinstitute.vilms.in/admin/leads", Screen: GrowScreen },
   payments: { url: "yourinstitute.vilms.in/admin/payments", Screen: PaymentsScreen },
   brand: { url: "yourinstitute.vilms.in/admin/settings/branding", Screen: BrandScreen },
+  team: { url: "yourinstitute.vilms.in/admin/team", Screen: TeamScreen },
 };
+
+export { TeachScreen, AssessScreen, GrowScreen, PaymentsScreen, BrandScreen, TeamScreen };
 

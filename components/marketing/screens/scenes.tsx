@@ -1,11 +1,12 @@
 import clsx from "clsx";
 import { Award, BookOpen, CalendarClock, Check, FileText, IndianRupee, MessageCircle, Play, Repeat2, Sparkles, Users, Video } from "lucide-react";
-import type { StoryId } from "@/lib/content";
 import { Avatar, InstituteMark, LiveDot, Meter, Pill } from "./primitives";
 
 // One student's journey through VILMS, as interface fragments. Every scene is
 // sample data in an illustrated UI. The same student (Rahul) appears in all of
 // them, because it's the same record — that's the point.
+
+export type StoryId = "lead" | "enrol" | "course" | "live" | "eval" | "pay" | "cert" | "renew";
 
 const card = "rounded-xl border border-edge bg-panel";
 
@@ -75,7 +76,7 @@ export function EnrolScene() {
       </dl>
       <ol className="mt-3.5 space-y-2 border-l border-edge pl-3 text-[11.5px] text-fg-muted">
         <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-primary">Lead from Google Ads</li>
-        <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-gold">Joined the free webinar</li>
+        <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-yellow">Joined the free webinar</li>
         <li className="relative font-medium text-fg before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-green">Paid via your Razorpay · enrolled</li>
       </ol>
     </div>
@@ -216,7 +217,7 @@ export function CertScene({ name = "Your Institute", color }: { name?: string; c
             <br />
             <b className="text-[11px] text-fg">{name}</b>
           </span>
-          <Award aria-hidden className="h-6 w-6" style={{ color: color ?? "rgb(var(--gold))" }} />
+          <Award aria-hidden className="h-6 w-6" style={{ color: color ?? "rgb(var(--yellow))" }} />
         </div>
       </div>
     </div>
