@@ -9,7 +9,11 @@ import { useAutoplay, useInView, useReducedMotion } from "../motion";
 import { Avatar, Illustrative } from "../screens/primitives";
 
 const STEP_MS = 3200;
-const FACT_ICONS = [Sparkles, ShieldCheck, Check];
+const FACTS = [
+  { Icon: Sparkles, tone: "text-indigo" },
+  { Icon: ShieldCheck, tone: "text-primary" },
+  { Icon: Check, tone: "text-green" },
+];
 
 // Handwritten answer → AI draft → mentor review → approve → evaluated copy.
 // The visual is one answer sheet whose annotations change with each step.
@@ -21,9 +25,8 @@ export function Evaluation() {
   const [step, select] = useAutoplay(evaluation.steps.length, { interval: STEP_MS, running: inView && !reduced && !hold });
 
   return (
-    <section ref={ref} id="ai" aria-labelledby="ai-title" className="px-2 sm:px-4">
-      <div className="stage-dark grain relative isolate overflow-hidden rounded-[32px] py-20 sm:rounded-[44px] sm:py-28">
-        <div aria-hidden className="pointer-events-none absolute -right-40 -top-40 -z-10 h-[520px] w-[520px] rounded-full bg-primary/20 blur-[120px]" />
+    <section ref={ref} id="ai" aria-labelledby="ai-title">
+      <div className="py-24 sm:py-32">
 
         <div className="wrap grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
           <div>
@@ -43,12 +46,12 @@ export function Evaluation() {
                       type="button"
                       onClick={() => select(i)}
                       aria-current={on ? "step" : undefined}
-                      className={clsx("group grid w-full grid-cols-[28px_1fr] gap-x-3 rounded-2xl px-3 py-3 text-left transition-colors", on ? "bg-white/[0.06]" : "hover:bg-white/[0.03]")}
+                      className={clsx("group grid w-full grid-cols-[28px_1fr] gap-x-3 rounded-2xl px-3 py-3 text-left transition-colors", on ? "bg-primary-tint" : "hover:bg-sunken")}
                     >
                       <span
                         className={clsx(
                           "mt-0.5 grid h-7 w-7 place-items-center rounded-full font-mono text-[11px] transition-colors",
-                          i < step ? "bg-primary/25 text-primary" : on ? "bg-primary text-primary-ink" : "bg-white/10 text-fg-muted",
+                          i < step ? "bg-green-tint text-green" : on ? "bg-primary text-primary-ink" : "bg-sunken text-fg-muted",
                         )}
                       >
                         {i < step ? <Check aria-hidden className="h-3.5 w-3.5" /> : i + 1}
@@ -77,12 +80,12 @@ export function Evaluation() {
           </div>
         </div>
 
-        <div className="wrap mt-16 grid gap-6 border-t border-white/10 pt-10 sm:grid-cols-3 lg:mt-20">
+        <div className="wrap mt-16 grid gap-6 border-t border-edge pt-10 sm:grid-cols-3 lg:mt-20">
           {evaluation.facts.map((f, i) => {
-            const Icon = FACT_ICONS[i];
+            const { Icon, tone } = FACTS[i];
             return (
               <div key={f.title} className="flex gap-3">
-                <Icon aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                <Icon aria-hidden className={clsx("mt-0.5 h-5 w-5 shrink-0", tone)} />
                 <p className="text-[15px] leading-snug">
                   <b className="font-semibold">{f.title}.</b> <span className="text-fg-muted">{f.text}</span>
                 </p>
@@ -91,7 +94,7 @@ export function Evaluation() {
           })}
         </div>
         <div className="wrap mt-10">
-          <Cta intent="demo" location="ai_evaluation" className="cta cta-accent" arrow>
+          <Cta intent="demo" location="ai_evaluation" className="cta cta-outline" arrow>
             See evaluation in a demo
           </Cta>
         </div>
@@ -111,12 +114,12 @@ function AnswerVisual({ step }: { step: number }) {
   return (
     <div className="relative">
       {/* The answer sheet */}
-      <figure className="relative overflow-hidden rounded-2xl bg-[#fbf8ef] p-5 pb-10 text-[#2b2a6b] shadow-[0_30px_60px_-30px_rgba(0,0,0,.8)] sm:-rotate-[1.2deg] sm:p-7 sm:pb-24 sm:pr-[178px]">
-        <figcaption className="mb-3 flex items-center justify-between font-sans text-[11px] text-[#2b2a6b]/60">
+      <figure className="answer-sheet with-margin relative overflow-hidden rounded-xl border border-edge p-5 pb-10 pl-12 shadow-window [--rule:28px] sm:-rotate-[1deg] sm:p-7 sm:pb-24 sm:pl-14 sm:pr-[178px]">
+        <figcaption className="paper-muted mb-3 flex items-center justify-between font-sans text-[11px]">
           <span>Q3 · Answer sheet · page 1 of 2</span>
           <span>Rahul K.</span>
         </figcaption>
-        <div className="font-hand text-[18px] leading-[28px] sm:text-[20px] [background-image:repeating-linear-gradient(transparent,transparent_27px,rgb(43_42_107/0.14)_27px,rgb(43_42_107/0.14)_28px)]">
+        <div className="font-hand text-[18px] leading-[28px] sm:text-[20px]">
           <p>
             The Directive Principles of State Policy guide the state in making{" "}
             <Mark on={drafted}>laws for social and economic welfare</Mark>.
@@ -138,12 +141,12 @@ function AnswerVisual({ step }: { step: number }) {
         </div>
 
         {/* scan line while uploading */}
-        {step === 0 ? <span aria-hidden className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-transparent via-[rgb(91_61_245/0.18)] to-transparent [animation:scan_2.4s_ease-in-out_infinite]" /> : null}
+        {step === 0 ? <span aria-hidden className="absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-transparent via-primary/15 to-transparent [animation:scan_2.4s_ease-in-out_infinite]" /> : null}
 
         {/* final stamp */}
         <div
           className={clsx(
-            "absolute bottom-4 right-4 rotate-[-8deg] rounded-xl border-[3px] border-[#16a36a] px-3 py-1.5 text-center font-sans text-[#16a36a] transition-all duration-500",
+            "paper-stamp absolute bottom-4 right-4 rotate-[-8deg] rounded-xl border-[3px] px-3 py-1.5 text-center font-sans transition-all duration-500",
             final ? "scale-100 opacity-100" : "scale-125 opacity-0",
           )}
         >
@@ -153,17 +156,17 @@ function AnswerVisual({ step }: { step: number }) {
       </figure>
 
       {/* The rubric / review panel */}
-      <div className="relative z-10 -mt-6 ml-auto w-[calc(100%-16px)] rounded-2xl border border-white/10 bg-panel p-4 shadow-window sm:-mt-20 sm:mr-[-8px] sm:w-[340px]">
+      <div className="relative z-10 -mt-6 ml-auto w-[calc(100%-16px)] rounded-xl border border-edge bg-panel p-4 shadow-window sm:-mt-20 sm:mr-[-8px] sm:w-[340px]">
         <div className="flex items-center justify-between gap-2">
           <p className="text-[13px] font-semibold">Rubric · 20 marks</p>
           <span
             className={clsx(
               "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-colors",
-              approved ? "bg-mint/15 text-mint" : drafted ? "bg-primary/15 text-primary" : "bg-white/10 text-fg-muted",
+              approved ? "bg-green-tint text-green" : reviewing ? "bg-yellow-tint text-yellow-ink" : drafted ? "bg-primary-tint text-primary" : "bg-sunken text-fg-muted",
             )}
           >
-            {approved ? <Check aria-hidden className="h-3 w-3" /> : drafted ? <Sparkles aria-hidden className="h-3 w-3" /> : <Upload aria-hidden className="h-3 w-3" />}
-            {approved ? "Approved" : drafted ? "AI draft" : "Uploaded"}
+            {approved ? <Check aria-hidden className="h-3 w-3" /> : reviewing ? <PenLine aria-hidden className="h-3 w-3" /> : drafted ? <Sparkles aria-hidden className="h-3 w-3" /> : <Upload aria-hidden className="h-3 w-3" />}
+            {approved ? "Approved" : reviewing ? "In review" : drafted ? "AI draft" : "Uploaded"}
           </span>
         </div>
 
@@ -174,7 +177,7 @@ function AnswerVisual({ step }: { step: number }) {
           <Criterion label="Language" max={4} value={drafted ? 3 : null} draft={drafted && !approved} />
         </ul>
 
-        <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-3">
+        <div className="mt-4 flex items-center justify-between border-t border-edge pt-3">
           <span className="text-[12px] text-fg-muted">Total</span>
           <span className="font-display text-[22px] font-semibold tabular-nums">{drafted ? `${total}/20` : "—"}</span>
         </div>
@@ -186,20 +189,20 @@ function AnswerVisual({ step }: { step: number }) {
           </span>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <span className={clsx("flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-[12px] font-semibold transition-colors", reviewing && !approved ? "border-primary/50 text-primary" : "border-white/10 text-fg-muted")}>
+          <span className={clsx("flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-[12px] font-semibold transition-colors", reviewing && !approved ? "border-yellow bg-yellow-tint text-yellow-ink" : "border-edge text-fg-muted")}>
             <PenLine aria-hidden className="h-3.5 w-3.5" /> Edit
           </span>
           <span
             className={clsx(
               "flex items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-[12px] font-semibold transition-all duration-300",
-              approved ? "bg-mint text-[rgb(11_10_16)]" : "bg-white/10 text-fg-muted",
+              approved ? "bg-green text-primary-ink" : "bg-sunken text-fg-muted",
               step === 3 && "scale-[1.03]",
             )}
           >
             <Check aria-hidden className="h-3.5 w-3.5" /> Approve
           </span>
         </div>
-        <p className={clsx("mt-3 text-[11.5px] transition-opacity duration-500", final ? "text-mint opacity-100" : "opacity-0")}>
+        <p className={clsx("mt-3 text-[11.5px] transition-opacity duration-500", final ? "text-green opacity-100" : "opacity-0")}>
           Sent to Rahul · saved to his profile
         </p>
       </div>
@@ -212,7 +215,7 @@ function Mark({ on, tone = "info", children }: { on: boolean; tone?: "info" | "w
     <span
       className={clsx(
         "bg-no-repeat transition-[background-size] duration-700 ease-out [background-position:0_88%]",
-        tone === "info" ? "bg-[linear-gradient(rgb(91_61_245/0.22),rgb(91_61_245/0.22))]" : "bg-[linear-gradient(rgb(255_155_47/0.35),rgb(255_155_47/0.35))]",
+        tone === "info" ? "paper-mark-ai" : "paper-mark-warn",
         on ? "[background-size:100%_40%]" : "[background-size:0%_40%]",
       )}
     >
@@ -226,7 +229,7 @@ function MarginNote({ on, edited, children }: { on: boolean; edited?: boolean; c
     <p
       className={clsx(
         "rounded-lg border border-dashed px-2 py-1.5 font-sans text-[10.5px] leading-snug transition-all duration-500",
-        edited ? "border-[#16a36a]/60 bg-[#16a36a]/10 text-[#0f6b47]" : "border-[#5b3df5]/50 bg-[#5b3df5]/[0.08] text-[#4026c9]",
+        edited ? "paper-note-mentor" : "paper-note-ai",
         on ? "translate-x-0 opacity-100" : "translate-x-3 opacity-0",
       )}
     >
@@ -246,9 +249,9 @@ function Criterion({ label, value, max, was, draft }: { label: string; value: nu
           {value ?? "–"}/{max}
         </span>
       </div>
-      <span className="mt-1.5 block h-1.5 overflow-hidden rounded-full bg-white/10">
+      <span className="mt-1.5 block h-1.5 overflow-hidden rounded-full bg-sunken">
         <span
-          className={clsx("block h-full rounded-full transition-[width] duration-700 ease-out", draft ? "bg-primary/70 [background-image:repeating-linear-gradient(90deg,transparent_0_6px,rgb(0_0_0/0.25)_6px_8px)]" : "bg-mint")}
+          className={clsx("block h-full rounded-full transition-[width] duration-700 ease-out", draft ? "bg-primary [background-image:repeating-linear-gradient(90deg,transparent_0_6px,rgb(255_255_255/0.45)_6px_8px)]" : "bg-green")}
           style={{ width: value == null ? "0%" : `${(value / max) * 100}%` }}
         />
       </span>

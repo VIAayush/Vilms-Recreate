@@ -84,7 +84,7 @@ export function ThemeToggle({ className }: { className?: string }) {
         applyTheme(next, { x: b.left + b.width / 2, y: b.top + b.height / 2 });
       }}
       className={clsx(
-        "group relative inline-flex h-9 w-[62px] shrink-0 items-center rounded-full border border-edge/15 bg-panel/70 p-1 backdrop-blur transition-colors hover:border-edge/30",
+        "group relative inline-flex h-9 w-[62px] shrink-0 items-center rounded-full border border-edge bg-panel/70 p-1 backdrop-blur transition-colors hover:border-edge-strong",
         className,
       )}
     >

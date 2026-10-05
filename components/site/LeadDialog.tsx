@@ -34,14 +34,14 @@ export function LeadDialog({ intent, onClose }: { intent: LeadIntent | null; onC
         // Click on the backdrop (the dialog element itself) closes it.
         if (e.target === ref.current) ref.current?.close();
       }}
-      className="m-auto max-h-[92dvh] w-[min(640px,calc(100vw-24px))] overflow-y-auto rounded-[28px] border border-edge/10 bg-panel p-0 text-fg shadow-window"
+      className="m-auto max-h-[92dvh] w-[min(640px,calc(100vw-24px))] overflow-y-auto rounded-[28px] border border-edge bg-panel p-0 text-fg shadow-window"
     >
       {intent ? (
         <div className="relative p-5 sm:p-9">
           <button
             type="button"
             onClick={() => ref.current?.close()}
-            className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full text-fg-muted transition hover:bg-edge/5 hover:text-fg"
+            className="absolute right-3 top-3 grid h-10 w-10 place-items-center rounded-full text-fg-muted transition hover:bg-sunken hover:text-fg"
             aria-label="Close"
           >
             <X className="h-5 w-5" />

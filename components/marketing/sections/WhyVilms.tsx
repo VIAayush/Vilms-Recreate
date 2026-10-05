@@ -47,7 +47,7 @@ export function WhyVilms() {
             )}
           </p>
 
-          <aside className="border-t border-edge/10 pt-5 xl:border-l xl:border-t-0 xl:pl-8 xl:pt-0">
+          <aside className="border-t border-edge pt-5 xl:border-l xl:border-t-0 xl:pl-8 xl:pt-0">
             <p className="font-mono text-[11px] tabular-nums text-fg-faint">
               {String(index + 1).padStart(2, "0")} / {String(TERMS.length).padStart(2, "0")}
             </p>

@@ -21,7 +21,7 @@ export function Header() {
     <header
       className={clsx(
         "fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300",
-        scrolled || menuOpen ? "border-b border-edge/10 bg-canvas/80 backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
+        scrolled || menuOpen ? "border-b border-edge bg-canvas-alt backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
       )}
     >
       <div className="wrap flex h-16 items-center gap-6">
@@ -32,7 +32,7 @@ export function Header() {
         <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">
           <ProductMenu />
           {nav.map((l) => (
-            <a key={l.href} href={l.href} className="rounded-full px-3.5 py-2 text-[14.5px] font-medium text-fg-muted transition hover:bg-edge/5 hover:text-fg">
+            <a key={l.href} href={l.href} className="rounded-full px-3.5 py-2 text-[14.5px] font-medium text-fg-muted transition hover:bg-sunken hover:text-fg">
               {l.label}
             </a>
           ))}
@@ -40,15 +40,15 @@ export function Header() {
 
         <div className="ml-auto flex items-center gap-2">
           <ThemeToggle />
-          <Cta intent="trial" location="nav" className="cta cta-ghost cta-sm hidden md:inline-flex">
-            Start Free Trial
-          </Cta>
-          <Cta intent="demo" location="nav" className="cta cta-accent cta-sm hidden min-[400px]:inline-flex">
+          <Cta intent="demo" location="nav" className="cta cta-outline cta-sm hidden md:inline-flex">
             Book a Demo
+          </Cta>
+          <Cta intent="trial" location="nav" className="cta cta-primary cta-sm hidden min-[400px]:inline-flex">
+            Start Free Trial
           </Cta>
           <button
             type="button"
-            className="grid h-10 w-10 place-items-center rounded-full text-fg transition hover:bg-edge/5 lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full text-fg transition hover:bg-sunken lg:hidden"
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}
@@ -105,7 +105,7 @@ function ProductMenu() {
           const mouse = (e.nativeEvent as PointerEvent).pointerType === "mouse";
           setOpen((v) => (mouse ? true : !v));
         }}
-        className={clsx("flex items-center gap-1 rounded-full px-3.5 py-2 text-[14.5px] font-medium transition hover:bg-edge/5 hover:text-fg", open ? "text-fg" : "text-fg-muted")}
+        className={clsx("flex items-center gap-1 rounded-full px-3.5 py-2 text-[14.5px] font-medium transition hover:bg-sunken hover:text-fg", open ? "text-fg" : "text-fg-muted")}
       >
         Product
         <ChevronDown aria-hidden className={clsx("h-3.5 w-3.5 transition-transform duration-300", open && "rotate-180")} />
@@ -116,7 +116,7 @@ function ProductMenu() {
         hidden={!open}
         className="absolute left-0 top-full w-[560px] pt-3"
       >
-        <div className="grid animate-pop-in grid-cols-[1fr_200px] overflow-hidden rounded-2xl border border-edge/10 bg-panel shadow-soft">
+        <div className="grid animate-pop-in grid-cols-[1fr_200px] overflow-hidden rounded-2xl border border-edge bg-panel shadow-soft">
           <ul className="p-2">
             {explorer.tabs.map((t, i) => (
               <li key={t.id}>
@@ -129,7 +129,7 @@ function ProductMenu() {
                       openExplorerTab(t.id as ExplorerTabId);
                     }
                   }}
-                  className="group flex items-baseline gap-3 rounded-xl px-3 py-2.5 transition hover:bg-edge/5"
+                  className="group flex items-baseline gap-3 rounded-xl px-3 py-2.5 transition hover:bg-sunken"
                 >
                   <span className="font-mono text-[11px] text-fg-faint">0{i + 1}</span>
                   <span>
@@ -141,13 +141,13 @@ function ProductMenu() {
               </li>
             ))}
           </ul>
-          <div className="flex flex-col justify-between bg-panel-tint p-5">
+          <div className="flex flex-col justify-between border-l border-edge bg-canvas-alt p-5">
             <p className="font-display text-[19px] font-semibold leading-tight tracking-tight">
               See it on your institute&apos;s setup.
             </p>
             <div>
               <p className="mb-3 text-[13px] text-fg-muted">A 30-minute walkthrough of what moves over.</p>
-              <Cta intent="demo" location="nav_product_menu" className="cta cta-ink cta-sm w-full" arrow>
+              <Cta intent="demo" location="nav_product_menu" className="cta cta-outline cta-sm w-full" arrow>
                 Book a Demo
               </Cta>
             </div>
@@ -188,7 +188,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
                     openExplorerTab(t.id as ExplorerTabId);
                   }
                 }}
-                className="block rounded-2xl border border-edge/10 bg-panel px-4 py-3"
+                className="block rounded-2xl border border-edge bg-panel px-4 py-3"
               >
                 <span className="block text-[16px] font-semibold">{t.label}</span>
                 <span className="mt-0.5 line-clamp-2 text-[12.5px] text-fg-muted">{t.line}</span>
@@ -196,7 +196,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             </li>
           ))}
         </ul>
-        <ul className="mt-6 divide-y divide-edge/10 border-y border-edge/10">
+        <ul className="mt-6 divide-y divide-edge border-y border-edge">
           {nav.map((l) => (
             <li key={l.href}>
               <a href={l.href} onClick={onClose} className="flex items-center justify-between py-4 font-display text-[24px] font-semibold tracking-tight">
@@ -207,11 +207,11 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
           ))}
         </ul>
         <div className="mt-auto grid gap-3 pt-8">
-          <Cta intent="demo" location="mobile_menu" className="cta cta-accent cta-lg w-full" arrow>
-            Book a Demo
-          </Cta>
-          <Cta intent="trial" location="mobile_menu" className="cta cta-ghost cta-lg w-full">
+          <Cta intent="trial" location="mobile_menu" className="cta cta-primary cta-lg w-full" arrow>
             Start 14-Day Free Trial
+          </Cta>
+          <Cta intent="demo" location="mobile_menu" className="cta cta-outline cta-lg w-full">
+            Book a Demo
           </Cta>
         </div>
       </nav>

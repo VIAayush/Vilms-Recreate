@@ -11,6 +11,19 @@ import { SCENES } from "../screens/scenes";
 const NAV_ICONS = [Users, UserRound, BookOpen, Radio, PenLine, CreditCard, Award];
 const INTERVAL = 2900;
 
+// Each event's colour says what kind of moment it is, the same way across
+// the page: blue = a lead or learning, green = money or enrolment landed,
+// red = live right now, yellow = waiting on a person.
+const EVENT_DOT: Record<string, string> = {
+  lead: "bg-primary",
+  enrol: "bg-green",
+  course: "bg-primary",
+  live: "bg-red",
+  eval: "bg-yellow",
+  pay: "bg-green",
+  cert: "bg-yellow",
+};
+
 // One student's journey, playing on a loop inside an illustrated VILMS admin:
 // lead → enrolled → course → live class → evaluation → payment → certificate.
 // Pauses on hover/focus and off screen; never autoplays under reduced motion.
@@ -43,7 +56,7 @@ export function HeroStage() {
           style={{ background: "radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgb(var(--primary) / 0.07), transparent 65%)" }}
         />
         <div className="grid sm:grid-cols-[168px_minmax(0,1fr)]">
-          <aside className="hidden border-r border-edge/10 p-3 sm:block" aria-label="Illustrated admin menu">
+          <aside className="hidden border-r border-edge p-3 sm:block" aria-label="Illustrated admin menu">
             <div className="mb-4 flex items-center gap-2 px-1.5">
               <InstituteMark className="h-7 w-7 text-[10px]" />
               <span className="text-[12.5px] font-semibold">Your Institute</span>
@@ -59,7 +72,7 @@ export function HeroStage() {
                     key={s.id}
                     className={clsx(
                       "flex items-center gap-2 rounded-lg px-2 py-1.5 transition-colors duration-300",
-                      i === step ? "bg-primary/10 font-semibold text-primary" : "text-fg-muted",
+                      i === step ? "bg-primary-tint font-semibold text-primary" : "text-fg-muted",
                     )}
                   >
                     <Icon aria-hidden className="h-3.5 w-3.5" /> {s.nav}
@@ -103,15 +116,18 @@ export function HeroStage() {
               })}
             </div>
 
-            <dl className="mt-4 hidden grid-cols-4 gap-px overflow-hidden rounded-xl border border-edge/10 bg-edge/10 sm:grid">
+            <dl className="mt-4 hidden grid-cols-4 gap-px overflow-hidden rounded-xl border border-edge bg-edge sm:grid">
               {[
-                ["New leads", "38", "this week"],
-                ["Enrolments", "21", "this week"],
-                ["Fees collected", "₹3.1L", "to your account"],
-                ["To evaluate", "14", "AI drafts ready"],
-              ].map(([k, v, m]) => (
+                ["New leads", "38", "this week", "bg-primary"],
+                ["Enrolments", "21", "this week", "bg-green"],
+                ["Fees collected", "₹3.1L", "to your account", "bg-green"],
+                ["To evaluate", "14", "AI drafts ready", "bg-yellow"],
+              ].map(([k, v, m, dot]) => (
                 <div key={k} className="bg-panel px-3 py-2.5">
-                  <dt className="truncate text-[10.5px] text-fg-muted">{k}</dt>
+                  <dt className="flex items-center gap-1.5 truncate text-[10.5px] text-fg-muted">
+                    <span className={clsx("h-1.5 w-1.5 shrink-0 rounded-full", dot)} />
+                    {k}
+                  </dt>
                   <dd className="font-display text-[18px] font-semibold tabular-nums tracking-tight">{v}</dd>
                   <dd className="truncate text-[10px] text-fg-faint">{m}</dd>
                 </div>
@@ -127,11 +143,11 @@ export function HeroStage() {
           <div
             key={`${e.id}-${k === 0 ? step : "old"}`}
             className={clsx(
-              "flex items-center gap-2.5 rounded-xl border border-edge/10 bg-panel/95 px-3 py-2.5 shadow-soft backdrop-blur transition-opacity duration-500",
+              "flex items-center gap-2.5 rounded-xl border border-edge bg-panel/95 px-3 py-2.5 shadow-soft backdrop-blur transition-opacity duration-500",
               k === 0 ? "animate-rise-in" : k === 1 ? "opacity-70" : "opacity-35",
             )}
           >
-            <span className={clsx("h-2 w-2 shrink-0 rounded-full", k === 0 ? "bg-mint" : "bg-edge/20")} />
+            <span className={clsx("h-2 w-2 shrink-0 rounded-full", EVENT_DOT[e.id])} />
             <span className="min-w-0">
               <span className="block truncate text-[12.5px] font-semibold">{e.event}</span>
               <span className="block truncate text-[11px] text-fg-muted">{e.meta}</span>
@@ -153,7 +169,7 @@ export function HeroStage() {
                 aria-label={`${i + 1}. ${s.event}`}
                 className="group/seg block w-full py-2 text-left"
               >
-                <span className="relative block h-[3px] overflow-hidden rounded-full bg-edge/10">
+                <span className="relative block h-[3px] overflow-hidden rounded-full bg-edge">
                   <span
                     key={i === step ? `on-${step}-${running}` : "off"}
                     className={clsx("absolute inset-y-0 left-0 rounded-full bg-primary", i < step && "w-full opacity-40", i > step && "w-0")}

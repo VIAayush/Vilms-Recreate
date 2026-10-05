@@ -3,93 +3,124 @@
    The CRM never renders inside .site, so nothing here reaches it. */
 
 .site {
-  --background: 247 245 240;
-  --foreground: 22 20 31;
-  --muted: 88 84 104;
-  --faint: 130 126 146;
+  /* neutrals */
+  --background: 255 255 255; /* #FFFFFF */
+  --background-alt: 248 249 250; /* #F8F9FA — alternate sections */
+  --sunken: 241 243 244; /* #F1F3F4 — inset rows, tracks, hover fills */
   --surface: 255 255 255;
   --surface-elevated: 255 255 255;
-  --surface-tint: 238 235 252;
-  --border: 22 20 31;
-  --primary: 91 61 245;
-  --primary-ink: 255 255 255;
-  --secondary: 37 99 235;
-  --cyan: 8 145 178;
-  --accent: 255 155 47;
-  --accent-ink: 22 20 31;
-  --mint: 21 150 98;
-  --rose: 220 38 88;
+  --foreground: 32 33 36; /* #202124 */
+  --muted: 95 99 104; /* #5F6368 */
+  --faint: 128 134 139; /* #80868B */
+  --border: 218 220 224; /* #DADCE0 */
+  --border-strong: 189 193 198; /* #BDC1C6 */
 
-  --gradient: linear-gradient(105deg, rgb(var(--primary)) 0%, rgb(var(--secondary)) 55%, rgb(var(--cyan)) 100%);
-  --gradient-warm: linear-gradient(105deg, rgb(var(--accent)) 0%, #ffcf5c 100%);
-  --shadow-window: 0 0 0 1px rgb(22 20 31 / 0.07), 0 2px 4px rgb(22 20 31 / 0.04), 0 36px 70px -34px rgb(48 32 120 / 0.38);
-  --shadow-soft: 0 0 0 1px rgb(22 20 31 / 0.06), 0 18px 40px -24px rgb(48 32 120 / 0.3);
-  --grain-opacity: 0.035;
+  /* blue: the one action colour */
+  --primary: 26 115 232; /* #1A73E8 */
+  --primary-hover: 25 103 210; /* #1967D2 */
+  --primary-tint: 232 240 254; /* #E8F0FE */
+  --primary-ink: 255 255 255;
+
+  /* supporting colours — states and small, meaningful accents only */
+  --green: 24 128 56; /* #188038 */
+  --green-tint: 230 244 234; /* #E6F4EA */
+  --yellow: 249 171 0; /* #F9AB00 — fills, dots */
+  --yellow-ink: 176 96 0; /* #B06000 — yellow as text */
+  --yellow-tint: 254 247 224; /* #FEF7E0 */
+  --red: 217 48 37; /* #D93025 */
+  --red-tint: 252 232 230; /* #FCE8E6 */
+  --indigo: 95 99 216; /* AI touches, used sparingly */
+
+  --shadow-window: 0 1px 2px rgb(60 64 67 / 0.08), 0 12px 32px -12px rgb(60 64 67 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(60 64 67 / 0.1), 0 2px 6px rgb(60 64 67 / 0.06);
 
   --font-display: var(--font-sans);
   background: rgb(var(--background));
   color: rgb(var(--foreground));
 }
 
+/* Dark mode is its own palette, not an inversion: charcoal surfaces that
+   step up in lightness as they rise, and the lighter Google-style tones of
+   each colour so nothing glows. */
 html[data-theme="dark"] .site {
-  --background: 11 10 16;
-  --foreground: 242 240 247;
-  --muted: 166 161 184;
-  --faint: 118 113 138;
-  --surface: 20 18 28;
-  --surface-elevated: 29 26 40;
-  --surface-tint: 33 27 60;
-  --border: 242 240 247;
-  --primary: 146 125 255;
-  --primary-ink: 11 10 16;
-  --secondary: 104 160 255;
-  --cyan: 86 214 235;
-  --accent: 255 178 63;
-  --accent-ink: 22 20 31;
-  --mint: 74 214 153;
-  --rose: 251 113 150;
+  --background: 32 33 36; /* #202124 */
+  --background-alt: 23 23 23; /* #171717 */
+  --sunken: 48 49 52; /* #303134 */
+  --surface: 41 42 45; /* #292A2D */
+  --surface-elevated: 48 49 52; /* #303134 */
+  --foreground: 255 255 255;
+  --muted: 189 193 198; /* #BDC1C6 */
+  --faint: 154 160 166; /* #9AA0A6 */
+  --border: 60 64 67; /* #3C4043 */
+  --border-strong: 95 99 104;
 
-  --shadow-window: 0 0 0 1px rgb(255 255 255 / 0.08), 0 40px 80px -36px rgb(0 0 0 / 0.9);
-  --shadow-soft: 0 0 0 1px rgb(255 255 255 / 0.07), 0 20px 40px -24px rgb(0 0 0 / 0.8);
-  --grain-opacity: 0.05;
+  --primary: 138 180 248; /* #8AB4F8 */
+  --primary-hover: 168 199 250; /* #A8C7FA */
+  --primary-tint: 37 52 77;
+  --primary-ink: 32 33 36;
+
+  --green: 129 201 149; /* #81C995 */
+  --green-tint: 30 52 38;
+  --yellow: 253 214 99; /* #FDD663 */
+  --yellow-ink: 253 214 99;
+  --yellow-tint: 61 52 22;
+  --red: 242 139 130; /* #F28B82 */
+  --red-tint: 66 36 33;
+  --indigo: 174 176 248;
+
+  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -16px rgb(0 0 0 / 0.7);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.3);
 }
 
-/* A dark stage that stays dark in both themes (used for one or two
-   moments on the page). Inside it, every token resolves to its dark value. */
-.stage-dark {
-  --background: 11 10 16;
-  --foreground: 242 240 247;
-  --muted: 166 161 184;
-  --faint: 118 113 138;
-  --surface: 24 21 34;
-  --surface-elevated: 32 28 46;
-  --surface-tint: 33 27 60;
-  --border: 242 240 247;
-  --primary: 146 125 255;
-  --primary-ink: 11 10 16;
-  --secondary: 104 160 255;
-  --cyan: 86 214 235;
-  --accent: 255 178 63;
-  --mint: 74 214 153;
-  --rose: 251 113 150;
-  --shadow-window: 0 0 0 1px rgb(255 255 255 / 0.08), 0 40px 80px -36px rgb(0 0 0 / 0.9);
-  --shadow-soft: 0 0 0 1px rgb(255 255 255 / 0.07), 0 20px 40px -24px rgb(0 0 0 / 0.8);
-  --grain-opacity: 0.06;
-  background: rgb(17 15 25);
+/* The closing section: dark in both themes. Inside it every token takes its
+   dark value. */
+.band-dark {
+  --background: 32 33 36;
+  --background-alt: 23 23 23;
+  --sunken: 48 49 52;
+  --surface: 41 42 45;
+  --surface-elevated: 48 49 52;
+  --foreground: 255 255 255;
+  --muted: 189 193 198;
+  --faint: 154 160 166;
+  --border: 60 64 67;
+  --border-strong: 95 99 104;
+  --primary: 138 180 248;
+  --primary-hover: 168 199 250;
+  --primary-tint: 37 52 77;
+  --primary-ink: 32 33 36;
+  --green: 129 201 149;
+  --yellow: 253 214 99;
+  --red: 242 139 130;
+  background: rgb(32 33 36);
   color: rgb(var(--foreground));
 }
-html[data-theme="dark"] .stage-dark {
-  background: rgb(19 17 28);
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+html[data-theme="dark"] .band-dark {
+  background: rgb(23 23 23);
+}
+
+/* The one blue moment on the page (0% revenue share). */
+.band-blue {
+  background: rgb(26 115 232);
+  color: #fff;
+}
+.band-blue .kicker {
+  color: rgb(255 255 255 / 0.8);
+}
+.band-blue .kicker::before {
+  background: rgb(253 214 99);
+}
+html[data-theme="dark"] .band-blue {
+  background: rgb(23 46 84);
 }
 
 /* The page behind the site (overscroll, scrollbars) follows the theme. */
 html:has(.site) {
-  background: rgb(247 245 240);
+  background: #fff;
   scroll-padding-top: 84px;
 }
 html[data-theme="dark"]:has(.site) {
-  background: rgb(11 10 16);
+  background: rgb(32 33 36);
   color-scheme: dark;
 }
 
@@ -135,26 +166,69 @@ html.theme-fading .site * {
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* Subtle film grain for large colour fields. */
-.grain::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: var(--grain-opacity);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+/* Exam paper for the handwritten-answer visuals: white sheet, blue rules,
+   blue-ink handwriting. It's a physical object, so it stays paper-coloured in
+   dark mode (just a little dimmer). Set the rule spacing with --rule. */
+.answer-sheet {
+  --rule: 18px;
+  background-color: #fff;
+  color: rgb(26 54 132);
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent calc(var(--rule) - 1px),
+    rgb(66 133 244 / 0.2) calc(var(--rule) - 1px),
+    rgb(66 133 244 / 0.2) var(--rule)
+  );
+}
+/* with a red margin rule, like a real answer booklet */
+.answer-sheet.with-margin {
+  background-image:
+    linear-gradient(90deg, transparent 34px, rgb(234 67 53 / 0.45) 34px, rgb(234 67 53 / 0.45) 35px, transparent 35px),
+    repeating-linear-gradient(
+      transparent,
+      transparent calc(var(--rule) - 1px),
+      rgb(66 133 244 / 0.2) calc(var(--rule) - 1px),
+      rgb(66 133 244 / 0.2) var(--rule)
+    );
+}
+html[data-theme="dark"] .answer-sheet {
+  background-color: rgb(232 234 237);
+}
+.answer-highlight {
+  border-radius: 3px;
+  background: rgb(251 188 4 / 0.38);
 }
 
-/* Dot field used behind a few product visuals. */
-.dot-field {
-  background-image: radial-gradient(rgb(var(--foreground) / 0.12) 1px, transparent 1.2px);
-  background-size: 22px 22px;
+/* Annotations on the paper: fixed light-paper colours (the paper never
+   goes dark), from the same blue / green / yellow family as the UI. */
+.answer-sheet .paper-muted {
+  color: #5f6368;
+}
+.paper-mark-ai {
+  background-image: linear-gradient(rgb(66 133 244 / 0.24), rgb(66 133 244 / 0.24));
+}
+.paper-mark-warn {
+  background-image: linear-gradient(rgb(251 188 4 / 0.4), rgb(251 188 4 / 0.4));
+}
+.paper-note-ai {
+  border-color: rgb(26 115 232 / 0.45);
+  background: #e8f0fe;
+  color: #1967d2;
+}
+.paper-note-mentor {
+  border-color: rgb(24 128 56 / 0.45);
+  background: #e6f4ea;
+  color: #137333;
+}
+.paper-stamp {
+  border-color: #188038;
+  color: #188038;
 }
 
 /* Lead dialog */
 .site dialog::backdrop {
-  background: rgb(11 10 16 / 0.6);
-  backdrop-filter: blur(6px);
+  background: rgb(32 33 36 / 0.55);
+  backdrop-filter: blur(2px);
 }
 
 /* Highlight a region of a product screen ("spot") while its feature is
@@ -174,9 +248,7 @@ html.theme-fading .site * {
 }
 [data-focus] [data-spot][data-on="true"] {
   opacity: 1;
-  box-shadow:
-    0 0 0 2px rgb(var(--primary)),
-    0 12px 30px -12px rgb(var(--primary) / 0.6);
+  box-shadow: 0 0 0 2px rgb(var(--primary));
   transform: translateY(-1px);
 }
 
@@ -239,12 +311,12 @@ html.theme-fading .site * {
 .price-range::-webkit-slider-runnable-track {
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(to right, rgb(var(--primary)) var(--fill), rgb(var(--foreground) / 0.12) var(--fill));
+  background: linear-gradient(to right, rgb(var(--primary)) var(--fill), rgb(var(--border)) var(--fill));
 }
 .price-range::-moz-range-track {
   height: 6px;
   border-radius: 999px;
-  background: linear-gradient(to right, rgb(var(--primary)) var(--fill), rgb(var(--foreground) / 0.12) var(--fill));
+  background: linear-gradient(to right, rgb(var(--primary)) var(--fill), rgb(var(--border)) var(--fill));
 }
 .price-range::-webkit-slider-thumb {
   -webkit-appearance: none;
@@ -254,7 +326,7 @@ html.theme-fading .site * {
   border-radius: 999px;
   background: rgb(var(--surface));
   border: 2px solid rgb(var(--primary));
-  box-shadow: 0 6px 16px -6px rgb(var(--primary) / 0.8);
+  box-shadow: 0 1px 3px rgb(60 64 67 / 0.3);
   transition: transform 0.2s ease;
 }
 .price-range::-moz-range-thumb {

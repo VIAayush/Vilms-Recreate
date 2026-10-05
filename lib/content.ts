@@ -209,7 +209,7 @@ export const whiteLabel = {
   title: "Your brand in front.",
   punch: "Students never see VILMS.",
   sub: "Your logo, colours and domain on every screen, certificate and email. Try it — nothing you type is saved.",
-  swatches: ["#5B3DF5", "#0EA5E9", "#0F9F6E", "#E11D48", "#F08A00", "#1F1B2D"],
+  swatches: ["#1A73E8", "#188038", "#D93025", "#E37400", "#007B83", "#202124"],
   surfaces: [
     { id: "site", label: "Website" },
     { id: "certificate", label: "Certificate" },

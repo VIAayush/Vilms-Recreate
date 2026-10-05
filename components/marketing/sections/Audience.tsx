@@ -9,7 +9,7 @@ import { Pill } from "../screens/primitives";
 
 function TeamMini() {
   return (
-    <div className="rounded-xl border border-edge/10 bg-panel p-3.5">
+    <div className="rounded-xl border border-edge bg-panel p-3.5">
       <p className="text-[11px] font-semibold text-fg-muted">Team &amp; roles</p>
       <ul className="mt-2.5 space-y-2 text-[12.5px]">
         {[
@@ -17,7 +17,7 @@ function TeamMini() {
           ["Teacher", "Courses · grading · materials"],
           ["Sales / Counsellor", "Leads · roster · payments"],
         ].map(([r, a]) => (
-          <li key={r} className="flex items-center justify-between gap-3 rounded-lg bg-canvas/70 px-3 py-2">
+          <li key={r} className="flex items-center justify-between gap-3 rounded-lg bg-canvas-alt px-3 py-2">
             <span className="font-semibold">{r}</span>
             <span className="truncate text-[11px] text-fg-muted">{a}</span>
           </li>
@@ -29,15 +29,15 @@ function TeamMini() {
 
 function MaterialsMini() {
   return (
-    <div className="rounded-xl border border-edge/10 bg-panel p-3.5">
+    <div className="rounded-xl border border-edge bg-panel p-3.5">
       <p className="text-[11px] font-semibold text-fg-muted">Study materials</p>
       <ul className="mt-2.5 space-y-2 text-[12.5px]">
         {[
-          { t: "Syllabus breakdown.pdf", tag: <Pill tone="mint">Public</Pill>, icon: Unlock },
-          { t: "Topper's notes — Polity.pdf", tag: <Pill tone="accent">Lead-magnet gated</Pill>, icon: FileText },
+          { t: "Syllabus breakdown.pdf", tag: <Pill tone="green">Public</Pill>, icon: Unlock },
+          { t: "Topper's notes — Polity.pdf", tag: <Pill tone="yellow">Lead-magnet gated</Pill>, icon: FileText },
           { t: "Batch A worksheet 4.pdf", tag: <Pill tone="primary">Enrolled only</Pill>, icon: Lock },
         ].map(({ t, tag, icon: Icon }) => (
-          <li key={t} className="flex items-center gap-2 rounded-lg bg-canvas/70 px-3 py-2">
+          <li key={t} className="flex items-center gap-2 rounded-lg bg-canvas-alt px-3 py-2">
             <Icon aria-hidden className="h-3.5 w-3.5 shrink-0 text-fg-muted" />
             <span className="truncate">{t}</span>
             <span className="ml-auto shrink-0">{tag}</span>
@@ -63,7 +63,7 @@ export function Audience() {
   const Visual = VISUALS[active.visual];
 
   return (
-    <section id="solutions" aria-labelledby="solutions-title" className="border-y border-edge/10 bg-panel/40 py-24 sm:py-32">
+    <section id="solutions" aria-labelledby="solutions-title" className="border-y border-edge bg-canvas-alt py-24 sm:py-32">
       <div className="wrap">
         <p className="kicker">{audience.kicker}</p>
         <h2 id="solutions-title" className="h2 mt-4 max-w-[18ch]">
@@ -76,7 +76,7 @@ export function Audience() {
             {audience.items.map((item, i) => {
               const on = item.id === active.id;
               return (
-                <li key={item.id} className="shrink-0 lg:border-b lg:border-edge/10 lg:first:border-t">
+                <li key={item.id} className="shrink-0 lg:border-b lg:border-edge lg:first:border-t">
                   <button
                     type="button"
                     aria-pressed={on}
@@ -84,7 +84,7 @@ export function Audience() {
                     onPointerEnter={(e) => e.pointerType === "mouse" && setActiveId(item.id)}
                     className={clsx(
                       "group flex w-full items-baseline gap-4 rounded-full border px-4 py-2 text-left transition-colors lg:rounded-none lg:border-0 lg:px-0 lg:py-4",
-                      on ? "border-fg bg-fg text-canvas lg:bg-transparent lg:text-fg" : "border-edge/15 text-fg-muted hover:text-fg",
+                      on ? "border-primary/40 bg-primary-tint text-primary lg:bg-transparent" : "border-edge bg-panel text-fg-muted hover:text-fg lg:bg-transparent",
                     )}
                   >
                     <span className="hidden font-mono text-[12px] text-fg-faint lg:inline">0{i + 1}</span>
@@ -109,7 +109,7 @@ export function Audience() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 rounded-[22px] bg-panel-tint p-4 sm:p-6 [&>*]:shadow-soft">
+              <div className="mt-8 rounded-2xl border border-edge bg-panel p-4 sm:p-6">
                 <Visual />
               </div>
             </div>

@@ -85,12 +85,12 @@ export function Lifecycle() {
                   <span
                     className={clsx(
                       "grid h-6 w-6 shrink-0 place-items-center rounded-full font-mono text-[10.5px] transition-colors duration-300",
-                      i <= active ? "bg-primary text-primary-ink" : "bg-edge/10 text-fg-muted group-hover:bg-edge/20",
+                      i <= active ? "bg-primary text-primary-ink" : "bg-sunken text-fg-muted group-hover:bg-edge-strong",
                     )}
                   >
                     {i + 1}
                   </span>
-                  <span className={clsx("h-px flex-1 transition-colors duration-500", i < active ? "bg-primary" : "bg-edge/15")} />
+                  <span className={clsx("h-px flex-1 transition-colors duration-500", i < active ? "bg-primary" : "bg-edge")} />
                 </span>
                 <span className={clsx("mt-2.5 hidden text-[13px] transition-colors md:block", i === active ? "font-semibold text-fg" : "text-fg-muted")}>{s.title}</span>
               </button>
@@ -116,7 +116,7 @@ export function Lifecycle() {
                 i === active ? "opacity-100" : "opacity-60 hover:opacity-90",
               )}
             >
-              <div className="flex h-full flex-col rounded-[24px] border border-edge/10 bg-panel-tint/60 p-4 sm:p-5">
+              <div className="flex h-full flex-col rounded-2xl border border-edge bg-canvas-alt p-4 transition-colors duration-300 hover:border-primary/40 sm:p-5">
                 <div className="flex items-baseline gap-3 px-1">
                   <span className="font-mono text-[12px] text-fg-faint">0{i + 1}</span>
                   <h3 className="text-[20px] font-semibold tracking-tight">{s.title}</h3>

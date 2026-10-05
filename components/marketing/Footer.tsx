@@ -22,7 +22,7 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-edge/10">
+    <footer className="border-t border-edge">
       <div className="wrap grid gap-12 py-16 md:grid-cols-[1.5fr_1fr_1fr_1.3fr]">
         <div>
           <Link href="/" aria-label="VILMS home" className="inline-block rounded-lg">
@@ -36,7 +36,7 @@ export function Footer() {
             <ul className="mt-4 space-y-2.5 text-[14.5px]">
               {col.links.map((l) => (
                 <li key={l.label}>
-                  <a href={l.href} className="text-fg-muted transition hover:text-fg">
+                  <a href={l.href} className="text-fg-muted transition hover:text-primary">
                     {l.label}
                   </a>
                 </li>
@@ -49,18 +49,18 @@ export function Footer() {
           <ul className="mt-4 space-y-2.5 text-[14.5px] text-fg-muted">
             <li>
               General &amp; support ·{" "}
-              <a href={`mailto:${brand.emails.general}`} className="text-fg underline-offset-4 hover:underline">
+              <a href={`mailto:${brand.emails.general}`} className="link">
                 {brand.emails.general}
               </a>
             </li>
             <li>
               Billing ·{" "}
-              <a href={`mailto:${brand.emails.billing}`} className="text-fg underline-offset-4 hover:underline">
+              <a href={`mailto:${brand.emails.billing}`} className="link">
                 {brand.emails.billing}
               </a>
             </li>
             <li>
-              <Link href="/privacy" className="transition hover:text-fg">
+              <Link href="/privacy" className="transition hover:text-primary">
                 Privacy policy
               </Link>
             </li>
@@ -69,7 +69,7 @@ export function Footer() {
       </div>
 
       <div className="wrap">
-        <p aria-hidden className="select-none border-t border-edge/10 pt-8 whitespace-nowrap font-display text-[clamp(30px,8.4vw,120px)] font-semibold leading-[0.9] tracking-[-0.055em] text-fg/[0.07]">
+        <p aria-hidden className="select-none border-t border-edge pt-8 whitespace-nowrap font-display text-[clamp(30px,8.4vw,120px)] font-semibold leading-[0.9] tracking-[-0.055em] text-fg/[0.07]">
           Your students pay you.
         </p>
       </div>

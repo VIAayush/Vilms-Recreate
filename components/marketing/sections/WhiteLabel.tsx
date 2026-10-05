@@ -9,7 +9,7 @@ import { CertScene } from "../screens/scenes";
 import { InstituteMark } from "../screens/primitives";
 
 type SurfaceId = (typeof whiteLabel.surfaces)[number]["id"];
-const NEUTRAL = "#8A8699";
+const NEUTRAL = "#80868B"; // the unbranded preview, before it "changes hands"
 
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "") || "yourinstitute";
 
@@ -76,7 +76,7 @@ export function WhiteLabel() {
             Students never see{" "}
             <span className="relative inline-block text-fg-muted">
               VILMS
-              <span aria-hidden className={clsx("absolute inset-x-[-4px] top-[55%] h-[3px] origin-left rounded bg-rose transition-transform duration-700 ease-out", branded ? "scale-x-100" : "scale-x-0")} />
+              <span aria-hidden className={clsx("absolute inset-x-[-4px] top-[55%] h-[3px] origin-left rounded bg-red transition-transform duration-700 ease-out", branded ? "scale-x-100" : "scale-x-0")} />
             </span>
             .
           </p>
@@ -130,7 +130,7 @@ export function WhiteLabel() {
               </div>
             </fieldset>
 
-            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-edge/10 pt-6">
+            <div className="flex flex-wrap items-center justify-between gap-4 border-t border-edge pt-6">
               <label className="flex cursor-pointer items-center gap-3 text-[14.5px] font-medium">
                 <input
                   type="checkbox"
@@ -144,18 +144,18 @@ export function WhiteLabel() {
                 />
                 <span
                   aria-hidden
-                  className="relative h-6 w-11 rounded-full bg-edge/20 transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform peer-checked:bg-primary peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2"
+                  className="relative h-6 w-11 rounded-full bg-edge-strong transition-colors after:absolute after:left-0.5 after:top-0.5 after:h-5 after:w-5 after:rounded-full after:bg-white after:shadow after:transition-transform peer-checked:bg-primary peer-checked:after:translate-x-5 peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2"
                 />
                 Use my own domain
               </label>
-              <div role="group" aria-label="Preview" className="flex rounded-full border border-edge/15 p-1">
+              <div role="group" aria-label="Preview" className="flex rounded-full border border-edge p-1">
                 {whiteLabel.surfaces.map((s) => (
                   <button
                     key={s.id}
                     type="button"
                     aria-pressed={surface === s.id}
                     onClick={() => setSurface(s.id)}
-                    className={clsx("rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors", surface === s.id ? "bg-fg text-canvas" : "text-fg-muted hover:text-fg")}
+                    className={clsx("rounded-full px-3 py-1.5 text-[13px] font-medium transition-colors", surface === s.id ? "bg-primary-tint text-primary" : "text-fg-muted hover:text-fg")}
                   >
                     {s.label}
                   </button>
@@ -170,7 +170,7 @@ export function WhiteLabel() {
 }
 
 function Surface({ id, brand, name, host }: { id: SurfaceId; brand: string; name: string; host: string }) {
-  const frame = "overflow-hidden rounded-[18px] bg-panel shadow-window";
+  const frame = "overflow-hidden rounded-[14px] border border-edge bg-panel shadow-window";
   if (id === "certificate") {
     return (
       <div className={clsx(frame, "p-4 sm:p-8")}>
@@ -181,7 +181,7 @@ function Surface({ id, brand, name, host }: { id: SurfaceId; brand: string; name
   if (id === "email") {
     return (
       <div className={frame}>
-        <div className="border-b border-edge/10 px-5 py-3.5 text-[12.5px]">
+        <div className="border-b border-edge px-5 py-3.5 text-[12.5px]">
           <p className="flex items-center gap-2 text-fg-muted">
             <Mail aria-hidden className="h-3.5 w-3.5" /> Inbox
           </p>
@@ -204,13 +204,13 @@ function Surface({ id, brand, name, host }: { id: SurfaceId; brand: string; name
   }
   return (
     <div className={frame}>
-      <div className="flex items-center gap-2 border-b border-edge/10 px-4 py-2.5">
+      <div className="flex items-center gap-2 border-b border-edge px-4 py-2.5">
         <span aria-hidden className="flex gap-1.5">
-          <i className="h-2 w-2 rounded-full bg-edge/15" />
-          <i className="h-2 w-2 rounded-full bg-edge/15" />
-          <i className="h-2 w-2 rounded-full bg-edge/15" />
+          <i className="h-2 w-2 rounded-full bg-edge" />
+          <i className="h-2 w-2 rounded-full bg-edge" />
+          <i className="h-2 w-2 rounded-full bg-edge" />
         </span>
-        <span className="mx-auto truncate rounded-md bg-canvas/70 px-3 py-1 font-mono text-[10.5px] text-fg-muted">{host}</span>
+        <span className="mx-auto truncate rounded-md bg-canvas-alt px-3 py-1 font-mono text-[10.5px] text-fg-muted">{host}</span>
       </div>
       <div className="flex items-center gap-2.5 px-5 py-3.5">
         <InstituteMark name={name} color={brand} className="h-8 w-8 text-[11px] transition-colors duration-700" />
@@ -227,7 +227,7 @@ function Surface({ id, brand, name, host }: { id: SurfaceId; brand: string; name
           <p className="mt-2 font-display text-[clamp(20px,2.4vw,28px)] font-semibold leading-tight tracking-tight">Prelims Foundation Batch</p>
           <p className="mt-1.5 max-w-[340px] text-[12.5px] text-white/80">Weekly live classes, answer writing with mentor evaluation, certificate on completion.</p>
           <div className="mt-4 flex items-center gap-3">
-            <span className="rounded-full bg-white px-4 py-1.5 text-[12.5px] font-semibold text-[rgb(22_20_31)]">Enrol · ₹15,000</span>
+            <span className="rounded-full bg-white px-4 py-1.5 text-[12.5px] font-semibold text-[rgb(32_33_36)]">Enrol · ₹15,000</span>
           </div>
         </div>
       </div>

@@ -49,17 +49,17 @@ const config: Config = {
         info: { DEFAULT: "#33628C", bg: "#E6EDF4" },
         ai: { DEFAULT: "#6B4FA0", bg: "#EEE9F6" },
 
-        // ---- Public site (themeable) ----
-        canvas: themed("background"),
+        // ---- Public site (themeable). Values live in components/marketing/site.css. ----
+        canvas: { DEFAULT: themed("background"), alt: themed("background-alt") },
         fg: { DEFAULT: themed("foreground"), muted: themed("muted"), faint: themed("faint") },
-        panel: { DEFAULT: themed("surface"), raised: themed("surface-elevated"), tint: themed("surface-tint") },
-        edge: themed("border"),
-        primary: { DEFAULT: themed("primary"), ink: themed("primary-ink") },
-        secondary: themed("secondary"),
-        cyan: themed("cyan"),
-        accent: { DEFAULT: themed("accent"), ink: themed("accent-ink") },
-        mint: themed("mint"),
-        rose: themed("rose"),
+        panel: { DEFAULT: themed("surface"), raised: themed("surface-elevated") },
+        sunken: themed("sunken"),
+        edge: { DEFAULT: themed("border"), strong: themed("border-strong") },
+        primary: { DEFAULT: themed("primary"), hover: themed("primary-hover"), tint: themed("primary-tint"), ink: themed("primary-ink") },
+        green: { DEFAULT: themed("green"), tint: themed("green-tint") },
+        yellow: { DEFAULT: themed("yellow"), ink: themed("yellow-ink"), tint: themed("yellow-tint") },
+        red: { DEFAULT: themed("red"), tint: themed("red-tint") },
+        indigo: themed("indigo"),
       },
       boxShadow: {
         card: "0 1px 3px rgba(10,46,37,.06)",

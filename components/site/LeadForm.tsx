@@ -184,7 +184,7 @@ export function LeadForm({ interest, location, onClose }: Props) {
         </div>
       </div>
 
-      <div className="rounded-2xl border border-edge/10 bg-canvas/60">
+      <div className="rounded-2xl border border-edge bg-canvas-alt">
         <button
           type="button"
           className="flex w-full items-center justify-between rounded-2xl px-4 py-3 text-left text-[14px] font-semibold text-fg"
@@ -198,7 +198,7 @@ export function LeadForm({ interest, location, onClose }: Props) {
         <div
           id={fieldId("more")}
           hidden={!moreOpen}
-          className={`${moreOpen ? "grid" : "hidden"} gap-4 border-t border-edge/10 px-4 pb-4 pt-4 sm:grid-cols-2`}
+          className={`${moreOpen ? "grid" : "hidden"} gap-4 border-t border-edge px-4 pb-4 pt-4 sm:grid-cols-2`}
         >
           <div>
             <label htmlFor={fieldId("interest")} className="v-label">What are you interested in?</label>
@@ -239,19 +239,19 @@ export function LeadForm({ interest, location, onClose }: Props) {
           />
           <span>
             I agree to be contacted by VILMS about my enquiry by phone, WhatsApp or email, and to the{" "}
-            <a href="/privacy" target="_blank" className="font-semibold text-fg underline underline-offset-2">privacy policy</a>.
+            <a href="/privacy" target="_blank" className="link underline">privacy policy</a>.
           </span>
         </label>
         {err("consent")}
       </div>
 
       {status.kind === "error" ? (
-        <div role="alert" className="rounded-xl border border-rose/30 bg-rose/10 px-4 py-3 text-[14px] text-rose">
+        <div role="alert" className="rounded-xl border border-red/30 bg-red-tint px-4 py-3 text-[14px] text-red">
           {status.message}
         </div>
       ) : null}
 
-      <button type="submit" disabled={isSubmitting} className="cta cta-accent cta-lg w-full">
+      <button type="submit" disabled={isSubmitting} className="cta cta-primary cta-lg w-full">
         {isSubmitting ? (
           <>
             <Loader2 aria-hidden className="h-4 w-4 animate-spin" /> Sending…
@@ -271,7 +271,7 @@ function SuccessState({ interest, onClose }: { interest: Interest; onClose?: () 
   const isTrial = interest === "free_trial";
   return (
     <div className="py-4 text-center" role="status" aria-live="polite">
-      <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-mint/15 text-mint">
+      <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-green-tint text-green">
         <CheckCircle2 aria-hidden className="h-8 w-8" />
       </div>
       <h3 className="font-display text-[30px] font-semibold leading-tight tracking-tight">You&apos;re on the list.</h3>
@@ -283,11 +283,11 @@ function SuccessState({ interest, onClose }: { interest: Interest; onClose?: () 
 
       <div className="mt-7 flex flex-col items-stretch justify-center gap-3 sm:flex-row">
         {isTrial ? (
-          <a href={TRIAL_URL} className="cta cta-accent" target="_blank" rel="noopener">
+          <a href={TRIAL_URL} className="cta cta-primary" target="_blank" rel="noopener">
             <Rocket aria-hidden className="h-4 w-4" /> Start your 14-day free trial
           </a>
         ) : DEMO_BOOKING_URL ? (
-          <a href={DEMO_BOOKING_URL} className="cta cta-accent" target="_blank" rel="noopener">
+          <a href={DEMO_BOOKING_URL} className="cta cta-primary" target="_blank" rel="noopener">
             <CalendarCheck aria-hidden className="h-4 w-4" /> Pick a demo time now
           </a>
         ) : (

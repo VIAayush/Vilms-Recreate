@@ -7,13 +7,16 @@ import { HeroStage } from "./HeroStage";
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
-      {/* The "stage floor": a tinted plane the product sits on. */}
+      {/* A cool-gray plane the product sits on, ruled like graph paper. */}
       <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-[46%] -z-10 hidden lg:block">
-        <div className="grain absolute inset-y-0 left-[38%] right-0 rounded-tl-[48px] bg-panel-tint" />
-        <div className="dot-field absolute inset-y-0 left-[38%] right-0 rounded-tl-[48px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
+        <div className="absolute inset-y-0 left-[38%] right-0 rounded-tl-[32px] border-l border-t border-edge bg-canvas-alt [background-image:linear-gradient(rgb(var(--border)/0.6)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--border)/0.6)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
       </div>
 
       <div className="wrap">
+        <p className="mb-7 inline-flex animate-rise-in items-center gap-2 rounded-full bg-primary-tint px-3 py-1.5 text-[13px] font-medium text-primary">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+          For coaching institutes · 0% revenue share
+        </p>
         <h1 id="hero-title" className="display max-w-[15ch] text-[clamp(42px,7vw,104px)] lg:max-w-none">
           <span className="block animate-rise-in text-balance">{hero.titleTop}</span>
           <span className="serif-accent block animate-rise-in pl-[0.04em] text-fg-muted [animation-delay:120ms]">{hero.titleBottom}</span>
@@ -24,18 +27,18 @@ export function Hero() {
             <p className="sub max-w-[420px]">{hero.sub}</p>
             <div className="mt-8 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
               <Magnetic>
-                <Cta intent="demo" location="hero" className="cta cta-accent cta-lg w-full min-[420px]:w-auto" arrow>
-                  Book a Demo
+                <Cta intent="trial" location="hero" className="cta cta-primary cta-lg w-full min-[420px]:w-auto" arrow>
+                  Start 14-Day Free Trial
                 </Cta>
               </Magnetic>
-              <Cta intent="trial" location="hero" className="cta cta-ghost cta-lg">
-                Start 14-Day Free Trial
+              <Cta intent="demo" location="hero" className="cta cta-outline cta-lg">
+                Book a Demo
               </Cta>
             </div>
             <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-[13.5px] text-fg-muted">
               {hero.proof.map((p) => (
                 <li key={p} className="flex items-center gap-1.5">
-                  <Check aria-hidden className="h-3.5 w-3.5 text-mint" strokeWidth={3} />
+                  <Check aria-hidden className="h-3.5 w-3.5 text-green" strokeWidth={3} />
                   {p}
                 </li>
               ))}

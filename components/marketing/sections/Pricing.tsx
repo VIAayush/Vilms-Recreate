@@ -27,7 +27,7 @@ export function Pricing() {
   const fill = (stop / (STOPS.length - 1)) * 100;
 
   return (
-    <section id="pricing" aria-labelledby="pricing-title" className="py-24 sm:py-32">
+    <section id="pricing" aria-labelledby="pricing-title" className="border-y border-edge bg-canvas-alt py-24 sm:py-32">
       <TrackView name="pricing_view" />
       <div className="wrap">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-end">
@@ -40,14 +40,14 @@ export function Pricing() {
           <ul className="flex flex-wrap gap-x-5 gap-y-2 text-[14px] text-fg-muted lg:justify-end lg:pb-3">
             {pricing.trialNote.map((t) => (
               <li key={t} className="flex items-center gap-1.5">
-                <Check aria-hidden className="h-4 w-4 text-mint" strokeWidth={3} /> {t}
+                <Check aria-hidden className="h-4 w-4 text-green" strokeWidth={3} /> {t}
               </li>
             ))}
           </ul>
         </div>
 
         {/* The slider */}
-        <div className="mt-12 rounded-[28px] border border-edge/10 bg-panel p-5 sm:p-8">
+        <div className="mt-12 rounded-2xl border border-edge bg-panel p-5 sm:p-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <label htmlFor={`${uid}-students`} className="text-[15px] font-medium text-fg-muted">
               How many students do you teach?
@@ -93,18 +93,17 @@ export function Pricing() {
         </div>
 
         {/* The plans: one row of columns, the recommended one lifted. */}
-        <ol className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 xl:gap-0">
-          {pricing.plans.map((p, i) => {
+        <ol className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-4 xl:gap-4">
+          {pricing.plans.map((p) => {
             const on = !over && fit?.id === p.id;
             return (
               <li
                 key={p.id}
                 className={clsx(
-                  "group relative flex flex-col rounded-[24px] border p-6 transition-[transform,box-shadow,border-color,background-color] duration-300 xl:rounded-none xl:border-y-0 xl:border-r-0 xl:first:border-l-0",
+                  "group relative flex flex-col rounded-2xl border bg-panel p-6 transition-[transform,box-shadow,border-color] duration-300",
                   on
-                    ? "z-10 border-primary/50 bg-panel shadow-window xl:-my-3 xl:rounded-[24px] xl:border xl:py-9"
-                    : "border-edge/10 hover:-translate-y-1 hover:border-edge/25 xl:hover:translate-y-0 xl:hover:bg-panel/60",
-                  i > 0 && !on && "xl:border-l",
+                    ? "z-10 border-primary shadow-window ring-1 ring-primary"
+                    : "border-edge hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft",
                 )}
               >
                 <div className="flex items-center justify-between gap-2">
@@ -130,7 +129,7 @@ export function Pricing() {
                   </li>
                 </ul>
                 <div className="mt-auto pt-6">
-                  <Cta intent="trial" location={`pricing_${p.id}`} className={clsx("cta w-full", on ? "cta-accent" : "cta-ghost")}>
+                  <Cta intent="trial" location={`pricing_${p.id}`} className={clsx("cta w-full", on ? "cta-primary" : "cta-outline")}>
                     Start 14-day trial
                   </Cta>
                 </div>
@@ -140,7 +139,7 @@ export function Pricing() {
         </ol>
 
         {over ? (
-          <div className="mt-6 flex flex-col gap-4 rounded-[24px] border border-primary/40 bg-panel p-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="mt-6 flex flex-col gap-4 rounded-2xl border border-primary/40 bg-panel p-6 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-[15px]">
               <b className="font-semibold">{pricing.custom.title}</b> <span className="text-fg-muted">{pricing.custom.text}</span>
             </p>
@@ -148,19 +147,19 @@ export function Pricing() {
               <a href={`mailto:${brand.emails.general}?subject=${encodeURIComponent("Custom quote for VILMS")}`} className="cta cta-ghost">
                 <Mail aria-hidden className="h-4 w-4" /> {brand.emails.general}
               </a>
-              <Cta intent="demo" location="pricing_custom" className="cta cta-accent" arrow>
+              <Cta intent="demo" location="pricing_custom" className="cta cta-outline" arrow>
                 Book a Demo
               </Cta>
             </div>
           </div>
         ) : null}
 
-        <div className="mt-14 grid gap-8 border-t border-edge/10 pt-10 lg:grid-cols-[220px_1fr]">
+        <div className="mt-14 grid gap-8 border-t border-edge pt-10 lg:grid-cols-[220px_1fr]">
           <p className="font-display text-[20px] font-semibold tracking-tight">Every plan includes</p>
           <ul className="grid gap-x-8 gap-y-3 text-[14.5px] sm:grid-cols-2 xl:grid-cols-4">
             {pricing.everyPlan.map((t) => (
               <li key={t} className="flex gap-2">
-                <Check aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-mint" /> {t}
+                <Check aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-green" /> {t}
               </li>
             ))}
           </ul>

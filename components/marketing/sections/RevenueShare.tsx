@@ -17,11 +17,11 @@ export function RevenueShare() {
   const received = useCountUp(revenue.fee, inView, 2200);
 
   return (
-    <section id="why" aria-labelledby="why-title" className="relative isolate overflow-hidden py-24 sm:py-36">
+    <section id="why" aria-labelledby="why-title" className="band-blue relative isolate overflow-hidden py-24 sm:py-36">
       {/* oversized numeral, cropped by the section */}
       <p
         aria-hidden
-        className="pointer-events-none absolute -right-[4vw] top-6 -z-10 select-none font-display text-[clamp(180px,34vw,520px)] font-semibold leading-[0.8] tracking-[-0.07em] text-fg/[0.04]"
+        className="pointer-events-none absolute -right-[4vw] top-6 -z-10 select-none font-display text-[clamp(180px,34vw,520px)] font-semibold leading-[0.8] tracking-[-0.07em] text-white/[0.07]"
       >
         0%
       </p>
@@ -29,10 +29,17 @@ export function RevenueShare() {
       <div className="wrap">
         <p className="kicker">{revenue.kicker}</p>
         <h2 id="why-title" className="display mt-5 text-[clamp(40px,6.4vw,92px)]">
-          Keep <span className="grad-text">100%</span>
-          <span className="serif-accent block text-fg-muted">of your students&apos; fees.</span>
+          Keep{" "}
+          <span className="relative whitespace-nowrap">
+            100%
+            {/* a quick marker stroke under the number */}
+            <svg aria-hidden viewBox="0 0 200 14" preserveAspectRatio="none" className="absolute -bottom-[0.02em] left-0 h-[0.12em] w-full">
+              <path d="M3 9c40-6 98-8 194-3" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" className="text-[rgb(253_214_99)]" />
+            </svg>
+          </span>
+          <span className="serif-accent block text-white/80">of your students&apos; fees.</span>
         </h2>
-        <p className="sub mt-8 max-w-[520px]">{revenue.sub}</p>
+        <p className="sub mt-8 max-w-[520px] text-white/85">{revenue.sub}</p>
 
         <div ref={ref} className="relative mt-16 grid gap-4 lg:mt-24 lg:grid-cols-[1fr_1.15fr_1fr] lg:items-center lg:gap-0">
           {/* 1 · student */}
@@ -46,13 +53,13 @@ export function RevenueShare() {
             <Connector active={inView} className="hidden lg:block" side="left" />
             <Connector active={inView} className="hidden lg:block" side="right" dashed />
             <VConnector active={inView} className="lg:hidden" />
-            <div className="relative rounded-[28px] bg-panel p-6 shadow-window ring-2 ring-mint/50 sm:p-8">
-              <div className="flex items-center gap-2.5 text-[13px] font-semibold text-mint">
+            <div className="relative rounded-2xl bg-panel p-6 text-fg shadow-window ring-4 ring-white/20 sm:p-8">
+              <div className="flex items-center gap-2.5 text-[13px] font-semibold text-green">
                 <Landmark aria-hidden className="h-4 w-4" /> {revenue.steps[1]}
               </div>
               <p className="mt-3 font-display text-[clamp(44px,5vw,72px)] font-semibold leading-none tabular-nums tracking-[-0.04em]">{inr(received)}</p>
               <p className="mt-2 text-[14px] text-fg-muted">Settles with you — the whole fee.</p>
-              <div className={clsx("mt-5 inline-flex items-center gap-2 rounded-full bg-mint/15 px-3 py-1.5 text-[12.5px] font-semibold text-mint transition-opacity duration-700", received === revenue.fee ? "opacity-100" : "opacity-0")}>
+              <div className={clsx("mt-5 inline-flex items-center gap-2 rounded-full bg-green-tint px-3 py-1.5 text-[12.5px] font-semibold text-green transition-opacity duration-700", received === revenue.fee ? "opacity-100" : "opacity-0")}>
                 <Building2 aria-hidden className="h-3.5 w-3.5" /> 100% of the fee received
               </div>
             </div>
@@ -65,15 +72,15 @@ export function RevenueShare() {
               <BrandMark className="h-9 w-9 opacity-80" />
               <p className="font-display text-[clamp(34px,3.6vw,48px)] font-semibold tabular-nums tracking-tight">₹0</p>
             </div>
-            <p className="mt-1 text-[13px] text-fg-muted">On every plan, at any size.</p>
+            <p className="mt-1 text-[13px] text-white/80">On every plan, at any size.</p>
           </Node>
         </div>
 
-        <div className="mt-14 flex flex-col gap-5 border-t border-edge/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="max-w-[560px] text-[14px] text-fg-muted">
+        <div className="mt-14 flex flex-col gap-5 border-t border-white/25 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="max-w-[560px] text-[14px] text-white/80">
             One flat monthly price per plan, from ₹499/month. Prices exclude 18% GST. The ₹15,000 fee is an example.
           </p>
-          <Cta intent="demo" location="revenue" className="cta cta-accent" arrow>
+          <Cta intent="demo" location="revenue" className="cta cta-outline border-transparent" arrow>
             Talk to a VILMS expert
           </Cta>
         </div>
@@ -96,8 +103,8 @@ function Node({
   muted?: boolean;
 }) {
   return (
-    <div className={clsx("rounded-[24px] border p-5 sm:p-6", muted ? "border-dashed border-edge/20" : "border-edge/10 bg-panel/60", className)}>
-      <p className="flex items-center gap-2 text-[13px] font-semibold text-fg-muted">
+    <div className={clsx("rounded-2xl border p-5 sm:p-6", muted ? "border-dashed border-white/45 text-white" : "border-transparent bg-panel text-fg", className)}>
+      <p className={clsx("flex items-center gap-2 text-[13px] font-semibold", muted ? "text-white/80" : "text-fg-muted")}>
         {Icon ? <Icon aria-hidden className="h-4 w-4" /> : null}
         {label}
       </p>
@@ -113,11 +120,11 @@ function Connector({ active, side, dashed, className }: { active: boolean; side:
       <span
         className={clsx(
           "absolute inset-0 origin-left transition-transform duration-700 ease-out",
-          dashed ? "bg-[repeating-linear-gradient(90deg,rgb(var(--foreground)/0.25)_0_4px,transparent_4px_8px)]" : "bg-mint",
+          dashed ? "bg-[repeating-linear-gradient(90deg,rgb(255_255_255/0.5)_0_4px,transparent_4px_8px)]" : "bg-white",
           active ? "scale-x-100" : "scale-x-0",
         )}
       />
-      {!dashed && active ? <span className="absolute -top-[3px] left-0 h-[7px] w-[7px] rounded-full bg-mint shadow-[0_0_12px_rgb(var(--mint))] [animation:travel_1.8s_ease-in-out_infinite]" /> : null}
+      {!dashed && active ? <span className="absolute -top-[3px] left-0 h-[7px] w-[7px] rounded-full bg-[rgb(253_214_99)] [animation:travel_1.8s_ease-in-out_infinite]" /> : null}
     </span>
   );
 }
@@ -129,7 +136,7 @@ function VConnector({ active, dashed, className }: { active: boolean; dashed?: b
       <span
         className={clsx(
           "absolute inset-0 origin-top transition-transform duration-700",
-          dashed ? "bg-[repeating-linear-gradient(180deg,rgb(var(--foreground)/0.25)_0_4px,transparent_4px_8px)]" : "bg-mint",
+          dashed ? "bg-[repeating-linear-gradient(180deg,rgb(255_255_255/0.5)_0_4px,transparent_4px_8px)]" : "bg-white",
           active ? "scale-y-100" : "scale-y-0",
         )}
       />

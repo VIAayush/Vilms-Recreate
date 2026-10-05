@@ -30,16 +30,16 @@ export function MobileCtaBar() {
       aria-hidden={!show}
       inert={!show}
       className={clsx(
-        "fixed inset-x-0 bottom-0 z-30 border-t border-edge/10 bg-canvas/85 px-4 pb-[calc(env(safe-area-inset-bottom)+10px)] pt-2.5 backdrop-blur-xl transition-transform duration-300 ease-out md:hidden",
+        "fixed inset-x-0 bottom-0 z-30 border-t border-edge bg-canvas/85 px-4 pb-[calc(env(safe-area-inset-bottom)+10px)] pt-2.5 backdrop-blur-xl transition-transform duration-300 ease-out md:hidden",
         show ? "translate-y-0" : "translate-y-full",
       )}
     >
       <div className="mx-auto flex max-w-md gap-2">
-        <Cta intent="demo" location="mobile_bar" className="cta cta-accent flex-1">
+        <Cta intent="demo" location="mobile_bar" className="cta cta-outline flex-1">
           Book a Demo
         </Cta>
-        <Cta intent="trial" location="mobile_bar" className="cta cta-ghost flex-1">
-          Free trial
+        <Cta intent="trial" location="mobile_bar" className="cta cta-primary flex-1">
+          Start free trial
         </Cta>
       </div>
     </div>

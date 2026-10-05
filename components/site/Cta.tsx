@@ -15,7 +15,7 @@ type Props = {
 // The one CTA component. Demo and trial both open the same lead form, so the
 // sales team always gets the contact details; trial leads are then sent on to
 // the signup page from the success screen.
-export function Cta({ intent, location, className = "cta cta-accent", children, arrow }: Props) {
+export function Cta({ intent, location, className = "cta cta-primary", children, arrow }: Props) {
   const { openLeadForm } = useLeadForm();
   return (
     <button

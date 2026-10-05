@@ -7,7 +7,7 @@ import { Avatar, InstituteMark, LiveDot, Meter, Pill } from "./primitives";
 // sample data in an illustrated UI. The same student (Rahul) appears in all of
 // them, because it's the same record — that's the point.
 
-const card = "rounded-xl border border-edge/10 bg-panel";
+const card = "rounded-xl border border-edge bg-panel";
 
 export function LeadScene() {
   return (
@@ -26,7 +26,7 @@ export function LeadScene() {
         <div className="mt-3 flex flex-wrap gap-1.5">
           <Pill>Google Ads</Pill>
           <Pill>Course landing page</Pill>
-          <Pill tone="mint">
+          <Pill tone="green">
             <MessageCircle aria-hidden className="h-3 w-3" /> WhatsApp sent
           </Pill>
         </div>
@@ -38,7 +38,7 @@ export function LeadScene() {
           ["Checkout", 5],
           ["Enrolled", 21],
         ].map(([label, n], i) => (
-          <div key={label} className={clsx(card, "px-2 py-2", i === 0 && "border-primary/40 bg-primary/5")}>
+          <div key={label} className={clsx(card, "px-2 py-2", i === 0 && "border-primary/40 bg-primary-tint")}>
             <p className="truncate text-[10px] text-fg-muted">{label}</p>
             <p className="font-mono text-[15px] font-medium tabular-nums">{n}</p>
           </div>
@@ -57,7 +57,7 @@ export function EnrolScene() {
           <p className="text-[14px] font-semibold">Rahul Kumar</p>
           <p className="truncate text-[12px] text-fg-muted">Prelims Foundation · Batch A</p>
         </div>
-        <Pill tone="mint" className="ml-auto">
+        <Pill tone="green" className="ml-auto">
           <Check aria-hidden className="h-3 w-3" /> Enrolled
         </Pill>
       </div>
@@ -67,16 +67,16 @@ export function EnrolScene() {
           ["Batch", "A"],
           ["Paid", "₹15,000"],
         ].map(([k, v]) => (
-          <div key={k} className="rounded-lg bg-canvas/70 px-2 py-2">
+          <div key={k} className="rounded-lg bg-canvas-alt px-2 py-2">
             <dt className="text-[10px] text-fg-muted">{k}</dt>
             <dd className="text-[12.5px] font-semibold">{v}</dd>
           </div>
         ))}
       </dl>
-      <ol className="mt-3.5 space-y-2 border-l border-edge/10 pl-3 text-[11.5px] text-fg-muted">
+      <ol className="mt-3.5 space-y-2 border-l border-edge pl-3 text-[11.5px] text-fg-muted">
         <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-primary">Lead from Google Ads</li>
-        <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-cyan">Joined the free webinar</li>
-        <li className="relative font-medium text-fg before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-mint">Paid via your Razorpay · enrolled</li>
+        <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-yellow">Joined the free webinar</li>
+        <li className="relative font-medium text-fg before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-green">Paid via your Razorpay · enrolled</li>
       </ol>
     </div>
   );
@@ -85,22 +85,22 @@ export function EnrolScene() {
 export function CourseScene() {
   return (
     <div className={clsx(card, "overflow-hidden")}>
-      <div className="relative aspect-[16/6] bg-[linear-gradient(135deg,rgb(var(--primary)/0.85),rgb(var(--secondary)/0.85))]">
+      <div className="relative aspect-[16/6] bg-[rgb(32_33_36)]">
         <div className="absolute inset-0 grid place-items-center">
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-white/90 text-[rgb(22_20_31)] shadow-lg">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[rgb(32_33_36)]">
             <Play aria-hidden className="ml-0.5 h-4 w-4" fill="currentColor" />
           </span>
         </div>
         <p className="absolute left-3 top-2.5 text-[11px] font-semibold text-white/90">Lesson 3 · Fundamental Rights</p>
         <div className="absolute inset-x-3 bottom-2.5 flex items-center gap-2 text-[10px] text-white/85">
           <span className="font-mono">12:40</span>
-          <span className="relative h-1 flex-1 rounded-full bg-white/30">
-            <span className="absolute inset-y-0 left-0 w-[41%] rounded-full bg-white" />
+          <span className="relative h-1 flex-1 rounded-full bg-white/25">
+            <span className="absolute inset-y-0 left-0 w-[41%] rounded-full bg-[rgb(138_180_248)]" />
           </span>
           <span className="font-mono">31:05</span>
         </div>
       </div>
-      <ul className="divide-y divide-edge/10 text-[12px]">
+      <ul className="divide-y divide-edge text-[12px]">
         {[
           { icon: BookOpen, t: "Polity essentials", m: "Recorded · 12 lessons", on: true },
           { icon: FileText, t: "Notes.pdf · Worksheet 1.pdf", m: "Attached" },
@@ -120,7 +120,7 @@ export function CourseScene() {
 export function LiveScene() {
   return (
     <div className={clsx(card, "p-3.5")}>
-      <div className="flex items-center gap-2 text-[11px] font-semibold text-rose">
+      <div className="flex items-center gap-2 text-[11px] font-semibold text-red">
         <LiveDot /> Live now
       </div>
       <p className="mt-2 text-[15px] font-semibold tracking-tight">Polity · Batch A · Live class</p>
@@ -136,7 +136,7 @@ export function LiveScene() {
         <span className="text-[12px] text-fg-muted">42 RSVPs</span>
         <span className="cta cta-sm ml-auto min-h-[30px] bg-primary px-3 text-[12px] text-primary-ink">Join class</span>
       </div>
-      <p className="mt-3 flex items-center gap-1.5 rounded-lg bg-canvas/70 px-2.5 py-2 text-[11px] text-fg-muted">
+      <p className="mt-3 flex items-center gap-1.5 rounded-lg bg-canvas-alt px-2.5 py-2 text-[11px] text-fg-muted">
         <CalendarClock aria-hidden className="h-3.5 w-3.5" /> Reminder sent to 42 students before class
       </p>
     </div>
@@ -146,11 +146,11 @@ export function LiveScene() {
 export function EvalScene({ approved = true }: { approved?: boolean }) {
   return (
     <div className={clsx(card, "grid grid-cols-[0.8fr_1fr] gap-3 p-3")}>
-      <div className="relative overflow-hidden rounded-lg bg-[#fbf8ef] p-2.5 font-hand text-[13px] leading-[18px] text-[#2b2a6b] [background-image:repeating-linear-gradient(transparent,transparent_17px,rgb(43_42_107/0.12)_17px,rgb(43_42_107/0.12)_18px)]">
+      <div className="answer-sheet relative overflow-hidden rounded-lg border border-edge p-2.5 font-hand text-[13px] leading-[18px]">
         <p>Q3. The Directive</p>
         <p>Principles guide the</p>
         <p>
-          state in making <span className="rounded bg-[#ffd76a]/60">laws</span>
+          state in making <span className="answer-highlight">laws</span>
         </p>
         <p>for social welfare…</p>
         <p className="opacity-60">Art. 38, 39, 41…</p>
@@ -166,7 +166,7 @@ export function EvalScene({ approved = true }: { approved?: boolean }) {
         <Meter label="Structure" value={3} max={4} />
         <Meter label="Examples" value={3} max={4} />
         <Meter label="Language" value={3} max={4} />
-        <p className={clsx("flex items-center gap-1 pt-1 text-[11px] font-semibold", approved ? "text-mint" : "text-fg-muted")}>
+        <p className={clsx("flex items-center gap-1 pt-1 text-[11px] font-semibold", approved ? "text-green" : "text-fg-muted")}>
           <Check aria-hidden className="h-3.5 w-3.5" /> {approved ? "Mentor approved · 16/20" : "Awaiting mentor"}
         </p>
       </div>
@@ -179,7 +179,7 @@ export function PayScene() {
     <div className={clsx(card, "p-3.5")}>
       <div className="flex items-center justify-between">
         <p className="font-mono text-[11px] text-fg-muted">Order #2041</p>
-        <Pill tone="mint">
+        <Pill tone="green">
           <Check aria-hidden className="h-3 w-3" /> Paid
         </Pill>
       </div>
@@ -187,16 +187,16 @@ export function PayScene() {
       <p className="text-[12px] text-fg-muted">Prelims Foundation Batch · via your Razorpay</p>
       <div className="mt-3 flex gap-1.5">
         {["Razorpay", "UPI", "Bank transfer"].map((m, i) => (
-          <span key={m} className={clsx("rounded-md border px-2 py-1 text-[10.5px] font-medium", i === 0 ? "border-primary/40 bg-primary/10 text-primary" : "border-edge/10 text-fg-muted")}>
+          <span key={m} className={clsx("rounded-md border px-2 py-1 text-[10.5px] font-medium", i === 0 ? "border-primary/40 bg-primary-tint text-primary" : "border-edge text-fg-muted")}>
             {m}
           </span>
         ))}
       </div>
-      <div className="mt-3 flex items-center justify-between rounded-lg bg-canvas/70 px-2.5 py-2 text-[11px]">
+      <div className="mt-3 flex items-center justify-between rounded-lg bg-canvas-alt px-2.5 py-2 text-[11px]">
         <span className="flex items-center gap-1.5 text-fg-muted">
           <FileText aria-hidden className="h-3.5 w-3.5" /> GST invoice INV-2041 sent
         </span>
-        <span className="font-semibold text-mint">VILMS commission ₹0</span>
+        <span className="font-semibold text-green">VILMS commission ₹0</span>
       </div>
     </div>
   );
@@ -205,7 +205,7 @@ export function PayScene() {
 export function CertScene({ name = "Your Institute", color }: { name?: string; color?: string }) {
   return (
     <div className={clsx(card, "relative overflow-hidden p-1.5")}>
-      <div className="relative rounded-lg border border-dashed border-edge/15 px-4 py-4 text-center">
+      <div className="relative rounded-lg border border-dashed border-edge px-4 py-4 text-center">
         <InstituteMark name={name} color={color} className="mx-auto h-8 w-8 text-[11px]" />
         <p className="mt-2 font-mono text-[9.5px] uppercase tracking-[0.2em] text-fg-muted">Certificate of completion</p>
         <p className="mt-1.5 font-serif text-[24px] italic leading-none">Rahul Kumar</p>
@@ -216,7 +216,7 @@ export function CertScene({ name = "Your Institute", color }: { name?: string; c
             <br />
             <b className="text-[11px] text-fg">{name}</b>
           </span>
-          <Award aria-hidden className="h-6 w-6" style={{ color: color ?? "rgb(var(--accent))" }} />
+          <Award aria-hidden className="h-6 w-6" style={{ color: color ?? "rgb(var(--yellow))" }} />
         </div>
       </div>
     </div>
@@ -229,7 +229,7 @@ export function RenewScene() {
       <p className="text-[11px] font-semibold text-fg-muted">Next batch</p>
       <p className="mt-1 text-[15px] font-semibold tracking-tight">Mains Answer-Writing Batch</p>
       <p className="mt-0.5 text-[12px] text-fg-muted">Offered to students who completed Prelims Foundation</p>
-      <div className="mt-3.5 flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2.5 text-[12px]">
+      <div className="mt-3.5 flex items-center gap-2 rounded-lg bg-primary-tint px-3 py-2.5 text-[12px]">
         <Repeat2 aria-hidden className="h-4 w-4 text-primary" />
         <span className="font-semibold text-primary">Upsell to cohort</span>
         <span className="ml-auto flex items-center gap-1 text-fg-muted">

@@ -17,13 +17,13 @@ export function BrowserFrame({
 }) {
   return (
     <div className={clsx("window flex flex-col", className)}>
-      <div className="flex items-center gap-3 border-b border-edge/10 px-3.5 py-2.5">
+      <div className="flex items-center gap-3 border-b border-edge px-3.5 py-2.5">
         <span aria-hidden className="flex gap-1.5">
-          <i className="h-2.5 w-2.5 rounded-full bg-edge/15" />
-          <i className="h-2.5 w-2.5 rounded-full bg-edge/15" />
-          <i className="h-2.5 w-2.5 rounded-full bg-edge/15" />
+          <i className="h-2.5 w-2.5 rounded-full bg-edge" />
+          <i className="h-2.5 w-2.5 rounded-full bg-edge" />
+          <i className="h-2.5 w-2.5 rounded-full bg-edge" />
         </span>
-        <span className="mx-auto flex min-w-0 max-w-[340px] flex-1 items-center justify-center gap-1.5 truncate rounded-md bg-canvas/70 px-3 py-1 font-mono text-[10.5px] text-fg-muted">
+        <span className="mx-auto flex min-w-0 max-w-[340px] flex-1 items-center justify-center gap-1.5 truncate rounded-md bg-canvas-alt px-3 py-1 font-mono text-[10.5px] text-fg-muted">
           <svg aria-hidden viewBox="0 0 12 12" className="h-2.5 w-2.5 shrink-0 opacity-60">
             <path d="M3 5V3.8a3 3 0 0 1 6 0V5M2.5 5h7v5.5h-7z" fill="none" stroke="currentColor" strokeWidth="1.3" />
           </svg>
@@ -36,7 +36,7 @@ export function BrowserFrame({
   );
 }
 
-const AVATAR_TONES = ["bg-primary/15 text-primary", "bg-cyan/15 text-cyan", "bg-accent/20 text-[rgb(170_90_0)] dark:text-accent", "bg-mint/15 text-mint", "bg-rose/15 text-rose", "bg-secondary/15 text-secondary"];
+const AVATAR_TONES = ["bg-primary-tint text-primary", "bg-green-tint text-green", "bg-yellow-tint text-yellow-ink", "bg-red-tint text-red", "bg-sunken text-fg-muted"];
 
 export function Avatar({ name, size = "md", tone }: { name: string; size?: "sm" | "md" | "lg"; tone?: number }) {
   const initials = name
@@ -62,14 +62,15 @@ export function Avatar({ name, size = "md", tone }: { name: string; size?: "sm" 
   );
 }
 
-type Tone = "primary" | "mint" | "accent" | "cyan" | "rose" | "muted";
+// Status colours follow one rule everywhere: blue = active / selected,
+// green = done / paid, yellow = waiting on someone, red = live or refunded.
+type Tone = "primary" | "green" | "yellow" | "red" | "muted";
 const PILL: Record<Tone, string> = {
-  primary: "bg-primary/10 text-primary",
-  mint: "bg-mint/10 text-mint",
-  accent: "bg-accent/20 text-[rgb(150_80_0)] dark:text-accent",
-  cyan: "bg-cyan/10 text-cyan",
-  rose: "bg-rose/10 text-rose",
-  muted: "bg-edge/[0.07] text-fg-muted",
+  primary: "bg-primary-tint text-primary",
+  green: "bg-green-tint text-green",
+  yellow: "bg-yellow-tint text-yellow-ink",
+  red: "bg-red-tint text-red",
+  muted: "bg-sunken text-fg-muted",
 };
 
 export function Pill({ tone = "muted", children, className }: { tone?: Tone; children: React.ReactNode; className?: string }) {
@@ -83,24 +84,24 @@ export function Pill({ tone = "muted", children, className }: { tone?: Tone; chi
 export function LiveDot({ className }: { className?: string }) {
   return (
     <span aria-hidden className={clsx("relative inline-flex h-2 w-2", className)}>
-      <span className="absolute inset-0 animate-ping rounded-full bg-rose/60" />
-      <span className="relative h-2 w-2 rounded-full bg-rose" />
+      <span className="absolute inset-0 animate-ping rounded-full bg-red/60" />
+      <span className="relative h-2 w-2 rounded-full bg-red" />
     </span>
   );
 }
 
 /** A labelled score bar, e.g. a rubric criterion. */
-export function Meter({ label, value, max, tone = "primary" }: { label: string; value: number; max: number; tone?: "primary" | "mint" | "accent" }) {
+export function Meter({ label, value, max, tone = "primary" }: { label: string; value: number; max: number; tone?: "primary" | "green" | "yellow" }) {
   return (
     <div className="flex items-center gap-2 text-[11px]">
       <span className="w-[64px] shrink-0 text-fg-muted">{label}</span>
-      <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-edge/10">
+      <span className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-sunken">
         <span
           className={clsx(
             "absolute inset-y-0 left-0 rounded-full transition-[width] duration-700 ease-out",
             tone === "primary" && "bg-primary",
-            tone === "mint" && "bg-mint",
-            tone === "accent" && "bg-accent",
+            tone === "green" && "bg-green",
+            tone === "yellow" && "bg-yellow",
           )}
           style={{ width: `${(value / max) * 100}%` }}
         />

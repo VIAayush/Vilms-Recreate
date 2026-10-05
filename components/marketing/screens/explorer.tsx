@@ -28,7 +28,7 @@ import { Avatar, InstituteMark, Meter, Pill } from "./primitives";
 
 type ScreenProps = { active: string | null };
 const spot = (id: string, active: string | null) => ({ "data-spot": id, "data-on": active === id ? "true" : "false" });
-const box = "rounded-xl border border-edge/10 bg-panel";
+const box = "rounded-xl border border-edge bg-panel";
 
 function TeachScreen({ active }: ScreenProps) {
   return (
@@ -48,44 +48,47 @@ function TeachScreen({ active }: ScreenProps) {
           </div>
         </div>
         <ul className="mt-3 space-y-1.5 text-[12px]">
-          <li className="flex items-center gap-2 rounded-lg bg-canvas/70 px-2 py-2">
+          <li className="flex items-center gap-2 rounded-lg bg-canvas-alt px-2 py-2">
             <GripVertical aria-hidden className="h-3.5 w-3.5 text-fg-faint" />
             Orientation &amp; study plan
             <Pill className="ml-auto">Preview</Pill>
           </li>
-          <li className="flex items-center gap-2 rounded-lg bg-canvas/70 px-2 py-2" {...spot("video", active)}>
+          <li className="flex items-center gap-2 rounded-lg bg-canvas-alt px-2 py-2" {...spot("video", active)}>
             <GripVertical aria-hidden className="h-3.5 w-3.5 text-fg-faint" />
             <Video aria-hidden className="h-3.5 w-3.5 text-primary" />
             Polity essentials
             <span className="ml-auto text-[10.5px] text-fg-muted">Recorded · 12 lessons</span>
           </li>
-          <li className="flex items-center gap-2 rounded-lg bg-canvas/70 px-2 py-2" {...spot("live", active)}>
+          <li className="flex items-center gap-2 rounded-lg bg-canvas-alt px-2 py-2" {...spot("live", active)}>
             <GripVertical aria-hidden className="h-3.5 w-3.5 text-fg-faint" />
-            <Radio aria-hidden className="h-3.5 w-3.5 text-rose" />
+            <Radio aria-hidden className="h-3.5 w-3.5 text-red" />
             Weekly doubt-clearing
             <span className="ml-auto text-[10.5px] text-fg-muted">Live · Thu 7 PM</span>
           </li>
-          <li className="flex items-center gap-2 rounded-lg bg-canvas/70 px-2 py-2">
+          <li className="flex items-center gap-2 rounded-lg bg-canvas-alt px-2 py-2">
             <GripVertical aria-hidden className="h-3.5 w-3.5 text-fg-faint" />
             Mock test 1 — answer writing
-            <Pill tone="accent" className="ml-auto">
+            <Pill tone="yellow" className="ml-auto">
               Coming soon
             </Pill>
           </li>
         </ul>
-        <p className="mt-2.5 flex items-center gap-1.5 rounded-lg border border-dashed border-edge/15 px-2 py-1.5 text-[11px] text-fg-muted" {...spot("materials", active)}>
+        <p className="mt-2.5 flex items-center gap-1.5 rounded-lg border border-dashed border-edge px-2 py-1.5 text-[11px] text-fg-muted" {...spot("materials", active)}>
           <FileText aria-hidden className="h-3.5 w-3.5" /> Notes.pdf · Worksheet 1.pdf attached to lesson 2
         </p>
       </div>
 
       <div className="grid gap-3">
         <div className={clsx(box, "overflow-hidden")} {...spot("video", active)}>
-          <div className="relative grid aspect-[16/9] place-items-center bg-[linear-gradient(135deg,rgb(var(--primary)/0.9),rgb(var(--cyan)/0.8))]">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-white/90 text-[rgb(22_20_31)]">
+          <div className="relative grid aspect-[16/9] place-items-center bg-[rgb(32_33_36)]">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[rgb(32_33_36)]">
               <Play aria-hidden className="ml-0.5 h-4 w-4" fill="currentColor" />
             </span>
             <span className="absolute bottom-2 left-2 flex items-center gap-1 rounded bg-black/40 px-1.5 py-0.5 text-[9.5px] text-white">
               <Lock aria-hidden className="h-2.5 w-2.5" /> Rahul K. · 98xxx
+            </span>
+            <span className="absolute inset-x-2 bottom-0 h-[3px] rounded-full bg-white/20">
+              <span className="block h-full w-[58%] rounded-full bg-[rgb(138_180_248)]" />
             </span>
           </div>
           <p className="px-3 py-2 text-[11px] text-fg-muted">Plays inside the course · watermarked</p>
@@ -94,7 +97,7 @@ function TeachScreen({ active }: ScreenProps) {
           <p className="text-[10.5px] text-fg-muted">Free masterclass · Sun 6 PM</p>
           <p className="mt-0.5 text-[12.5px] font-semibold leading-snug">How to plan your first 90 days of prep</p>
           <div className="mt-2 flex items-center gap-2">
-            <span className="flex-1 rounded-md border border-edge/10 px-2 py-1 text-[10.5px] text-fg-faint">Name, phone, email</span>
+            <span className="flex-1 rounded-md border border-edge px-2 py-1 text-[10.5px] text-fg-faint">Name, phone, email</span>
             <span className="rounded-md bg-primary px-2 py-1 text-[10.5px] font-semibold text-primary-ink">Register</span>
           </div>
           <p className="mt-2 text-[10.5px] text-fg-muted">No login · one-click upsell to the paid batch</p>
@@ -111,14 +114,14 @@ function AssessScreen({ active }: ScreenProps) {
         <p className="text-[10.5px] text-fg-muted">Tests</p>
         <ul className="mt-2 space-y-1.5 text-[12px]">
           {[
-            ["Mock test 4", "MCQ · auto-graded", "mint", "Results out"],
+            ["Mock test 4", "MCQ · auto-graded", "green", "Results out"],
             ["Mains Q3", "Long-form · 20 marks", "primary", "To evaluate"],
             ["Weekly quiz 6", "MCQ · auto-graded", "muted", "Thu"],
           ].map(([t, m, tone, s]) => (
-            <li key={t} className="rounded-lg bg-canvas/70 px-2.5 py-2">
+            <li key={t} className="rounded-lg bg-canvas-alt px-2.5 py-2">
               <div className="flex items-center justify-between gap-2">
                 <span className="font-semibold">{t}</span>
-                <Pill tone={tone as "mint" | "primary" | "muted"}>{s}</Pill>
+                <Pill tone={tone as "green" | "primary" | "muted"}>{s}</Pill>
               </div>
               <p className="text-[10.5px] text-fg-muted">{m}</p>
             </li>
@@ -131,10 +134,10 @@ function AssessScreen({ active }: ScreenProps) {
             <p className="text-[10.5px] text-fg-muted">Rahul K. · Q3 · page 1 of 2</p>
             <Upload aria-hidden className="h-3.5 w-3.5 text-fg-muted" />
           </div>
-          <div className="rounded-lg bg-[#fbf8ef] px-3 py-2 font-hand text-[14px] leading-[19px] text-[#2b2a6b] [background-image:repeating-linear-gradient(transparent,transparent_18px,rgb(43_42_107/0.12)_18px,rgb(43_42_107/0.12)_19px)]">
+          <div className="answer-sheet rounded-lg border border-edge px-3 py-2 font-hand text-[14px] leading-[19px] [--rule:19px]">
             <p>The Directive Principles guide the state</p>
             <p>
-              in making <span className="rounded bg-[#ffd76a]/60">laws</span> for social welfare — Art. 38
+              in making <span className="answer-highlight">laws</span> for social welfare — Art. 38
             </p>
             <p>directs it to secure a social order…</p>
           </div>
@@ -171,7 +174,7 @@ function GrowScreen({ active }: ScreenProps) {
         <p className="text-[10.5px] text-fg-muted">Lead pipeline · ads, webinars, free PDFs</p>
         <div className="mt-2 grid grid-cols-4 gap-1.5">
           {cols.map((c) => (
-            <div key={c.t} className="min-w-0 rounded-lg bg-canvas/70 p-1.5">
+            <div key={c.t} className="min-w-0 rounded-lg bg-canvas-alt p-1.5">
               <p className="mb-1.5 truncate px-0.5 text-[10px] font-semibold text-fg-muted">{c.t}</p>
               <div className="space-y-1">
                 {c.n.map((n) => (
@@ -200,7 +203,7 @@ function GrowScreen({ active }: ScreenProps) {
               ["Orders", "2"],
               ["Lifetime", "₹15,000"],
             ].map(([k, v]) => (
-              <div key={k} className="rounded-md bg-canvas/70 py-1.5">
+              <div key={k} className="rounded-md bg-canvas-alt py-1.5">
                 <dt className="text-fg-muted">{k}</dt>
                 <dd className="font-semibold">{v}</dd>
               </div>
@@ -209,7 +212,7 @@ function GrowScreen({ active }: ScreenProps) {
         </div>
         <div className="grid gap-3">
           <div className={clsx(box, "flex items-start gap-2 p-2.5")} {...spot("whatsapp", active)}>
-            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-mint/15 text-mint">
+            <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-green-tint text-green">
               <MessageCircle aria-hidden className="h-3.5 w-3.5" />
             </span>
             <p className="text-[11px] leading-snug">
@@ -223,7 +226,7 @@ function GrowScreen({ active }: ScreenProps) {
               <p className="mt-1 text-[10.5px] font-semibold leading-tight">JEE crash course page</p>
             </div>
             <div className={clsx(box, "p-2.5")} {...spot("analytics", active)}>
-              <BarChart3 aria-hidden className="h-3.5 w-3.5 text-cyan" />
+              <BarChart3 aria-hidden className="h-3.5 w-3.5 text-green" />
               <p className="mt-1 text-[10.5px] font-semibold leading-tight">Your pixel · CSV export</p>
             </div>
           </div>
@@ -241,11 +244,11 @@ function PaymentsScreen({ active }: ScreenProps) {
         <p className="mt-1 text-[13px] font-semibold">Prelims Foundation Batch</p>
         <p className="font-display text-[26px] font-semibold tracking-tight">₹15,000</p>
         <div className="mt-2 space-y-1.5 text-[11.5px]">
-          <div className="flex items-center gap-2 rounded-lg border border-primary/40 bg-primary/10 px-2.5 py-2 font-semibold text-primary">
+          <div className="flex items-center gap-2 rounded-lg border border-primary/40 bg-primary-tint px-2.5 py-2 font-semibold text-primary">
             <span className="h-3 w-3 rounded-full border-[3px] border-primary" /> Razorpay · cards, netbanking
           </div>
-          <div className="flex items-center gap-2 rounded-lg border border-edge/10 px-2.5 py-2" {...spot("upi", active)}>
-            <span className="h-3 w-3 rounded-full border border-edge/30" /> UPI / bank transfer
+          <div className="flex items-center gap-2 rounded-lg border border-edge px-2.5 py-2" {...spot("upi", active)}>
+            <span className="h-3 w-3 rounded-full border border-edge-strong" /> UPI / bank transfer
           </div>
         </div>
         <p className="mt-2.5 text-center text-[10px] text-fg-muted">Settles in your Razorpay account</p>
@@ -253,7 +256,7 @@ function PaymentsScreen({ active }: ScreenProps) {
       <div className="grid gap-3">
         <div className={clsx(box, "p-3")} {...spot("orders", active)}>
           <p className="mb-1.5 text-[10.5px] text-fg-muted">Orders</p>
-          <ul className="divide-y divide-edge/10 text-[11.5px]">
+          <ul className="divide-y divide-edge text-[11.5px]">
             {[
               ["#2041", "Rahul K.", "₹15,000", "Paid"],
               ["#2040", "Sneha P.", "₹9,000", "Paid"],
@@ -262,14 +265,14 @@ function PaymentsScreen({ active }: ScreenProps) {
                 <span className="font-mono text-[10.5px] text-fg-muted">{id}</span>
                 <span className="truncate">{n}</span>
                 <span className="ml-auto font-semibold tabular-nums">{amt}</span>
-                <Pill tone="mint">{s}</Pill>
+                <Pill tone="green">{s}</Pill>
               </li>
             ))}
             <li className="flex items-center gap-2 py-1.5" {...spot("refunds", active)}>
               <span className="font-mono text-[10.5px] text-fg-muted">#2033</span>
               <span className="truncate">Arjun T.</span>
               <span className="ml-auto font-semibold tabular-nums">₹4,500</span>
-              <Pill tone="accent">
+              <Pill tone="yellow">
                 <RotateCcw aria-hidden className="h-2.5 w-2.5" /> Refunded
               </Pill>
             </li>
@@ -291,7 +294,7 @@ function PaymentsScreen({ active }: ScreenProps) {
 }
 
 function BrandScreen({ active }: ScreenProps) {
-  const swatches = ["#5B3DF5", "#0EA5E9", "#0F9F6E", "#E11D48", "#F08A00"];
+  const swatches = ["#1A73E8", "#188038", "#D93025", "#E37400", "#202124"];
   return (
     <div className="grid gap-3 p-3 sm:grid-cols-[1fr_1fr] sm:p-4">
       <div className={clsx(box, "space-y-3 p-3")}>
@@ -315,7 +318,7 @@ function BrandScreen({ active }: ScreenProps) {
         </div>
         <div {...spot("domain", active)} className="rounded-lg">
           <p className="text-[10.5px] text-fg-muted">Domain</p>
-          <p className="mt-1 flex items-center gap-1.5 rounded-md border border-edge/10 px-2 py-1.5 font-mono text-[10.5px]">
+          <p className="mt-1 flex items-center gap-1.5 rounded-md border border-edge px-2 py-1.5 font-mono text-[10.5px]">
             <span className="text-fg-faint line-through">yourinstitute.vilms.in</span>
             <ChevronRight aria-hidden className="h-3 w-3 text-fg-faint" />
             learn.yourinstitute.in
@@ -341,7 +344,7 @@ function BrandScreen({ active }: ScreenProps) {
           </div>
         </div>
         <p className="flex items-center gap-1.5 text-[10.5px] text-fg-muted">
-          <Check aria-hidden className="h-3 w-3 text-mint" /> No “VILMS” anywhere students look
+          <Check aria-hidden className="h-3 w-3 text-green" /> No “VILMS” anywhere students look
         </p>
       </div>
     </div>

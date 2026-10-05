@@ -27,7 +27,7 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
 
   return (
     <section className="relative isolate overflow-x-clip pb-20 pt-28 sm:pb-28 sm:pt-36">
-      <div aria-hidden className="grain pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[46%] rounded-bl-[56px] bg-panel-tint lg:block" />
+      <div aria-hidden className="pointer-events-none absolute inset-y-0 right-0 -z-10 hidden w-[46%] border-l border-edge bg-canvas-alt lg:block" />
       <div className="wrap grid items-start gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20">
         <div className="lg:sticky lg:top-28">
           <p className="kicker">{trial ? "Start your 14-day trial" : finalCta.demo.kicker}</p>
@@ -41,10 +41,10 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
             )}
           </h1>
           <p className="sub mt-6 max-w-[500px]">{finalCta.demo.text}</p>
-          <ul className="mt-9 space-y-3.5 border-t border-edge/10 pt-8">
+          <ul className="mt-9 space-y-3.5 border-t border-edge pt-8">
             {POINTS.map((t) => (
               <li key={t} className="flex items-start gap-3 text-[15.5px]">
-                <Check aria-hidden className="mt-1 h-4 w-4 shrink-0 text-mint" strokeWidth={3} />
+                <Check aria-hidden className="mt-1 h-4 w-4 shrink-0 text-green" strokeWidth={3} />
                 {t}
               </li>
             ))}
@@ -54,7 +54,7 @@ export default async function DemoPage({ searchParams }: { searchParams: Promise
           </p>
         </div>
 
-        <div className="rounded-[28px] border border-edge/10 bg-panel p-5 shadow-window sm:p-9">
+        <div className="rounded-[28px] border border-edge bg-panel p-5 shadow-window sm:p-9">
           <LeadForm interest={interest} location={trial ? "demo_page_trial" : "demo_page"} />
         </div>
       </div>

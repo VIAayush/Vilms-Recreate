@@ -57,7 +57,7 @@ export function ProductExplorer() {
   }, []);
 
   return (
-    <section id="product" aria-labelledby="product-title" className="relative py-24 sm:py-32">
+    <section id="product" aria-labelledby="product-title" className="relative border-y border-edge bg-canvas-alt py-24 sm:py-32">
       <TrackView name="feature_view" label="explorer" />
       <div className="wrap grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
         <div>
@@ -70,20 +70,22 @@ export function ProductExplorer() {
           <div
             role="group"
             aria-label="Product areas"
-            className="no-scrollbar -mx-4 mt-10 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:block lg:overflow-visible lg:border-t lg:border-edge/10 lg:px-0"
+            className="no-scrollbar -mx-4 mt-10 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:block lg:overflow-visible lg:border-t lg:border-edge lg:px-0"
           >
             {explorer.tabs.map((t, i) => {
               const on = t.id === tab.id;
               return (
-                <div key={t.id} className="shrink-0 lg:border-b lg:border-edge/10">
+                <div key={t.id} className="shrink-0 lg:border-b lg:border-edge">
                   <button
                     type="button"
                     aria-expanded={on}
                     aria-controls={`${uid}-panel`}
                     onClick={() => select(t.id)}
                     className={clsx(
-                      "group flex items-baseline gap-3 rounded-full border px-4 py-2 text-left transition-colors lg:w-full lg:rounded-none lg:border-0 lg:px-0 lg:py-5",
-                      on ? "border-fg bg-fg text-canvas lg:bg-transparent lg:text-fg" : "border-edge/15 text-fg-muted hover:text-fg",
+                      "group flex items-baseline gap-3 rounded-full border px-4 py-2 text-left transition-[color,background-color,border-color,padding,box-shadow] duration-300 lg:w-full lg:rounded-none lg:border-0 lg:py-5",
+                      on
+                        ? "border-primary/40 bg-primary-tint text-primary lg:bg-transparent lg:pl-5 lg:shadow-[inset_3px_0_0_rgb(var(--primary))]"
+                        : "border-edge bg-panel text-fg-muted hover:border-primary/40 hover:text-fg lg:bg-transparent lg:pl-0",
                     )}
                   >
                     <span className="hidden font-mono text-[12px] text-fg-faint lg:inline">0{i + 1}</span>
@@ -127,7 +129,7 @@ export function ProductExplorer() {
                 {activeFeature ? activeFeature.text : `${tab.line}. Hover a feature to see where it lives.`}
               </p>
             </div>
-            <Cta intent="demo" location={`explorer_${tab.id}`} className="cta cta-ghost" arrow>
+            <Cta intent="demo" location={`explorer_${tab.id}`} className="cta cta-outline" arrow>
               See it in a demo
             </Cta>
           </div>
@@ -149,7 +151,7 @@ function FeatureButton({ label, on, onActivate }: { label: string; on: boolean; 
         onClick={onActivate}
         className={clsx(
           "rounded-full border px-3.5 py-1.5 text-[13.5px] font-medium transition-[background-color,border-color,color,transform] duration-200 hover:-translate-y-px",
-          on ? "border-primary bg-primary text-primary-ink" : "border-edge/15 bg-panel text-fg hover:border-primary/50",
+          on ? "border-primary/50 bg-primary-tint text-primary" : "border-edge bg-panel text-fg hover:border-primary/50 hover:text-primary",
         )}
       >
         {label}
