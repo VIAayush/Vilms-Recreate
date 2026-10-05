@@ -9,14 +9,18 @@ export function BrowserFrame({
   children,
   className,
   bodyClassName,
+  tilt,
 }: {
   url: string;
   children: React.ReactNode;
   className?: string;
   bodyClassName?: string;
+  /** lean toward the cursor, up to this many degrees */
+  tilt?: number;
 }) {
   return (
-    <div className={clsx("window flex flex-col", className)}>
+    <div className={clsx("window flex flex-col", className)} data-tilt={tilt}>
+      {tilt ? <span aria-hidden className="tilt-glare" /> : null}
       <div className="flex items-center gap-3 border-b border-edge px-3.5 py-2.5">
         <span aria-hidden className="flex gap-1.5">
           <i className="h-2.5 w-2.5 rounded-full bg-edge" />

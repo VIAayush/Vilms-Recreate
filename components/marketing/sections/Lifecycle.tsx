@@ -5,6 +5,10 @@ import clsx from "clsx";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { lifecycle } from "@/lib/content";
 import { SCENES } from "../screens/scenes";
+import { TONE, type Tone } from "../tone";
+
+// Each stage keeps one colour from the rail to its card.
+const STAGE_TONE: Record<string, Tone> = { lead: "blue", enrol: "green", course: "teal", eval: "red", cert: "yellow", renew: "blue" };
 
 // A horizontal film strip: one frame per stage of a student's life at the
 // institute. Native horizontal scrolling (swipe, trackpad, shift+wheel),
@@ -85,12 +89,12 @@ export function Lifecycle() {
                   <span
                     className={clsx(
                       "grid h-6 w-6 shrink-0 place-items-center rounded-full font-mono text-[10.5px] transition-colors duration-300",
-                      i <= active ? "bg-primary text-primary-ink" : "bg-sunken text-fg-muted group-hover:bg-edge-strong",
+                      i <= active ? clsx(TONE[STAGE_TONE[s.id]].fill, "text-primary-ink") : "bg-sunken text-fg-muted group-hover:bg-edge-strong",
                     )}
                   >
                     {i + 1}
                   </span>
-                  <span className={clsx("h-px flex-1 transition-colors duration-500", i < active ? "bg-primary" : "bg-edge")} />
+                  <span className={clsx("h-[2px] flex-1 rounded transition-colors duration-500", i < active ? TONE[STAGE_TONE[s.id]].fill : "bg-edge")} />
                 </span>
                 <span className={clsx("mt-2.5 hidden text-[13px] transition-colors md:block", i === active ? "font-semibold text-fg" : "text-fg-muted")}>{s.title}</span>
               </button>
@@ -108,6 +112,7 @@ export function Lifecycle() {
       >
         {lifecycle.stages.map((s, i) => {
           const Scene = SCENES[s.id];
+          const tone = TONE[STAGE_TONE[s.id]];
           return (
             <li
               key={s.id}
@@ -116,9 +121,14 @@ export function Lifecycle() {
                 i === active ? "opacity-100" : "opacity-60 hover:opacity-90",
               )}
             >
-              <div className="flex h-full flex-col rounded-2xl border border-edge bg-canvas-alt p-4 transition-colors duration-300 hover:border-primary/40 sm:p-5">
+              <div
+                data-glow
+                style={{ "--glow": tone.rgb } as React.CSSProperties}
+                className={clsx("glow-card flex h-full flex-col overflow-hidden rounded-2xl border border-edge p-4 transition-transform duration-500 ease-out hover:-translate-y-1 sm:p-5", tone.surface)}
+              >
+                <span aria-hidden className={clsx("absolute inset-x-0 top-0 h-1", tone.fill)} />
                 <div className="flex items-baseline gap-3 px-1">
-                  <span className="font-mono text-[12px] text-fg-faint">0{i + 1}</span>
+                  <span className={clsx("font-mono text-[12px] font-semibold", tone.text)}>0{i + 1}</span>
                   <h3 className="text-[20px] font-semibold tracking-tight">{s.title}</h3>
                 </div>
                 <p className="mt-1.5 min-h-[44px] px-1 pl-[34px] text-[14px] leading-snug text-fg-muted">{s.text}</p>

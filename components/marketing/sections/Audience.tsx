@@ -6,6 +6,10 @@ import { ArrowUpRight, FileText, Lock, Unlock } from "lucide-react";
 import { audience, type AudienceVisual } from "@/lib/content";
 import { CertScene, EvalScene, LiveScene, PayScene } from "../screens/scenes";
 import { Pill } from "../screens/primitives";
+import { TONE, type Tone } from "../tone";
+
+// Each kind of institute brings its own colour into the section.
+const AUDIENCE_TONE: Record<string, Tone> = { coaching: "blue", testprep: "red", skills: "yellow", training: "teal", schools: "green", online: "blue" };
 
 function TeamMini() {
   return (
@@ -61,9 +65,16 @@ export function Audience() {
   const [activeId, setActiveId] = useState(audience.items[0].id);
   const active = audience.items.find((i) => i.id === activeId) ?? audience.items[0];
   const Visual = VISUALS[active.visual];
+  const tone = TONE[AUDIENCE_TONE[active.id]];
 
   return (
-    <section id="solutions" aria-labelledby="solutions-title" className="border-y border-edge bg-canvas-alt py-24 sm:py-32">
+    <section
+      id="solutions"
+      aria-labelledby="solutions-title"
+      data-glow
+      style={{ "--glow": tone.rgb } as React.CSSProperties}
+      className={clsx("glow-section border-y border-edge py-24 transition-colors duration-700 sm:py-32", tone.wash)}
+    >
       <div className="wrap">
         <p className="kicker">{audience.kicker}</p>
         <h2 id="solutions-title" className="h2 mt-4 max-w-[18ch]">
@@ -84,14 +95,14 @@ export function Audience() {
                     onPointerEnter={(e) => e.pointerType === "mouse" && setActiveId(item.id)}
                     className={clsx(
                       "group flex w-full items-baseline gap-4 rounded-full border px-4 py-2 text-left transition-colors lg:rounded-none lg:border-0 lg:px-0 lg:py-4",
-                      on ? "border-primary/40 bg-primary-tint text-primary lg:bg-transparent" : "border-edge bg-panel text-fg-muted hover:text-fg lg:bg-transparent",
+                      on ? clsx("border-[rgb(var(--glow)/0.45)] lg:bg-transparent", tone.tint, tone.text) : "border-edge bg-panel text-fg-muted hover:text-fg lg:bg-transparent",
                     )}
                   >
                     <span className="hidden font-mono text-[12px] text-fg-faint lg:inline">0{i + 1}</span>
                     <span className="whitespace-nowrap text-[14.5px] font-semibold lg:font-display lg:text-[clamp(26px,3vw,42px)] lg:tracking-[-0.035em]">{item.label}</span>
                     <ArrowUpRight
                       aria-hidden
-                      className={clsx("ml-auto hidden h-6 w-6 self-center transition-all duration-300 lg:block", on ? "rotate-45 text-primary opacity-100" : "opacity-0 group-hover:opacity-50")}
+                      className={clsx("ml-auto hidden h-6 w-6 self-center transition-all duration-300 lg:block", on ? clsx("rotate-45 opacity-100", tone.text) : "opacity-0 group-hover:opacity-50")}
                     />
                   </button>
                 </li>
@@ -109,7 +120,8 @@ export function Audience() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 rounded-2xl border border-edge bg-panel p-4 sm:p-6">
+              <div data-glow data-tilt="3" className="glow-card relative mt-8 rounded-2xl border border-edge bg-panel p-4 sm:p-6">
+                <span aria-hidden className={clsx("absolute inset-x-6 top-0 h-1 rounded-b", tone.fill)} />
                 <Visual />
               </div>
             </div>

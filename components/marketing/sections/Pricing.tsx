@@ -6,6 +6,10 @@ import { Check, Mail } from "lucide-react";
 import { Cta } from "@/components/site/Cta";
 import { TrackView } from "@/components/site/TrackView";
 import { brand, pricing, type Plan } from "@/lib/content";
+import { TONE, type Tone } from "../tone";
+
+// A colour per plan, so the four read as four different sizes at a glance.
+const PLAN_TONE: Record<Plan["id"], Tone> = { base: "blue", growth: "green", scale: "yellow", institute: "red" };
 
 // Slider stops (students). The last stop means "more than the largest plan".
 const STOPS = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 15001];
@@ -27,7 +31,7 @@ export function Pricing() {
   const fill = (stop / (STOPS.length - 1)) * 100;
 
   return (
-    <section id="pricing" aria-labelledby="pricing-title" className="border-y border-edge bg-canvas-alt py-24 sm:py-32">
+    <section id="pricing" aria-labelledby="pricing-title" data-glow className="glow-section border-y border-edge bg-wash-blue py-24 sm:py-32">
       <TrackView name="pricing_view" />
       <div className="wrap">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)] lg:items-end">
@@ -99,15 +103,18 @@ export function Pricing() {
             return (
               <li
                 key={p.id}
+                data-glow
+                style={{ "--glow": TONE[PLAN_TONE[p.id]].rgb } as React.CSSProperties}
                 className={clsx(
-                  "group relative flex flex-col rounded-2xl border bg-panel p-6 transition-[transform,box-shadow,border-color] duration-300",
+                  "glow-card group relative flex flex-col overflow-hidden rounded-2xl border bg-panel p-6 transition-[transform,box-shadow,border-color] duration-300",
                   on
                     ? "z-10 border-primary shadow-window ring-1 ring-primary"
                     : "border-edge hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft",
                 )}
               >
+                <span aria-hidden className={clsx("absolute inset-x-0 top-0 h-1 transition-[height] duration-300 group-hover:h-1.5", TONE[PLAN_TONE[p.id]].fill)} />
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-[13px] text-fg-muted">{p.stage}</p>
+                  <p className={clsx("text-[13px] font-medium", TONE[PLAN_TONE[p.id]].text)}>{p.stage}</p>
                   {on ? <span className="rounded-full bg-primary px-2.5 py-1 text-[11px] font-semibold text-primary-ink">Fits your size</span> : null}
                 </div>
                 <h3 className="mt-3 font-display text-[26px] font-semibold tracking-tight">{p.name}</h3>
@@ -121,7 +128,7 @@ export function Pricing() {
                 <ul className="mt-4 space-y-2 text-[13.5px]">
                   {p.points.map((pt) => (
                     <li key={pt} className="flex gap-2">
-                      <Check aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" /> {pt}
+                      <Check aria-hidden className={clsx("mt-0.5 h-4 w-4 shrink-0", TONE[PLAN_TONE[p.id]].text)} /> {pt}
                     </li>
                   ))}
                   <li className="flex gap-2 text-fg-muted">

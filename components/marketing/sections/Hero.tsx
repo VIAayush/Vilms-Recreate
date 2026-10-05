@@ -1,16 +1,20 @@
 import { Check } from "lucide-react";
 import { Cta } from "@/components/site/Cta";
 import { hero } from "@/lib/content";
+import { HeroField } from "../HeroField";
 import { Magnetic } from "../Magnetic";
+import { HeroAreas } from "./HeroAreas";
 import { HeroStage } from "./HeroStage";
 
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative isolate overflow-hidden pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36">
-      {/* A cool-gray plane the product sits on, ruled like graph paper. */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-[46%] -z-10 hidden lg:block">
-        <div className="absolute inset-y-0 left-[38%] right-0 rounded-tl-[32px] border-l border-t border-edge bg-canvas-alt [background-image:linear-gradient(rgb(var(--border)/0.6)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--border)/0.6)_1px,transparent_1px)] [background-size:40px_40px] [mask-image:linear-gradient(to_bottom,black_40%,transparent)]" />
-      </div>
+    <section
+      aria-labelledby="hero-title"
+      data-parallax
+      className="relative isolate overflow-hidden bg-gradient-to-b from-canvas via-canvas to-wash-blue pb-16 pt-28 sm:pt-32 lg:pb-24 lg:pt-36"
+    >
+      {/* Move the cursor: the dots around it light up. */}
+      <HeroField />
 
       <div className="wrap">
         <p className="mb-7 inline-flex animate-rise-in items-center gap-2 rounded-full bg-primary-tint px-3 py-1.5 text-[13px] font-medium text-primary">
@@ -18,7 +22,9 @@ export function Hero() {
           For coaching institutes · 0% revenue share
         </p>
         <h1 id="hero-title" className="display max-w-[15ch] text-[clamp(42px,7vw,104px)] lg:max-w-none">
-          <span className="block animate-rise-in text-balance">{hero.titleTop}</span>
+          <span className="block animate-rise-in text-balance">
+            {hero.titleTopLead} <span className="text-primary">{hero.titleTopEmphasis}</span>
+          </span>
           <span className="serif-accent block animate-rise-in pl-[0.04em] text-fg-muted [animation-delay:120ms]">{hero.titleBottom}</span>
         </h1>
 
@@ -45,7 +51,10 @@ export function Hero() {
             </ul>
           </div>
 
-          <HeroStage />
+          <div className="relative">
+            <HeroAreas />
+            <HeroStage />
+          </div>
         </div>
       </div>
     </section>

@@ -30,6 +30,12 @@
   --red: 217 48 37; /* #D93025 */
   --red-tint: 252 232 230; /* #FCE8E6 */
   --indigo: 95 99 216; /* AI touches, used sparingly */
+  --teal: 0 123 131; /* #007B83 — the Brand area */
+  --teal-tint: 228 247 251; /* #E4F7FB */
+
+  /* section washes — big, quiet fields of colour */
+  --wash-blue: 240 245 254; /* #F0F5FE */
+  --wash-green: 238 248 241; /* #EEF8F1 */
 
   --shadow-window: 0 1px 2px rgb(60 64 67 / 0.08), 0 12px 32px -12px rgb(60 64 67 / 0.22);
   --shadow-soft: 0 1px 2px rgb(60 64 67 / 0.1), 0 2px 6px rgb(60 64 67 / 0.06);
@@ -67,6 +73,11 @@ html[data-theme="dark"] .site {
   --red: 242 139 130; /* #F28B82 */
   --red-tint: 66 36 33;
   --indigo: 174 176 248;
+  --teal: 120 217 236; /* #78D9EC */
+  --teal-tint: 22 54 60;
+
+  --wash-blue: 27 33 46;
+  --wash-green: 25 36 30;
 
   --shadow-window: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -16px rgb(0 0 0 / 0.7);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.3);
@@ -90,8 +101,17 @@ html[data-theme="dark"] .site {
   --primary-tint: 37 52 77;
   --primary-ink: 32 33 36;
   --green: 129 201 149;
+  --green-tint: 30 52 38;
   --yellow: 253 214 99;
+  --yellow-ink: 253 214 99;
+  --yellow-tint: 61 52 22;
   --red: 242 139 130;
+  --red-tint: 66 36 33;
+  --teal: 120 217 236;
+  --teal-tint: 22 54 60;
+  --indigo: 174 176 248;
+  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -16px rgb(0 0 0 / 0.7);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.3);
   background: rgb(32 33 36);
   color: rgb(var(--foreground));
 }
@@ -248,7 +268,9 @@ html[data-theme="dark"] .answer-sheet {
 }
 [data-focus] [data-spot][data-on="true"] {
   opacity: 1;
-  box-shadow: 0 0 0 2px rgb(var(--primary));
+  box-shadow:
+    0 0 0 2px rgb(var(--spot, var(--primary))),
+    0 0 0 6px rgb(var(--spot, var(--primary)) / 0.15);
   transform: translateY(-1px);
 }
 
@@ -383,8 +405,223 @@ html[data-theme="dark"] .answer-sheet {
   }
 }
 
+/* ======================================================================
+   Cursor-driven effects. CursorFx (one pointer listener for the whole site)
+   writes the pointer position into --gx/--gy on the [data-glow] elements
+   under the cursor, --rx/--ry on [data-tilt], and --px/--py on
+   [data-parallax]. Everything below is pure CSS reading those variables.
+   Colour comes from --glow (an RGB triplet), default blue.
+   ====================================================================== */
+
+/* A soft pool of colour that follows the cursor across a section. */
+[data-glow] {
+  --glow: var(--primary);
+}
+/* :where() keeps these at zero specificity, so a utility such as
+   `absolute` or `sticky` on the same element still wins. */
+:where(.glow-section) {
+  position: relative;
+  isolation: isolate;
+}
+.glow-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(520px circle at var(--gx, 50%) var(--gy, 50%), rgb(var(--glow) / 0.13), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+.glow-section:hover::before {
+  opacity: 1;
+}
+
+/* Cards: a coloured edge and faint fill that track the cursor. */
+:where(.glow-card) {
+  position: relative;
+  isolation: isolate;
+}
+.glow-card::before,
+.glow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.glow-card::before {
+  z-index: 2;
+  padding: 1.5px;
+  background: radial-gradient(240px circle at var(--gx, 50%) var(--gy, 50%), rgb(var(--glow)), transparent 70%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.glow-card::after {
+  z-index: -1;
+  background: radial-gradient(320px circle at var(--gx, 50%) var(--gy, 50%), rgb(var(--glow) / 0.1), transparent 70%);
+}
+.glow-card:hover::before,
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+/* Product windows lean toward the cursor, with a glare where it points. */
+[data-tilt] {
+  --rx: 0deg;
+  --ry: 0deg;
+  transform: perspective(1400px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+[data-tilt][data-tilting] {
+  transition: transform 0.12s ease-out;
+}
+.tilt-glare {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), rgb(255 255 255 / 0.22), transparent 60%);
+  mix-blend-mode: soft-light;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+[data-tilt]:hover .tilt-glare {
+  opacity: 1;
+}
+
+/* Things that drift with the cursor: translate by --depth px per unit. */
+[data-parallax] {
+  --px: 0;
+  --py: 0;
+}
+.parallax {
+  transform: translate3d(calc(var(--px) * var(--depth, 12) * 1px), calc(var(--py) * var(--depth, 12) * 1px), 0);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The cursor ring (CursorFx). It sits around the native pointer, grows over
+   anything clickable and takes the colour of what it's over. */
+.cursor-ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 90;
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border-radius: 999px;
+  pointer-events: none;
+  border: 1.5px solid rgb(var(--ring, var(--primary)) / 0.7);
+  background: rgb(var(--ring, var(--primary)) / 0.06);
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    width 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    margin 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+.cursor-ring[data-on] {
+  opacity: 1;
+}
+.cursor-ring[data-state="hover"] {
+  width: 56px;
+  height: 56px;
+  margin: -28px 0 0 -28px;
+  background: rgb(var(--ring, var(--primary)) / 0.12);
+}
+.cursor-ring[data-state="text"] {
+  opacity: 0;
+}
+.cursor-ring[data-down] {
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+}
+.cursor-ripple {
+  position: fixed;
+  z-index: 89;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 999px;
+  pointer-events: none;
+  border: 2px solid rgb(var(--ring, var(--primary)));
+  animation: ripple 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes ripple {
+  to {
+    transform: scale(6);
+    opacity: 0;
+  }
+}
+
+/* Buttons: a band of light sweeps across on hover. */
+.cta-primary,
+.cta-outline {
+  overflow: hidden;
+  isolation: isolate;
+}
+.cta-primary::after,
+.cta-outline::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cta-outline::after {
+  background: linear-gradient(110deg, transparent 30%, rgb(var(--primary) / 0.14) 50%, transparent 70%);
+}
+.cta-primary:hover::after,
+.cta-outline:hover::after {
+  transform: translateX(120%);
+}
+.cta-primary:hover,
+.cta-outline:hover {
+  transform: translateY(-1px);
+}
+
+/* Navigation and footer links: a coloured underline that draws in. */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: rgb(var(--primary));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after {
+  transform: scaleX(1);
+}
+
 /* Respect reduced motion everywhere on the site. */
 @media (prefers-reduced-motion: reduce) {
+  [data-tilt] {
+    transform: none !important;
+  }
+  .parallax {
+    transform: none !important;
+  }
   .site *,
   .site *::before,
   .site *::after {

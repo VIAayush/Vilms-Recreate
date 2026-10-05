@@ -17,7 +17,7 @@ export function RevenueShare() {
   const received = useCountUp(revenue.fee, inView, 2200);
 
   return (
-    <section id="why" aria-labelledby="why-title" className="band-blue relative isolate overflow-hidden py-24 sm:py-36">
+    <section id="why" aria-labelledby="why-title" data-glow style={{ "--glow": "255 255 255" } as React.CSSProperties} className="band-blue glow-section relative isolate overflow-hidden py-24 sm:py-36">
       {/* oversized numeral, cropped by the section */}
       <p
         aria-hidden
@@ -53,7 +53,8 @@ export function RevenueShare() {
             <Connector active={inView} className="hidden lg:block" side="left" />
             <Connector active={inView} className="hidden lg:block" side="right" dashed />
             <VConnector active={inView} className="lg:hidden" />
-            <div className="relative rounded-2xl bg-panel p-6 text-fg shadow-window ring-4 ring-white/20 sm:p-8">
+            <div data-tilt="5" className="relative rounded-2xl bg-panel p-6 text-fg shadow-window ring-4 ring-white/20 sm:p-8">
+              <span aria-hidden className="tilt-glare" />
               <div className="flex items-center gap-2.5 text-[13px] font-semibold text-green">
                 <Landmark aria-hidden className="h-4 w-4" /> {revenue.steps[1]}
               </div>

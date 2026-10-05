@@ -48,7 +48,7 @@ export function HeroStage() {
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
     >
-      <BrowserFrame url="yourinstitute.vilms.in/admin" className="lg:mr-[-4vw] xl:mr-[-7vw]">
+      <BrowserFrame url="yourinstitute.vilms.in/admin" className="lg:mr-[-4vw] xl:mr-[-7vw]" tilt={3}>
         {/* cursor spotlight */}
         <div
           aria-hidden

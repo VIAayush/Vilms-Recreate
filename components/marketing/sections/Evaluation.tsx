@@ -25,7 +25,14 @@ export function Evaluation() {
   const [step, select] = useAutoplay(evaluation.steps.length, { interval: STEP_MS, running: inView && !reduced && !hold });
 
   return (
-    <section ref={ref} id="ai" aria-labelledby="ai-title">
+    <section
+      ref={ref}
+      id="ai"
+      aria-labelledby="ai-title"
+      data-glow
+      style={{ "--glow": "var(--indigo)" } as React.CSSProperties}
+      className="band-dark glow-section"
+    >
       <div className="py-24 sm:py-32">
 
         <div className="wrap grid gap-14 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16">
@@ -112,7 +119,7 @@ function AnswerVisual({ step }: { step: number }) {
   const total = content + 3 + 3 + 3;
 
   return (
-    <div className="relative">
+    <div className="relative" data-tilt="2.5">
       {/* The answer sheet */}
       <figure className="answer-sheet with-margin relative overflow-hidden rounded-xl border border-edge p-5 pb-10 pl-12 shadow-window [--rule:28px] sm:-rotate-[1deg] sm:p-7 sm:pb-24 sm:pl-14 sm:pr-[178px]">
         <figcaption className="paper-muted mb-3 flex items-center justify-between font-sans text-[11px]">

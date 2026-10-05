@@ -32,7 +32,7 @@ export function Header() {
         <nav aria-label="Main" className="ml-4 hidden items-center gap-1 lg:flex">
           <ProductMenu />
           {nav.map((l) => (
-            <a key={l.href} href={l.href} className="rounded-full px-3.5 py-2 text-[14.5px] font-medium text-fg-muted transition hover:bg-sunken hover:text-fg">
+            <a key={l.href} href={l.href} className="nav-link rounded-full px-3.5 py-2 text-[14.5px] font-medium text-fg-muted transition hover:text-primary">
               {l.label}
             </a>
           ))}

@@ -60,6 +60,8 @@ const config: Config = {
         yellow: { DEFAULT: themed("yellow"), ink: themed("yellow-ink"), tint: themed("yellow-tint") },
         red: { DEFAULT: themed("red"), tint: themed("red-tint") },
         indigo: themed("indigo"),
+        teal: { DEFAULT: themed("teal"), tint: themed("teal-tint") },
+        wash: { blue: themed("wash-blue"), green: themed("wash-green") },
       },
       boxShadow: {
         card: "0 1px 3px rgba(10,46,37,.06)",

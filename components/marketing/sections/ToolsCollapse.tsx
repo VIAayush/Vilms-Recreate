@@ -4,10 +4,14 @@ import { useRef } from "react";
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { tools } from "@/lib/content";
 import { BrandMark } from "../BrandMark";
-import { moduleDot } from "../tone";
+import { moduleDot, TONE, type Tone } from "../tone";
 import { useReducedMotion, useScrollVar } from "../motion";
 
 type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
+
+// Seven tools, seven colours — the mess is meant to look like a mess
+// before it resolves into one platform.
+const CHIP_TONES: Tone[] = ["green", "blue", "teal", "yellow", "red", "blue", "yellow"];
 
 
 // The problem, told in one move: seven scattered tools are pulled together
@@ -22,7 +26,7 @@ function ScrollTools() {
   useScrollVar(ref);
 
   return (
-    <section ref={ref} id="problem" aria-labelledby="tools-title" className="tools-scene relative h-[280vh] border-y border-edge bg-canvas-alt">
+    <section ref={ref} id="problem" aria-labelledby="tools-title" className="tools-scene glow-section relative h-[280vh] border-y border-edge bg-wash-blue" data-glow>
       <div className="sticky top-0 flex h-[100svh] flex-col overflow-hidden pb-8 pt-24 sm:pt-28">
         <div className="wrap grid">
           <div className="tools-before [grid-area:1/1]">
@@ -62,12 +66,14 @@ function ScrollTools() {
 
           {/* The seven tools */}
           <ul aria-label="Tools most institutes juggle today">
-            {tools.items.map((t) => (
+            {tools.items.map((t, i) => (
               <li
                 key={t.label}
-                className="tools-chip absolute left-1/2 top-1/2 w-max max-w-[150px] rounded-2xl border border-edge bg-panel px-3.5 py-2.5 shadow-soft sm:max-w-none sm:px-4 sm:py-3"
-                style={{ "--x": t.x, "--y": t.y, "--rot": `${t.rot}deg` } as Vars}
+                data-glow
+                className="tools-chip glow-card absolute left-1/2 top-1/2 w-max max-w-[160px] rounded-2xl border border-edge bg-panel py-2.5 pl-3 pr-3.5 shadow-soft sm:max-w-none sm:py-3 sm:pl-3.5 sm:pr-4"
+                style={{ "--x": t.x, "--y": t.y, "--rot": `${t.rot}deg`, "--glow": TONE[CHIP_TONES[i]].rgb } as Vars}
               >
+                <span aria-hidden className={`absolute bottom-3 left-0 top-3 w-[3px] rounded-r ${TONE[CHIP_TONES[i]].fill}`} />
                 <span className="relative block text-[14px] font-semibold sm:text-[16px]">
                   {t.label}
                   <span aria-hidden className="tools-strike absolute inset-x-0 top-1/2 h-[2px] origin-left rounded bg-red" />
@@ -94,7 +100,7 @@ function ScrollTools() {
 /** Reduced motion: the same story as a still composition. */
 function StaticTools() {
   return (
-    <section id="problem" aria-labelledby="tools-title" className="border-y border-edge bg-canvas-alt py-24 sm:py-32">
+    <section id="problem" aria-labelledby="tools-title" className="border-y border-edge bg-wash-blue py-24 sm:py-32">
       <div className="wrap">
         <p className="kicker">{tools.kicker}</p>
         <h2 id="tools-title" className="h2 mt-4 max-w-[17ch]">

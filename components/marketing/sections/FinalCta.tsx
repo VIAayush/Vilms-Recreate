@@ -9,7 +9,7 @@ type Vars = React.CSSProperties & Record<`--${string}`, string>;
 
 export function FinalCta() {
   return (
-    <section id="final-cta" aria-labelledby="final-title" className="band-dark relative overflow-hidden py-24 sm:py-32">
+    <section id="final-cta" aria-labelledby="final-title" data-glow className="band-dark glow-section relative overflow-hidden py-24 sm:py-32">
       <div className="wrap grid items-center gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         <div>
           <h2 id="final-title" className="display text-[clamp(38px,5.6vw,80px)]">
@@ -36,9 +36,10 @@ export function FinalCta() {
         </div>
 
         {/* Everything, one platform: the modules held in orbit around the mark. */}
-        <div aria-hidden className="relative mx-auto aspect-square w-full max-w-[420px] [container-type:size]">
+        <div aria-hidden data-parallax className="relative mx-auto aspect-square w-full max-w-[420px] [container-type:size]">
           <div className="absolute inset-[14%] rounded-full border border-edge" />
           <div className="absolute inset-[30%] rounded-full border border-dashed border-edge" />
+          <div className="parallax absolute inset-0 [--depth:10]">
           <div className="absolute inset-0 animate-[spin_60s_linear_infinite] motion-reduce:animate-none">
             {tools.modules.map((m, i) => (
               <span
@@ -53,8 +54,11 @@ export function FinalCta() {
               </span>
             ))}
           </div>
-          <div className="absolute left-1/2 top-1/2 grid h-[26%] w-[26%] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-[28%] border border-edge bg-panel">
-            <BrandMark className="h-[64%] w-[64%]" />
+          </div>
+          <div className="absolute left-1/2 top-1/2 h-[26%] w-[26%] -translate-x-1/2 -translate-y-1/2">
+            <div className="parallax grid h-full w-full place-items-center rounded-[28%] border border-edge bg-panel [--depth:-6]">
+              <BrandMark className="h-[64%] w-[64%]" />
+            </div>
           </div>
         </div>
       </div>

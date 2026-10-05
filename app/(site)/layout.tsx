@@ -1,5 +1,6 @@
 import type { Viewport } from "next";
 import { Caveat, Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { CursorFx } from "@/components/marketing/CursorFx";
 import { Footer } from "@/components/marketing/Footer";
 import { Header } from "@/components/marketing/Header";
 import { MobileCtaBar } from "@/components/marketing/MobileCtaBar";
@@ -40,6 +41,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
         <main id="main">{children}</main>
         <Footer />
         <MobileCtaBar />
+        <CursorFx />
         <ThirdPartyAnalytics ga4Id={analytics.ga4} pixelId={analytics.pixel} />
       </SiteProviders>
     </div>

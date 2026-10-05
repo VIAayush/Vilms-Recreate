@@ -11,6 +11,12 @@ import { InstituteMark } from "../screens/primitives";
 type SurfaceId = (typeof whiteLabel.surfaces)[number]["id"];
 const NEUTRAL = "#80868B"; // the unbranded preview, before it "changes hands"
 
+/** "#1A73E8" → "26 115 232", for the CSS colour effects. */
+const triplet = (hex: string) => {
+  const n = parseInt(hex.slice(1), 16);
+  return `${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255}`;
+};
+
 const slug = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "") || "yourinstitute";
 
 // Type a name, pick a colour, switch on your domain — and watch the website,
@@ -39,11 +45,18 @@ export function WhiteLabel() {
   const order = [surface, ...whiteLabel.surfaces.map((s) => s.id).filter((s) => s !== surface)] as SurfaceId[];
 
   return (
-    <section id="brand" aria-labelledby="brand-title" className="overflow-hidden py-24 sm:py-32">
+    // The whole section takes on the visitor's brand colour as they choose it.
+    <section
+      id="brand"
+      aria-labelledby="brand-title"
+      data-glow
+      style={{ "--glow": triplet(brand), backgroundColor: `rgb(${triplet(brand)} / 0.07)` } as React.CSSProperties}
+      className="glow-section overflow-hidden py-24 transition-colors duration-700 sm:py-32"
+    >
       <div className="wrap grid items-center gap-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16">
         {/* Preview: three surfaces fanned out; the chosen one in front. */}
         <div ref={ref} className="relative order-2 lg:order-1">
-          <div className="relative mx-auto grid w-full max-w-[640px] px-[4%] pt-[9%]">
+          <div className="relative mx-auto grid w-full max-w-[640px] px-[4%] pt-[9%]" data-tilt="3">
             {order.map((id, depth) => (
               <button
                 key={id}

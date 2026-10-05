@@ -7,11 +7,13 @@ import { Cta } from "@/components/site/Cta";
 import { pipeline } from "@/lib/content";
 import { useInView, useReducedMotion } from "../motion";
 import { Avatar, BrowserFrame, Illustrative, LiveDot } from "../screens/primitives";
+import { TONE, type Tone } from "../tone";
 
 const HIGHLIGHT_ICONS = [Workflow, FileText, Globe, MessageCircle, BarChart3, Download];
 // A thin bar on each column says where the money is: blue while it's
 // interest, yellow once someone is paying, green when the fee has landed.
-const COLUMN_BAR = ["bg-primary", "bg-primary", "bg-yellow", "bg-green"];
+const COLUMN_TONE: Tone[] = ["blue", "blue", "yellow", "green"];
+const HIGHLIGHT_TONE: Tone[] = ["blue", "yellow", "teal", "green", "red", "blue"];
 
 /* ---------- a tiny pipeline simulation (sample data) ---------- */
 
@@ -85,7 +87,7 @@ export function Pipeline() {
   }, [inView, reduced]);
 
   return (
-    <section id="crm" aria-labelledby="crm-title" className="border-y border-edge bg-canvas-alt py-24 sm:py-32">
+    <section id="crm" aria-labelledby="crm-title" data-glow style={{ "--glow": "var(--green)" } as React.CSSProperties} className="glow-section border-y border-edge bg-wash-green py-24 sm:py-32">
       <div className="wrap">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end">
           <div>
@@ -99,9 +101,15 @@ export function Pipeline() {
             {pipeline.highlights.map((h, i) => {
               const Icon = HIGHLIGHT_ICONS[i];
               return (
-                <div key={h.title} className="group border-t border-edge pt-3 transition-colors duration-300 hover:border-primary">
+                <div
+                  key={h.title}
+                  style={{ "--glow": TONE[HIGHLIGHT_TONE[i]].rgb } as React.CSSProperties}
+                  className="group border-t-2 border-edge pt-3 transition-colors duration-300 hover:border-[rgb(var(--glow))]"
+                >
                   <dt className="flex items-center gap-2 text-[14.5px] font-semibold">
-                    <Icon aria-hidden className="h-4 w-4 text-primary transition-transform duration-300 group-hover:-translate-y-0.5" />
+                    <span className={clsx("grid h-7 w-7 place-items-center rounded-lg transition-transform duration-300 ease-spring group-hover:-translate-y-0.5 group-hover:rotate-[-8deg] group-hover:scale-110", TONE[HIGHLIGHT_TONE[i]].tint, TONE[HIGHLIGHT_TONE[i]].text)}>
+                      <Icon aria-hidden className="h-4 w-4" />
+                    </span>
                     {h.title}
                   </dt>
                   <dd className="mt-1 text-[13px] leading-snug text-fg-muted">{h.text}</dd>
@@ -112,14 +120,19 @@ export function Pipeline() {
         </div>
 
         <div ref={ref} className="mt-14">
-          <BrowserFrame url="yourinstitute.vilms.in/admin/leads">
+          <BrowserFrame url="yourinstitute.vilms.in/admin/leads" tilt={1.5}>
             <div className="no-scrollbar overflow-x-auto">
               <div className="grid min-w-[680px] grid-cols-4 gap-3 p-4 sm:p-5">
                 {pipeline.columns.map((c, col) => {
                   const cards = board.leads.filter((l) => l.col === col);
                   return (
-                    <div key={c} className="relative min-h-[260px] overflow-hidden rounded-xl bg-canvas-alt p-2.5 pt-3.5">
-                      <span aria-hidden className={clsx("absolute inset-x-0 top-0 h-[3px]", COLUMN_BAR[col])} />
+                    <div
+                      key={c}
+                      data-glow
+                      style={{ "--glow": TONE[COLUMN_TONE[col]].rgb } as React.CSSProperties}
+                      className="glow-card relative min-h-[260px] overflow-hidden rounded-xl bg-canvas-alt p-2.5 pt-3.5"
+                    >
+                      <span aria-hidden className={clsx("absolute inset-x-0 top-0 h-[3px]", TONE[COLUMN_TONE[col]].fill)} />
                       <div className="mb-2.5 flex items-center justify-between px-1">
                         <p className="text-[12.5px] font-semibold">{c}</p>
                         <span className={clsx("rounded-full px-2 py-0.5 font-mono text-[11px] tabular-nums", col === 3 ? "bg-green-tint text-green" : "bg-sunken text-fg-muted")}>

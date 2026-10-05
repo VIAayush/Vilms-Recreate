@@ -21,6 +21,9 @@ export const nav = [
 
 export const hero = {
   titleTop: "Your students pay you.",
+  // the same line, split so the promise can carry the brand colour
+  titleTopLead: "Your students",
+  titleTopEmphasis: "pay you.",
   titleBottom: "Not your software.",
   sub: "VILMS is the all-in-one learning platform for coaching institutes — courses, live classes, answer evaluation, payments and leads, all under your own brand.",
   proof: ["0% revenue share", "No card required", "Plans from ₹499/month"],
