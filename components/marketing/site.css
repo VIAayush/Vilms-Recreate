@@ -2,144 +2,148 @@
    Colours are RGB triplets so Tailwind can apply opacity (bg-primary/10).
    The CRM never renders inside .site, so nothing here reaches it. */
 
-/* Palette — Google Developers' colour language with the VILMS logo's navy:
-     white + cool neutrals (#F8F9FA, #F1F3F4, #DADCE0, #5F6368),
-     blue #1A73E8 for every action, deep navy #003056 (logo) for immersive
-     sections, and green / yellow / red / purple only as small meaningful
-     accents (paid, waiting, live, AI). No warm neutrals anywhere. */
+/* Palette — built from the VILMS logo:
+     navy   #003056  outer V + wordmark (light logo) — primary buttons, type
+     blue   #1D63B4  inner V of the dark logo — links, active states
+     gold   #C9A24B  inner V of the light logo — highlights, never a tint
+     silver #BCBDC2  the dark logo's metal — quiet shapes and lines
+   on white and cool light neutrals. No warm backgrounds anywhere.
+   Product mock-ups keep small status colours (green paid, red live). */
 
-.site {
+.site,
+.band-light {
   --background: 255 255 255;
-  --background-alt: 248 249 250; /* #F8F9FA */
-  --sunken: 241 243 244; /* #F1F3F4 */
+  --background-alt: 245 247 250; /* #F5F7FA */
+  --sunken: 237 241 246; /* #EDF1F6 */
   --surface: 255 255 255;
   --surface-elevated: 255 255 255;
-  --foreground: 32 33 36; /* #202124 */
-  --muted: 95 99 104; /* #5F6368 */
-  --faint: 128 134 139; /* #80868B */
-  --border: 218 220 224; /* #DADCE0 */
-  --border-strong: 189 193 198;
+  --foreground: 14 27 44; /* #0E1B2C */
+  --muted: 88 100 117; /* #586475 */
+  --faint: 130 141 156;
+  --border: 222 228 236; /* #DEE4EC */
+  --border-strong: 196 205 217;
 
-  --primary: 26 115 232; /* #1A73E8 */
-  --primary-hover: 25 103 210; /* #1967D2 */
-  --primary-tint: 232 240 254; /* #E8F0FE */
+  --primary: 29 99 180; /* #1D63B4 — logo blue */
+  --primary-hover: 20 78 146;
+  --primary-tint: 232 240 250;
   --primary-ink: 255 255 255;
-  --navy: 0 48 86; /* #003056 — logo */
+  --navy: 0 48 86; /* #003056 — logo navy */
   --navy-tint: 230 236 244;
-  --gold: 201 162 75; /* logo gold — logo only */
+  --gold: 201 162 75; /* #C9A24B — logo gold */
   --gold-text: 0 48 86;
-  --steel: 95 99 104;
-  --steel-tint: 241 243 244;
+  --silver: 188 189 194;
+  --sky: 160 199 238; /* a light step of the logo blue, for shapes */
+  --steel: 88 100 117;
+  --steel-tint: 237 241 246;
 
-  --green: 24 128 56; /* #188038 */
+  --green: 24 128 56;
   --green-tint: 230 244 234;
-  --yellow: 249 171 0; /* #F9AB00 */
-  --yellow-text: 176 96 0;
-  --red: 217 48 37; /* #D93025 */
-  --red-tint: 252 232 230;
-  --purple: 147 52 230; /* #9334E6 — AI */
-  --purple-tint: 243 232 253;
-  --indigo: 147 52 230;
+  --yellow: 201 162 75; /* "waiting" states use the logo gold */
+  --yellow-text: 122 92 24;
+  --red: 207 52 44;
+  --red-tint: 251 233 231;
+  --purple: 29 99 180; /* AI touches use the logo blue */
+  --purple-tint: 232 240 250;
+  --indigo: 29 99 180;
 
-  --wash-blue: 240 245 254;
+  --wash-blue: 240 245 252;
   --wash-green: 238 248 241;
 
-  --shadow-window: 0 1px 2px rgb(60 64 67 / 0.1), 0 16px 40px -18px rgb(60 64 67 / 0.35);
-  --shadow-soft: 0 1px 2px rgb(60 64 67 / 0.12), 0 2px 6px rgb(60 64 67 / 0.08);
+  --shadow-window: 0 1px 2px rgb(14 27 44 / 0.06), 0 18px 44px -20px rgb(14 27 44 / 0.28);
+  --shadow-soft: 0 1px 2px rgb(14 27 44 / 0.08), 0 2px 8px rgb(14 27 44 / 0.06);
 
   --font-display: var(--font-sans);
   background: rgb(var(--background));
   color: rgb(var(--foreground));
 }
 
+/* Dark: the dark logo's graphite, silver type, its lighter blue, real gold. */
 html[data-theme="dark"] .site,
 .band-dark {
-  --background: 32 33 36; /* #202124 */
-  --background-alt: 23 23 23; /* #171717 */
-  --sunken: 48 49 52;
-  --surface: 41 42 45; /* #292A2D */
-  --surface-elevated: 48 49 52; /* #303134 */
-  --foreground: 255 255 255;
-  --muted: 189 193 198; /* #BDC1C6 */
-  --faint: 154 160 166;
-  --border: 60 64 67;
-  --border-strong: 95 99 104;
+  --background: 23 27 33; /* #171B21 */
+  --background-alt: 18 21 26;
+  --sunken: 40 46 55;
+  --surface: 31 36 44;
+  --surface-elevated: 40 46 55;
+  --foreground: 240 243 247;
+  --muted: 170 178 190;
+  --faint: 128 137 150;
+  --border: 52 60 72;
+  --border-strong: 82 92 106;
 
-  --primary: 138 180 248; /* #8AB4F8 */
-  --primary-hover: 168 199 250;
-  --primary-tint: 37 52 77;
-  --primary-ink: 32 33 36;
-  --navy: 168 199 250;
-  --navy-tint: 31 42 60;
-  --gold: 214 178 96;
-  --gold-text: 222 190 112;
-  --steel: 189 193 198;
-  --steel-tint: 48 49 52;
+  --primary: 110 168 226;
+  --primary-hover: 146 192 238;
+  --primary-tint: 30 46 68;
+  --primary-ink: 12 18 26;
+  --navy: 150 184 226;
+  --navy-tint: 30 42 60;
+  --gold: 216 182 104;
+  --gold-text: 222 192 120;
+  --silver: 120 128 140;
+  --sky: 60 98 140;
+  --steel: 170 178 190;
+  --steel-tint: 40 46 55;
 
-  --green: 129 201 149;
-  --green-tint: 30 52 38;
-  --yellow: 253 214 99;
-  --yellow-text: 253 214 99;
-  --red: 242 139 130;
-  --red-tint: 66 36 33;
-  --purple: 215 174 251;
-  --purple-tint: 52 36 70;
-  --indigo: 215 174 251;
+  --green: 120 200 150;
+  --green-tint: 28 50 40;
+  --yellow: 216 182 104;
+  --yellow-text: 222 192 120;
+  --red: 240 135 125;
+  --red-tint: 64 36 34;
+  --purple: 110 168 226;
+  --purple-tint: 30 46 68;
+  --indigo: 110 168 226;
 
-  --wash-blue: 28 34 46;
-  --wash-green: 25 36 30;
+  --wash-blue: 26 34 46;
+  --wash-green: 24 36 31;
 
   --shadow-window: 0 1px 2px rgb(0 0 0 / 0.45), 0 18px 40px -16px rgb(0 0 0 / 0.75);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.3);
 }
 .band-dark {
-  background: rgb(23 23 23);
+  background: rgb(23 27 33);
   color: rgb(var(--foreground));
 }
 
-/* Deep navy (the logo's) — the immersive sections. Tokens take their
-   dark values inside, with a navy surface. */
+/* The hero stage: the logo's deep navy, in both themes. */
 .band-navy {
-  --background: 0 48 86;
-  --background-alt: 0 38 70;
-  --sunken: 14 64 106;
-  --surface: 10 58 99;
-  --surface-elevated: 18 70 116;
+  --background: 3 24 46;
+  --background-alt: 2 18 36;
+  --sunken: 16 44 74;
+  --surface: 10 36 64;
+  --surface-elevated: 18 48 82;
   --foreground: 255 255 255;
-  --muted: 191 208 228;
-  --faint: 140 165 195;
-  --border: 34 84 128;
-  --border-strong: 60 108 150;
-  --primary: 138 180 248;
-  --primary-hover: 168 199 250;
-  --primary-tint: 22 74 124;
-  --primary-ink: 0 33 60;
-  --green: 129 201 149;
-  --green-tint: 20 74 74;
-  --yellow: 253 214 99;
-  --yellow-text: 253 214 99;
-  --red: 242 139 130;
-  --red-tint: 80 50 70;
-  --purple: 215 174 251;
-  --purple-tint: 50 52 112;
-  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.35), 0 24px 50px -20px rgb(0 0 0 / 0.6);
+  --muted: 186 204 226;
+  --faint: 136 160 190;
+  --border: 32 66 102;
+  --border-strong: 56 92 130;
+  --primary: 120 174 232;
+  --primary-hover: 156 198 240;
+  --primary-tint: 20 60 104;
+  --primary-ink: 3 24 46;
+  --navy: 160 196 236;
+  --navy-tint: 18 48 82;
+  --gold: 214 180 100;
+  --green: 120 200 150;
+  --green-tint: 20 70 64;
+  --yellow: 214 180 100;
+  --yellow-text: 222 192 120;
+  --red: 240 135 125;
+  --red-tint: 80 46 60;
+  --purple: 120 174 232;
+  --purple-tint: 20 60 104;
+  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.35), 0 28px 60px -24px rgb(0 0 0 / 0.7);
   --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 4px 10px rgb(0 0 0 / 0.2);
-  background: rgb(0 48 86);
+  background: rgb(3 24 46);
   color: #fff;
-}
-html[data-theme="dark"] .band-navy {
-  background: rgb(9 30 54);
-  --background: 9 30 54;
-  --surface: 20 44 72;
-  --surface-elevated: 28 54 86;
 }
 
 html:has(.site) {
   background: #fff;
-  scroll-padding-top: 84px;
+  scroll-padding-top: 76px;
 }
 html[data-theme="dark"]:has(.site) {
-  background: rgb(32 33 36);
+  background: rgb(23 27 33);
   color-scheme: dark;
 }
 
@@ -656,4 +660,46 @@ html[data-theme="dark"] .answer-sheet {
   .v2-lite .site .animate-flow {
     animation: none;
   }
+}
+
+/* ---------- Labs-style pieces ---------- */
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* the coin that travels from student to institute */
+.coin {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 9999px;
+  background: rgb(var(--gold));
+  box-shadow: 0 0 0 4px rgb(201 162 75 / 0.25);
+  animation: coin-y 1.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@keyframes coin-y {
+  0% { top: 0; opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes coin-x {
+  0% { left: 0; opacity: 0; }
+  15%, 85% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+@media (min-width: 1024px) {
+  .coin { top: 50%; left: 0; animation-name: coin-x; }
+}
+
+/* mock-ups forced light inside dark stages keep their paper light too */
+html[data-theme="dark"] .band-light .answer-sheet {
+  background-color: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin { animation: none; display: none; }
 }

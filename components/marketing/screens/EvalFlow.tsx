@@ -1,15 +1,16 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, Loader2, PenLine, Sparkles, Upload } from "lucide-react";
-import { Cta } from "@/components/site/Cta";
-import { evaluation } from "@/lib/content";
 import { useAutoplay, useInView, useReducedMotion } from "../motion";
-import { Avatar } from "../screens/primitives";
+import { Avatar } from "./primitives";
 
-const STEP_MS = 3000;
+// AI-assisted evaluation as a playing visual: handwritten answer -> AI
+// analysis -> draft evaluation -> mentor review -> approved, evaluated copy.
+const STEP_MS = 2600;
+const STEPS = ["Handwritten answer", "AI analysis", "Draft", "Mentor review", "Approved", "Evaluated copy"];
 const RUBRIC = [
   { label: "Content", max: 8, draft: 6, final: 7 },
   { label: "Structure", max: 4, draft: 3, final: 3 },
@@ -17,64 +18,34 @@ const RUBRIC = [
   { label: "Language", max: 4, draft: 3, final: 3 },
 ];
 
-export function Evaluate() {
-  const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { margin: "-25% 0px" });
+export function EvalFlow({ showSteps = true }: { showSteps?: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { margin: "-10% 0px" });
   const reduced = useReducedMotion();
-  const [hold, setHold] = useState(false);
-  const [step, select] = useAutoplay(evaluation.steps.length, { interval: STEP_MS, running: inView && !hold && !reduced });
-  const s = reduced ? evaluation.steps.length - 1 : step;
-
+  const [step, select] = useAutoplay(STEPS.length, { interval: STEP_MS, running: inView && !reduced });
+  const s = reduced ? STEPS.length - 1 : step;
   return (
-    <section ref={ref} id="ai" aria-labelledby="ai-title" className="relative overflow-hidden bg-purple-tint/40 py-24 sm:py-32">
-      <div className="wrap grid items-center gap-12 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
-        <div>
-          <p className="kicker">{evaluation.kicker}</p>
-          <h2 id="ai-title" className="h2 mt-4 max-w-[13ch] text-balance">
-            {evaluation.title}
-          </h2>
-
-          <ol className="mt-10 space-y-1" onPointerEnter={() => setHold(true)} onPointerLeave={() => setHold(false)}>
-            {evaluation.steps.map((st, i) => {
-              const on = i === s;
-              return (
-                <li key={st.id}>
-                  <button type="button" onClick={() => select(i)} aria-current={on ? "step" : undefined} className="group relative flex w-full items-center gap-3 rounded-2xl px-3 py-3 text-left">
-                    {on ? <motion.span layoutId="eval-step" className="absolute inset-0 -z-10 rounded-2xl bg-panel shadow-soft" transition={{ type: "spring", stiffness: 380, damping: 34 }} /> : null}
-                    <span
-                      className={clsx(
-                        "grid h-7 w-7 shrink-0 place-items-center rounded-full font-mono text-[11px] transition-colors duration-300",
-                        i < s ? "bg-green text-white" : on ? "bg-purple text-white" : "bg-sunken text-fg-muted",
-                      )}
-                    >
-                      {i < s ? <Check aria-hidden className="h-3.5 w-3.5" /> : i + 1}
-                    </span>
-                    <span className={clsx("text-[16px] font-semibold transition-colors", on ? "text-fg" : "text-fg-muted group-hover:text-fg")}>{st.label}</span>
-                    {on && !reduced ? (
-                      <span key={`p-${s}`} aria-hidden className="ml-auto h-1 w-14 overflow-hidden rounded-full bg-sunken">
-                        <span className="block h-full w-full rounded-full bg-purple" style={{ animation: `hero-fill ${STEP_MS}ms linear both` }} />
-                      </span>
-                    ) : null}
-                  </button>
-                </li>
-              );
-            })}
-          </ol>
-          <ul className="mt-8 flex flex-wrap gap-2">
-            {evaluation.facts.map((f) => (
-              <li key={f} className="tag">
-                {f}
-              </li>
-            ))}
-          </ul>
-          <Cta intent="demo" location="ai_evaluation" className="cta cta-outline mt-8" arrow>
-            See evaluation in a demo
-          </Cta>
-        </div>
-
-        <EvalStage step={s} />
-      </div>
-    </section>
+    <div ref={ref}>
+      {showSteps ? (
+        <ol className="mb-4 flex flex-wrap gap-1.5">
+          {STEPS.map((label, i) => (
+            <li key={label}>
+              <button
+                type="button"
+                onClick={() => select(i)}
+                className={clsx(
+                  "rounded-full px-3 py-1 text-[12px] font-medium transition-colors",
+                  i === s ? "bg-navy text-white" : i < s ? "bg-primary-tint text-primary" : "bg-sunken text-fg-muted",
+                )}
+              >
+                {i + 1}. {label}
+              </button>
+            </li>
+          ))}
+        </ol>
+      ) : null}
+      <EvalStage step={s} />
+    </div>
   );
 }
 

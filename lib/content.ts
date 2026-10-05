@@ -1,10 +1,10 @@
 // Every word of marketing copy on the public site lives here. Product facts
 // come from the VILMS brochure and vilms.in; prices are the published plan
-// list. Names, amounts and counts that appear *inside* interface
-// illustrations are sample data, and the page labels them as illustrative.
+// list. Names, amounts and counts inside interface illustrations are sample
+// data, labelled as illustrative on the page.
 //
-// House rule for this file: short copy. A title, one sentence, and let the
-// product visual do the explaining.
+// House rule: short copy. A title, one line, and let the product visual
+// do the explaining.
 
 export const brand = {
   name: "VILMS",
@@ -14,133 +14,109 @@ export const brand = {
 };
 
 export const nav = [
-  { href: "/#explore", label: "Explore" },
-  { href: "/#platform", label: "Platform" },
+  { href: "/#product", label: "Product" },
+  { href: "/#solutions", label: "Solutions" },
   { href: "/#pricing", label: "Pricing" },
   { href: "/#about", label: "About" },
 ] as const;
 
-/* ---------------- Hero ---------------- */
+/* ---------------- Hero carousel (featured products) ---------------- */
 
-export const hero = {
-  eyebrow: "Built for coaching institutes",
-  lines: ["Your entire institute.", "One platform."],
-  sub: "Courses, live classes, evaluation, payments and leads — under your brand, with 0% revenue share.",
-  notes: ["14-day free trial", "No card required", "0% revenue share"],
-  // the brand line, used on /demo and in the revenue section
-  titleTop: "Your students pay you.",
-  titleBottom: "Not your software.",
-  proof: ["0% revenue share", "No card required", "Plans from ₹499/month"],
+export type FeatureId = "dashboard" | "evaluation" | "crm" | "classes";
+
+export const featured: { id: FeatureId; title: string; line: string; cta: "trial" | "demo" }[] = [
+  { id: "dashboard", title: "Your whole institute", line: "Courses, students, fees and leads on one dashboard.", cta: "trial" },
+  { id: "evaluation", title: "AI-Assisted Evaluation", line: "AI drafts against your rubric. Your mentor approves.", cta: "demo" },
+  { id: "crm", title: "Lead CRM", line: "Turn ad clicks into paid enrolments.", cta: "demo" },
+  { id: "classes", title: "Courses & Live Classes", line: "Recorded, live or hybrid — inside your own platform.", cta: "trial" },
+];
+
+/* ---------------- Discover (featured cards) ---------------- */
+
+export type AreaId = "teach" | "assess" | "grow" | "payments" | "brand" | "manage";
+
+export const discover = {
+  title: ["Discover what's ", "possible", " with VILMS"],
+  cards: [
+    { id: "teach", title: "Teach", line: "Recorded, live and hybrid courses with secure video, materials and webinars." },
+    { id: "assess", title: "Assess", line: "Tests, handwritten answers and rubrics — AI drafts, a mentor decides." },
+    { id: "grow", title: "Grow", line: "Every enquiry, checkout and webinar RSVP in one pipeline." },
+    { id: "payments", title: "Get Paid", line: "Fees go straight to your own Razorpay. 0% revenue share." },
+    { id: "brand", title: "Brand", line: "Your logo, colours, domain and app. Students never see VILMS." },
+    { id: "manage", title: "Manage", line: "Owners, teachers and counsellors — each sees only what they should." },
+  ] satisfies { id: AreaId; title: string; line: string }[],
 };
 
-/* ---------------- Explore (discovery) ---------------- */
+/* ---------------- Product grid (with category filter) ---------------- */
 
-export type ExplorerTabId = "teach" | "assess" | "grow" | "payments" | "brand" | "team";
+export const categories: { id: "all" | AreaId; label: string }[] = [
+  { id: "all", label: "All" },
+  { id: "teach", label: "Teach" },
+  { id: "assess", label: "Assess" },
+  { id: "grow", label: "Grow" },
+  { id: "payments", label: "Payments" },
+  { id: "brand", label: "Brand" },
+  { id: "manage", label: "Manage" },
+];
 
-export const explore = {
-  kicker: "Explore",
-  title: "Everything your institute runs on.",
-  sub: "Pick a part of your institute. Watch it come alive.",
-  areas: [
-    { id: "teach", label: "Teach", title: "Teach the way you actually teach.", line: "Recorded, live or hybrid courses — with live classes and secure video inside.", cta: "See courses in a demo" },
-    { id: "assess", label: "Assess", title: "Grade real answers, not just MCQs.", line: "Tests, handwritten answers and rubrics — AI drafts, a mentor decides.", cta: "See evaluation in a demo" },
-    { id: "grow", label: "Grow", title: "Turn ad clicks into enrolments.", line: "Every enquiry in one pipeline, with WhatsApp follow-up.", cta: "See the CRM in a demo" },
-    { id: "payments", label: "Payments", title: "Fees land in your own account.", line: "Your Razorpay, UPI fallback, GST-aware invoices. 0% revenue share.", cta: "See payments in a demo" },
-    { id: "brand", label: "Brand", title: "Your brand in front.", line: "Your logo, colours, domain, certificates and app.", cta: "See white-label in a demo" },
-    { id: "team", label: "Team", title: "Everyone sees what they should.", line: "Owners, teachers and counsellors — across branches and batches.", cta: "See team roles in a demo" },
-  ] satisfies { id: ExplorerTabId; label: string; title: string; line: string; cta: string }[],
-};
+export type ProductId =
+  | "courses"
+  | "live"
+  | "webinars"
+  | "materials"
+  | "tests"
+  | "evaluation"
+  | "crm"
+  | "landing"
+  | "payments"
+  | "invoices"
+  | "whitelabel"
+  | "certificates"
+  | "team";
 
-/* ---------------- Lifecycle ---------------- */
+export const products: { id: ProductId; area: AreaId; title: string; line: string }[] = [
+  { id: "courses", area: "teach", title: "Courses", line: "Recorded, live and hybrid. Drag, drip, preview." },
+  { id: "live", area: "teach", title: "Live Classes", line: "Zoom or Meet, tied to the course, with RSVPs and reminders." },
+  { id: "evaluation", area: "assess", title: "AI Evaluation", line: "AI drafts against your rubric. A mentor approves." },
+  { id: "crm", area: "grow", title: "Lead CRM", line: "Turn ad clicks into paid enrolments." },
+  { id: "payments", area: "payments", title: "Payments", line: "Student payments go directly to your institute." },
+  { id: "whitelabel", area: "brand", title: "White Label", line: "Your platform. Your brand. Your domain." },
+  { id: "tests", area: "assess", title: "Tests & Mock Tests", line: "Auto-graded MCQs and long-form answers." },
+  { id: "webinars", area: "teach", title: "Webinars", line: "Sign-up with no login, and a one-click upsell." },
+  { id: "landing", area: "grow", title: "Landing Pages", line: "Course pages built for paid traffic, plus WhatsApp follow-up." },
+  { id: "invoices", area: "payments", title: "GST Invoices", line: "GST-aware invoices and receipts in your name." },
+  { id: "certificates", area: "brand", title: "Certificates", line: "Issued under your institute's name." },
+  { id: "materials", area: "teach", title: "Study Materials", line: "Public, lead-magnet gated or enrolled-only." },
+  { id: "team", area: "manage", title: "Team & Roles", line: "Owners, teachers and sales — across branches." },
+];
 
-export const lifecycle = {
-  kicker: "One student, one database",
-  title: "Watch a lead become a graduate.",
-  stages: [
-    { id: "lead", title: "Lead captured", line: "From an ad, a webinar or a free PDF." },
-    { id: "enrol", title: "Student enrolled", line: "Pays through your Razorpay." },
-    { id: "course", title: "Course consumed", line: "Recorded, live or hybrid." },
-    { id: "eval", title: "Answer graded", line: "AI drafts. A mentor approves." },
-    { id: "cert", title: "Certificate issued", line: "In your institute's name." },
-    { id: "renew", title: "Cohort renewed", line: "The next batch, one click away." },
+/* ---------------- About ---------------- */
+
+export const about = {
+  label: "About VILMS",
+  // the statement colours in, phrase by phrase, as it scrolls into view
+  statement: [
+    "One platform for the entire student lifecycle.",
+    "VILMS brings courses, live classes, assessments, payments and lead management together",
+    "under your institute's own brand —",
+    "and never takes a share of your fees.",
   ],
 };
 
-/* ---------------- Showcase ---------------- */
+/* ---------------- Ecosystem ("life beyond") ---------------- */
 
-export const showcase = {
-  kicker: "See it in action",
-  title: "The product, not the brochure.",
-  slides: [
-    { id: "dashboard", label: "Dashboard", line: "Your whole institute at a glance." },
-    { id: "courses", label: "Courses", line: "Build recorded, live or hybrid courses." },
-    { id: "live", label: "Live classes", line: "Zoom or Meet, tied to the course." },
-    { id: "evaluation", label: "Evaluation", line: "Rubrics, AI drafts, mentor approval." },
-    { id: "crm", label: "CRM", line: "Every enquiry, one pipeline." },
-    { id: "payments", label: "Payments", line: "Your Razorpay. Your GST invoices." },
+export const ecosystem = {
+  title: "From enquiry to graduation",
+  line: "A lead becomes a student becomes a graduate — on one database, with nothing re-typed by hand. Every step lives in VILMS.",
+  cards: [
+    { id: "lead", title: "Lead", tag: "Grow" },
+    { id: "student", title: "Student", tag: "Admissions" },
+    { id: "learn", title: "Course & Live Class", tag: "Teach" },
+    { id: "eval", title: "Evaluation", tag: "Assess" },
+    { id: "pay", title: "0% Revenue Share", tag: "Get Paid" },
+    { id: "cert", title: "Certificate", tag: "Brand" },
+    { id: "renew", title: "Renewal", tag: "Grow" },
   ],
-};
-
-/* ---------------- AI evaluation ---------------- */
-
-export const evaluation = {
-  kicker: "AI-assisted evaluation",
-  title: "AI assists. Your mentor decides.",
-  steps: [
-    { id: "upload", label: "Handwritten answer" },
-    { id: "analyse", label: "AI analysis" },
-    { id: "draft", label: "Draft evaluation" },
-    { id: "approve", label: "Mentor approval" },
-    { id: "final", label: "Final score" },
-  ],
-  facts: ["Your own AI key, at cost", "Nothing sent without approval", "Never used for training"],
-};
-
-/* ---------------- Leads + CRM ---------------- */
-
-export const crm = {
-  kicker: "Leads & CRM",
-  title: "A marketing-to-admissions machine.",
-  sub: "From the first ad click to a paid enrolment — every step in one place.",
-  funnel: ["Ad", "Landing page", "Lead", "CRM", "Call / WhatsApp", "Demo", "Trial", "Student"],
-  columns: ["New", "Contacted", "Demo scheduled", "Demo completed", "Follow-up", "Interested", "Trial started", "Converted"],
-};
-
-/* ---------------- 0% revenue share ---------------- */
-
-export const revenue = {
-  kicker: "0% revenue share",
-  collected: 100000,
-  // An illustrative commission rate for a commission-based platform; the
-  // VILMS brochure's comparison uses a 10% entry tier.
-  exampleRate: 0.1,
-};
-
-/* ---------------- White label ---------------- */
-
-export const whiteLabel = {
-  kicker: "White-label",
-  title: "Students see your brand. Never ours.",
-  institute: "ABC Coaching Institute",
-  domain: "learn.abccoaching.in",
-  swatches: ["#1A73E8", "#003056", "#188038", "#D93025", "#9334E6", "#202124"],
-};
-
-/* ---------------- Audience ---------------- */
-
-export type AudienceId = "coaching" | "testprep" | "skills" | "training" | "schools" | "online";
-
-export const audience = {
-  kicker: "Who it's for",
-  title: "Built for institutes that teach — and sell — courses.",
-  items: [
-    { id: "coaching", label: "Coaching institutes", line: "Live batches, graded tests, admissions from ads and webinars." },
-    { id: "testprep", label: "Test prep", line: "Mock tests and answer writing, built around exam cycles." },
-    { id: "skills", label: "Skill academies", line: "Hybrid programmes with branded certificates." },
-    { id: "training", label: "Training institutes", line: "Programmes across branches, with team roles." },
-    { id: "schools", label: "Schools & colleges", line: "Paid add-on programmes, fees to your own account." },
-    { id: "online", label: "Online academies", line: "Start at ₹499/month and grow on one platform." },
-  ] satisfies { id: AudienceId; label: string; line: string }[],
 };
 
 /* ---------------- Pricing ---------------- */
@@ -151,22 +127,18 @@ export type Plan = {
   price: string;
   limit: number;
   students: string;
-  perStudent: string;
   bestFor: string;
 };
 
 export const pricing = {
-  kicker: "Pricing",
   title: "Simple plans. 0% of your fees.",
   plans: [
-    { id: "base", name: "Base", price: "₹499", limit: 50, students: "up to 50 students", perStudent: "₹9.98", bestFor: "Starting out" },
-    { id: "growth", name: "Growth", price: "₹1,199", limit: 200, students: "up to 200 students", perStudent: "₹6.00", bestFor: "Growing institutes" },
-    { id: "scale", name: "Scale", price: "₹2,499", limit: 500, students: "up to 500 students", perStudent: "₹5.00", bestFor: "Established institutes" },
-    { id: "institute", name: "Institute", price: "₹4,999", limit: 1500, students: "up to 1,500 students", perStudent: "₹3.33", bestFor: "Large operations" },
+    { id: "base", name: "Base", price: "₹499", limit: 50, students: "Up to 50 students", bestFor: "Starting out" },
+    { id: "growth", name: "Growth", price: "₹1,199", limit: 200, students: "Up to 200 students", bestFor: "Growing institutes" },
+    { id: "scale", name: "Scale", price: "₹2,499", limit: 500, students: "Up to 500 students", bestFor: "Established institutes" },
+    { id: "institute", name: "Institute", price: "₹4,999", limit: 1500, students: "Up to 1,500 students", bestFor: "Large operations" },
   ] satisfies Plan[],
-  // "Compare plans" — rows are features, values per plan in the order above.
   compare: [
-    { label: "Students", values: ["50", "200", "500", "1,500"] },
     { label: "Full platform + your own website", values: [true, true, true, true] },
     { label: "0% commission on your fees", values: [true, true, true, true] },
     { label: "Unlimited recorded & live courses", values: [true, true, true, true] },
@@ -176,28 +148,30 @@ export const pricing = {
     { label: "Multiple branches", values: [false, true, true, true] },
     { label: "Your branded Android app", values: [false, true, true, true] },
     { label: "Your branded iOS app", values: [false, false, true, true] },
-    { label: "Bigger library", values: [false, false, true, true] },
-    { label: "Priority support", values: [false, false, true, true] },
+    { label: "Bigger library · Priority support", values: [false, false, true, true] },
     { label: "Unlimited staff · 2 TB library", values: [false, false, false, true] },
     { label: "Dedicated manager", values: [false, false, false, true] },
     { label: "Onboarding", values: ["Guided setup call", "Done-for-you migration", "Done-for-you migration", "Migration + faculty training"] },
   ] as { label: string; values: (string | boolean)[] }[],
-  trialNote: ["14-day free trial", "No card required", "0% revenue share"],
-  footnote: "Prices per month, excluding 18% GST. After the trial, add a payment method or stay on Base at ₹499/month.",
+  notes: ["14-day free trial", "No credit card required", "0% revenue share", "Prices exclude 18% GST"],
   custom: { title: "Teaching 1,500+ students?", text: "Write to us for a custom quote." },
 };
 
 /* ---------------- Closing ---------------- */
 
+export const connect = {
+  title: "Bring your institute onto one platform",
+};
+
+// used by /demo
+export const hero = {
+  titleTop: "Your students pay you.",
+  titleBottom: "Not your software.",
+  proof: ["0% revenue share", "No card required", "Plans from ₹499/month"],
+};
 export const finalCta = {
-  title: "Ready to run your institute on one platform?",
   demo: {
     kicker: "30-minute walkthrough",
     text: "We'll walk through your current setup and show exactly what moves over — courses, students and all.",
   },
-};
-
-export const about = {
-  title: "About VILMS",
-  line: "VILMS is the learning platform built for Indian coaching institutes — so you can teach, assess, sell and get paid under your own brand, without giving away a share of your fees.",
 };

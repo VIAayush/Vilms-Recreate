@@ -121,8 +121,9 @@
   .cta:hover svg:last-child:not(:first-child) {
     transform: translateX(3px);
   }
+  /* Primary actions wear the logo's navy and warm to its blue on hover. */
   .cta-primary {
-    @apply bg-primary text-primary-ink hover:bg-primary-hover;
+    @apply bg-navy text-white hover:bg-primary dark:text-[rgb(12_18_26)];
   }
   .cta-primary:hover {
     box-shadow: 0 1px 2px rgb(0 48 86 / 0.3), 0 1px 3px 1px rgb(0 48 86 / 0.15);

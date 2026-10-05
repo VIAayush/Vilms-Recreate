@@ -19,7 +19,7 @@ import {
   Upload,
   Video,
 } from "lucide-react";
-import type { ExplorerTabId } from "@/lib/content";
+import type { AreaId } from "@/lib/content";
 import { Avatar, InstituteMark, Meter, Pill } from "./primitives";
 
 // The product explorer's screens. Each region a feature refers to carries
@@ -406,13 +406,13 @@ function TeamScreen({ active }: ScreenProps) {
   );
 }
 
-export const EXPLORER_SCREENS: Record<ExplorerTabId, { url: string; Screen: (p: ScreenProps) => React.ReactNode }> = {
+export const EXPLORER_SCREENS: Record<AreaId, { url: string; Screen: (p: ScreenProps) => React.ReactNode }> = {
   teach: { url: "yourinstitute.vilms.in/admin/courses", Screen: TeachScreen },
   assess: { url: "yourinstitute.vilms.in/admin/evaluations", Screen: AssessScreen },
   grow: { url: "yourinstitute.vilms.in/admin/leads", Screen: GrowScreen },
   payments: { url: "yourinstitute.vilms.in/admin/payments", Screen: PaymentsScreen },
   brand: { url: "yourinstitute.vilms.in/admin/settings/branding", Screen: BrandScreen },
-  team: { url: "yourinstitute.vilms.in/admin/team", Screen: TeamScreen },
+  manage: { url: "yourinstitute.vilms.in/admin/team", Screen: TeamScreen },
 };
 
 export { TeachScreen, AssessScreen, GrowScreen, PaymentsScreen, BrandScreen, TeamScreen };

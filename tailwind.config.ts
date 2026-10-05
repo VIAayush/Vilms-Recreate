@@ -65,6 +65,8 @@ const config: Config = {
         steel: { DEFAULT: themed("steel"), tint: themed("steel-tint") },
         yellow: { DEFAULT: themed("yellow"), text: themed("yellow-text") },
         purple: { DEFAULT: themed("purple"), tint: themed("purple-tint") },
+        silver: themed("silver"),
+        sky: themed("sky"),
         wash: { blue: themed("wash-blue"), green: themed("wash-green") },
       },
       boxShadow: {

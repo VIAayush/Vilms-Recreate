@@ -1,4 +1,4 @@
-import type { ExplorerTabId } from "@/lib/content";
+import type { AreaId } from "@/lib/content";
 
 // One colour language for the whole site.
 //   blue   — every action; anything active or selected
@@ -31,13 +31,13 @@ export const TONE: Record<Tone, ToneClasses> = {
   purple: { text: "text-purple", fill: "bg-purple", tint: "bg-purple-tint text-purple", wash: "bg-purple-tint/50", rgb: "var(--purple)" },
 };
 
-export const AREA_TONE: Record<ExplorerTabId, Tone> = {
+export const AREA_TONE: Record<AreaId, Tone> = {
   teach: "blue",
   assess: "purple",
   grow: "green",
   payments: "yellow",
   brand: "red",
-  team: "navy",
+  manage: "navy",
 };
 
 export const glow = (tone: Tone) => ({ "--glow": TONE[tone].rgb }) as React.CSSProperties;
