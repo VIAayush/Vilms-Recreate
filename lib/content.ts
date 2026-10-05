@@ -233,7 +233,7 @@ export const audience = {
     { id: "skills", label: "Skill academies", text: "Hybrid programmes with branded certificates for every student who completes.", tags: ["Hybrid courses", "Certificates", "Webinars"], visual: "cert" },
     { id: "training", label: "Training institutes", text: "Sell recorded and live programmes under your own brand, across branches and batches, with each team member in the right role.", tags: ["White-label", "Razorpay checkout", "Team roles"], visual: "team" },
     { id: "schools", label: "Schools & colleges", text: "Run paid add-on programmes — entrance prep or certificate courses — online, with fees paid to your own account.", tags: ["Courses", "Tests", "GST invoices"], visual: "invoice" },
-    { id: "online", label: "Online academies", text: "Start on Base at ₹499/month and grow to 15,000 students on the same platform.", tags: ["Free materials", "Webinars", "Flat pricing"], visual: "materials" },
+    { id: "online", label: "Online academies", text: "Start on Base at ₹499/month and grow to 1,500 students on the same platform.", tags: ["Free materials", "Webinars", "Flat pricing"], visual: "materials" },
   ] satisfies { id: string; label: string; text: string; tags: string[]; visual: AudienceVisual }[],
 };
 
@@ -255,7 +255,7 @@ export const why = {
     "built in and",
     { id: "ai", term: "AI-assisted evaluation", proof: "AI drafts, mentors decide. Bring your own AI key and pay the provider at cost." },
     "your mentors control. One",
-    { id: "flat", term: "flat price", proof: "From ₹499/month. The cost per student falls from ₹1.00 to ₹0.33 a month as you move up the plans." },
+    { id: "flat", term: "flat price", proof: "From ₹499/month. The cost per student falls from ₹9.98 to ₹3.33 a month as you move up the plans." },
     "per plan, and",
     { id: "zero", term: "0% revenue share", proof: "On every plan, at any size. Your students' fees go to your own account — VILMS never takes a cut." },
     ".",
@@ -281,10 +281,10 @@ export const pricing = {
   kicker: "Pricing",
   title: "Pick a plan by how many students you teach.",
   plans: [
-    { id: "base", stage: "Starting out", name: "Base", price: "₹499", limit: 500, students: "up to 500 students", perStudent: "₹1.00", blurb: "Everything one institute needs to teach, test and get paid online.", points: ["Full platform + your own website", "Single institute"], onboarding: "Self-serve + guided setup call" },
-    { id: "growth", stage: "Growing institute", name: "Growth", price: "₹1,199", limit: 2000, students: "up to 2,000 students", perStudent: "₹0.60", blurb: "Your own branded Android app, and more than one branch to run.", points: ["Your branded Android app", "Multiple branches"], onboarding: "Done-for-you migration" },
-    { id: "scale", stage: "Established institute", name: "Scale", price: "₹2,499", limit: 5000, students: "up to 5,000 students", perStudent: "₹0.50", blurb: "Both app stores, a bigger library, and priority support behind it.", points: ["Android + iOS apps", "Bigger library", "Priority support"], onboarding: "Done-for-you migration" },
-    { id: "institute", stage: "Large operation", name: "Institute", price: "₹4,999", limit: 15000, students: "up to 15,000 students", perStudent: "₹0.33", blurb: "Unlimited staff, 2 TB of library, and a dedicated manager.", points: ["Android + iOS apps", "Unlimited staff · 2 TB library", "Dedicated manager"], onboarding: "Done-for-you migration + faculty training" },
+    { id: "base", stage: "Starting out", name: "Base", price: "₹499", limit: 50, students: "up to 50 students", perStudent: "₹9.98", blurb: "Everything one institute needs to teach, test and get paid online.", points: ["Full platform + your own website", "Single institute"], onboarding: "Self-serve + guided setup call" },
+    { id: "growth", stage: "Growing institute", name: "Growth", price: "₹1,199", limit: 200, students: "up to 200 students", perStudent: "₹6.00", blurb: "Your own branded Android app, and more than one branch to run.", points: ["Your branded Android app", "Multiple branches"], onboarding: "Done-for-you migration" },
+    { id: "scale", stage: "Established institute", name: "Scale", price: "₹2,499", limit: 500, students: "up to 500 students", perStudent: "₹5.00", blurb: "Both app stores, a bigger library, and priority support behind it.", points: ["Android + iOS apps", "Bigger library", "Priority support"], onboarding: "Done-for-you migration" },
+    { id: "institute", stage: "Large operation", name: "Institute", price: "₹4,999", limit: 1500, students: "up to 1,500 students", perStudent: "₹3.33", blurb: "Unlimited staff, 2 TB of library, and a dedicated manager.", points: ["Android + iOS apps", "Unlimited staff · 2 TB library", "Dedicated manager"], onboarding: "Done-for-you migration + faculty training" },
   ] satisfies Plan[],
   everyPlan: [
     "0% commission on your fees",
@@ -299,7 +299,7 @@ export const pricing = {
   trialNote: ["14-day free trial", "No card required", "0% revenue share"],
   footnote:
     "All prices exclude 18% GST. 14-day free trial with no card — after it, add a payment method or stay on Base at ₹499/month. Upgrades apply immediately from your billing page.",
-  custom: { title: "Teaching 15,000+ students?", text: "Write to us for a custom quote for large operations." },
+  custom: { title: "Teaching 1,500+ students?", text: "Write to us for a custom quote for large operations." },
 };
 
 /* ---------------- Closing ---------------- */

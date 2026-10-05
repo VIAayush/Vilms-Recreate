@@ -11,8 +11,10 @@ import { TONE, type Tone } from "../tone";
 // A colour per plan, so the four read as four different sizes at a glance.
 const PLAN_TONE: Record<Plan["id"], Tone> = { base: "blue", growth: "steel", scale: "gold", institute: "navy" };
 
-// Slider stops (students). The last stop means "more than the largest plan".
-const STOPS = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 15001];
+// Slider stops (students), spaced so the plan limits (50 / 200 / 500 /
+// 1,500) land on the tick marks. The last stop means "more than the largest plan".
+const STOPS = [10, 20, 30, 40, 50, 75, 100, 150, 200, 250, 300, 400, 500, 750, 1000, 1500, 1501];
+const TICKS = [0, 4, 8, 12, 16];
 const LARGEST = pricing.plans[pricing.plans.length - 1].limit;
 
 /** The smallest plan whose published student limit covers `students`. */
@@ -74,11 +76,9 @@ export function Pricing() {
             style={{ "--fill": `${fill}%` } as React.CSSProperties}
           />
           <div aria-hidden className="mt-2 flex justify-between font-mono text-[11px] text-fg-faint">
-            <span>50</span>
-            <span>500</span>
-            <span>2,000</span>
-            <span>5,000</span>
-            <span>15,000+</span>
+            {TICKS.map((i) => (
+              <span key={i}>{i === STOPS.length - 1 ? `${fmt(LARGEST)}+` : fmt(STOPS[i])}</span>
+            ))}
           </div>
           <p className="mt-5 text-[15px]" aria-live="polite">
             {over ? (
