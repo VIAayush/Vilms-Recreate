@@ -1,0 +1,332 @@
+/* VILMS public site — design tokens and a small set of primitives.
+   Colours are RGB triplets so Tailwind can apply opacity (bg-primary/10).
+   The CRM never renders inside .site, so nothing here reaches it. */
+
+.site {
+  --background: 247 245 240;
+  --foreground: 22 20 31;
+  --muted: 88 84 104;
+  --faint: 130 126 146;
+  --surface: 255 255 255;
+  --surface-elevated: 255 255 255;
+  --surface-tint: 238 235 252;
+  --border: 22 20 31;
+  --primary: 91 61 245;
+  --primary-ink: 255 255 255;
+  --secondary: 37 99 235;
+  --cyan: 8 145 178;
+  --accent: 255 155 47;
+  --accent-ink: 22 20 31;
+  --mint: 21 150 98;
+  --rose: 220 38 88;
+
+  --gradient: linear-gradient(105deg, rgb(var(--primary)) 0%, rgb(var(--secondary)) 55%, rgb(var(--cyan)) 100%);
+  --gradient-warm: linear-gradient(105deg, rgb(var(--accent)) 0%, #ffcf5c 100%);
+  --shadow-window: 0 0 0 1px rgb(22 20 31 / 0.07), 0 2px 4px rgb(22 20 31 / 0.04), 0 36px 70px -34px rgb(48 32 120 / 0.38);
+  --shadow-soft: 0 0 0 1px rgb(22 20 31 / 0.06), 0 18px 40px -24px rgb(48 32 120 / 0.3);
+  --grain-opacity: 0.035;
+
+  --font-display: var(--font-sans);
+  background: rgb(var(--background));
+  color: rgb(var(--foreground));
+}
+
+html[data-theme="dark"] .site {
+  --background: 11 10 16;
+  --foreground: 242 240 247;
+  --muted: 166 161 184;
+  --faint: 118 113 138;
+  --surface: 20 18 28;
+  --surface-elevated: 29 26 40;
+  --surface-tint: 33 27 60;
+  --border: 242 240 247;
+  --primary: 146 125 255;
+  --primary-ink: 11 10 16;
+  --secondary: 104 160 255;
+  --cyan: 86 214 235;
+  --accent: 255 178 63;
+  --accent-ink: 22 20 31;
+  --mint: 74 214 153;
+  --rose: 251 113 150;
+
+  --shadow-window: 0 0 0 1px rgb(255 255 255 / 0.08), 0 40px 80px -36px rgb(0 0 0 / 0.9);
+  --shadow-soft: 0 0 0 1px rgb(255 255 255 / 0.07), 0 20px 40px -24px rgb(0 0 0 / 0.8);
+  --grain-opacity: 0.05;
+}
+
+/* A dark stage that stays dark in both themes (used for one or two
+   moments on the page). Inside it, every token resolves to its dark value. */
+.stage-dark {
+  --background: 11 10 16;
+  --foreground: 242 240 247;
+  --muted: 166 161 184;
+  --faint: 118 113 138;
+  --surface: 24 21 34;
+  --surface-elevated: 32 28 46;
+  --surface-tint: 33 27 60;
+  --border: 242 240 247;
+  --primary: 146 125 255;
+  --primary-ink: 11 10 16;
+  --secondary: 104 160 255;
+  --cyan: 86 214 235;
+  --accent: 255 178 63;
+  --mint: 74 214 153;
+  --rose: 251 113 150;
+  --shadow-window: 0 0 0 1px rgb(255 255 255 / 0.08), 0 40px 80px -36px rgb(0 0 0 / 0.9);
+  --shadow-soft: 0 0 0 1px rgb(255 255 255 / 0.07), 0 20px 40px -24px rgb(0 0 0 / 0.8);
+  --grain-opacity: 0.06;
+  background: rgb(17 15 25);
+  color: rgb(var(--foreground));
+}
+html[data-theme="dark"] .stage-dark {
+  background: rgb(19 17 28);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.06);
+}
+
+/* The page behind the site (overscroll, scrollbars) follows the theme. */
+html:has(.site) {
+  background: rgb(247 245 240);
+  scroll-padding-top: 84px;
+}
+html[data-theme="dark"]:has(.site) {
+  background: rgb(11 10 16);
+  color-scheme: dark;
+}
+
+.site ::selection {
+  background: rgb(var(--primary) / 0.22);
+}
+.site :focus-visible {
+  outline: 2px solid rgb(var(--primary));
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+/* globals.css colours CRM headings green (element specificity); match it
+   here so the site's headings inherit, while utilities still win. */
+:where(.site) h1,
+:where(.site) h2,
+:where(.site) h3,
+:where(.site) h4 {
+  color: inherit;
+  letter-spacing: -0.03em;
+}
+
+/* Theme switch: a short colour cross-fade when View Transitions aren't
+   available. Only colour properties transition, so nothing shifts. */
+html.theme-fading .site,
+html.theme-fading .site * {
+  transition:
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease !important;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* A grid without explicit columns gets one shrinkable column, so a swipeable
+   row inside it can't stretch the page on phones. Zero specificity: any
+   grid-cols-* utility still wins. */
+:where(.site .grid) {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Subtle film grain for large colour fields. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Dot field used behind a few product visuals. */
+.dot-field {
+  background-image: radial-gradient(rgb(var(--foreground) / 0.12) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+}
+
+/* Lead dialog */
+.site dialog::backdrop {
+  background: rgb(11 10 16 / 0.6);
+  backdrop-filter: blur(6px);
+}
+
+/* Highlight a region of a product screen ("spot") while its feature is
+   hovered or selected in the explorer. */
+[data-spot] {
+  transition:
+    box-shadow 0.35s ease,
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-focus] [data-spot] {
+  opacity: 0.45;
+}
+/* a region that contains the highlighted one stays readable */
+[data-focus] [data-spot]:has([data-on="true"]) {
+  opacity: 1;
+}
+[data-focus] [data-spot][data-on="true"] {
+  opacity: 1;
+  box-shadow:
+    0 0 0 2px rgb(var(--primary)),
+    0 12px 30px -12px rgb(var(--primary) / 0.6);
+  transform: translateY(-1px);
+}
+
+/* ---- Seven tools → one platform (scroll-driven, see ToolsCollapse) ----
+   --p is written by JS (0 → 1 across the pinned scroll). --q: the tools
+   converge; --r: VILMS resolves. Positions use container units so the same
+   numbers work on a phone and a wide screen. */
+.tools-scene {
+  --p: 0;
+  --q: clamp(0, (var(--p) - 0.1) * 2.2, 1);
+  --r: clamp(0, (var(--p) - 0.52) * 3, 1);
+}
+.tools-arena {
+  container-type: size;
+  --xs: 0.74; /* phones: pull the tools in from the edges */
+}
+@media (min-width: 640px) {
+  .tools-arena {
+    --xs: 1;
+  }
+}
+.tools-chip {
+  transform: translate(-50%, -50%) translate(calc(var(--x) * var(--xs) * 1cqw * (1 - var(--q))), calc(var(--y) * 1cqh * (1 - var(--q))))
+    rotate(calc(var(--rot) * (1 - var(--q)))) scale(calc(1 - var(--q) * 0.6));
+  opacity: calc(1 - var(--q) * 0.5 - var(--r) * 0.8);
+  will-change: transform, opacity;
+}
+.tools-strike {
+  transform: scaleX(var(--q));
+}
+.tools-before {
+  opacity: calc(1 - var(--r) * 1.6);
+  transform: translateY(calc(var(--r) * -20px));
+}
+.tools-after {
+  opacity: var(--r);
+  transform: translateY(calc((1 - var(--r)) * 20px));
+}
+.tools-core {
+  opacity: calc(var(--q) * 0.5 + var(--r) * 0.5);
+  transform: translate(-50%, -50%) scale(calc(0.6 + var(--q) * 0.2 + var(--r) * 0.2));
+}
+.tools-module {
+  opacity: var(--r);
+  transform: translate(-50%, -50%) rotate(var(--a)) translateY(calc(-1 * var(--ring) * (0.6 + var(--r) * 0.4))) rotate(calc(-1 * var(--a)));
+}
+.tools-meter {
+  transform: scaleX(var(--p));
+}
+
+/* Pricing slider */
+.price-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 28px;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+.price-range::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgb(var(--primary)) var(--fill), rgb(var(--foreground) / 0.12) var(--fill));
+}
+.price-range::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(to right, rgb(var(--primary)) var(--fill), rgb(var(--foreground) / 0.12) var(--fill));
+}
+.price-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  margin-top: -10px;
+  height: 26px;
+  width: 26px;
+  border-radius: 999px;
+  background: rgb(var(--surface));
+  border: 2px solid rgb(var(--primary));
+  box-shadow: 0 6px 16px -6px rgb(var(--primary) / 0.8);
+  transition: transform 0.2s ease;
+}
+.price-range::-moz-range-thumb {
+  height: 22px;
+  width: 22px;
+  border-radius: 999px;
+  background: rgb(var(--surface));
+  border: 2px solid rgb(var(--primary));
+}
+.price-range:hover::-webkit-slider-thumb,
+.price-range:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+.price-range:focus-visible {
+  outline: none;
+}
+.price-range:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 5px rgb(var(--primary) / 0.25);
+}
+.price-range:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 5px rgb(var(--primary) / 0.25);
+}
+
+@keyframes travel {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(33px);
+    opacity: 0;
+  }
+}
+
+@keyframes scan {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(420%);
+  }
+}
+
+@keyframes hero-fill {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+/* Respect reduced motion everywhere on the site. */
+@media (prefers-reduced-motion: reduce) {
+  .site *,
+  .site *::before,
+  .site *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Low-powered devices (flagged by SiteProviders) skip continuous loops. */
+@media (max-width: 1023px) {
+  .v2-lite .site .animate-marquee,
+  .v2-lite .site .animate-flow {
+    animation: none;
+  }
+}
