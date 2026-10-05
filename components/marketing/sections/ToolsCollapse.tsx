@@ -11,7 +11,7 @@ type Vars = React.CSSProperties & Record<`--${string}`, string | number>;
 
 // Seven tools, seven colours — the mess is meant to look like a mess
 // before it resolves into one platform.
-const CHIP_TONES: Tone[] = ["green", "blue", "teal", "yellow", "red", "blue", "yellow"];
+const CHIP_TONES: Tone[] = ["green", "blue", "steel", "gold", "red", "navy", "gold"];
 
 
 // The problem, told in one move: seven scattered tools are pulled together
@@ -39,7 +39,7 @@ function ScrollTools() {
             <p className="kicker">{tools.afterKicker}</p>
             <p className="h2 mt-4">
               {tools.afterTitle.replace(".", "")}
-              <span className="text-yellow">.</span>
+              <span className="text-gold">.</span>
             </p>
             <p className="sub mt-4 max-w-[440px]">{tools.afterSub}</p>
           </div>

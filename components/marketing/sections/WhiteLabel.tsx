@@ -9,9 +9,9 @@ import { CertScene } from "../screens/scenes";
 import { InstituteMark } from "../screens/primitives";
 
 type SurfaceId = (typeof whiteLabel.surfaces)[number]["id"];
-const NEUTRAL = "#80868B"; // the unbranded preview, before it "changes hands"
+const NEUTRAL = "#808A97"; // the unbranded preview, before it "changes hands"
 
-/** "#1A73E8" → "26 115 232", for the CSS colour effects. */
+/** "#1560A8" → "21 96 168", for the CSS colour effects. */
 const triplet = (hex: string) => {
   const n = parseInt(hex.slice(1), 16);
   return `${(n >> 16) & 255} ${(n >> 8) & 255} ${n & 255}`;
@@ -133,7 +133,7 @@ export function WhiteLabel() {
                     <span className="sr-only">{c}</span>
                     <span
                       aria-hidden
-                      className="grid h-9 w-9 place-items-center rounded-full text-white ring-offset-2 ring-offset-[rgb(var(--background))] transition-transform duration-200 hover:scale-110 peer-checked:ring-2 peer-focus-visible:ring-2"
+                      className="grid h-9 w-9 place-items-center rounded-full text-white shadow-[inset_0_0_0_1px_rgb(var(--border-strong))] ring-offset-2 ring-offset-[rgb(var(--background))] transition-transform duration-200 hover:scale-110 peer-checked:ring-2 peer-focus-visible:ring-2"
                       style={{ background: c, ["--tw-ring-color" as string]: c }}
                     >
                       {color === c ? <Check className="h-4 w-4" /> : null}
@@ -240,7 +240,7 @@ function Surface({ id, brand, name, host }: { id: SurfaceId; brand: string; name
           <p className="mt-2 font-display text-[clamp(20px,2.4vw,28px)] font-semibold leading-tight tracking-tight">Prelims Foundation Batch</p>
           <p className="mt-1.5 max-w-[340px] text-[12.5px] text-white/80">Weekly live classes, answer writing with mentor evaluation, certificate on completion.</p>
           <div className="mt-4 flex items-center gap-3">
-            <span className="rounded-full bg-white px-4 py-1.5 text-[12.5px] font-semibold text-[rgb(32_33_36)]">Enrol · ₹15,000</span>
+            <span className="rounded-full bg-white px-4 py-1.5 text-[12.5px] font-semibold text-[rgb(27_32_38)]">Enrol · ₹15,000</span>
           </div>
         </div>
       </div>

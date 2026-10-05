@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss";
 
-// Two systems live here:
+// Two systems live here (the public site's palette comes from the VILMS logo):
 //  * the CRM's evergreen + marigold tokens (ink, brass, paper, …), unchanged;
 //  * the public site's themeable tokens, which read CSS variables defined in
 //    components/marketing/site.css so one class works in light and dark mode.
@@ -17,6 +17,7 @@ const config: Config = {
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
         serif: ["var(--font-serif)", "Georgia", "serif"],
         hand: ["var(--font-hand)", "cursive"],
+        logo: ["var(--font-logo)", "var(--font-sans)", "sans-serif"],
       },
       colors: {
         // ---- CRM ----
@@ -57,10 +58,11 @@ const config: Config = {
         edge: { DEFAULT: themed("border"), strong: themed("border-strong") },
         primary: { DEFAULT: themed("primary"), hover: themed("primary-hover"), tint: themed("primary-tint"), ink: themed("primary-ink") },
         green: { DEFAULT: themed("green"), tint: themed("green-tint") },
-        yellow: { DEFAULT: themed("yellow"), ink: themed("yellow-ink"), tint: themed("yellow-tint") },
+        gold: { DEFAULT: themed("gold"), text: themed("gold-text") },
+        navy: { DEFAULT: themed("navy"), tint: themed("navy-tint") },
         red: { DEFAULT: themed("red"), tint: themed("red-tint") },
         indigo: themed("indigo"),
-        teal: { DEFAULT: themed("teal"), tint: themed("teal-tint") },
+        steel: { DEFAULT: themed("steel"), tint: themed("steel-tint") },
         wash: { blue: themed("wash-blue"), green: themed("wash-green") },
       },
       boxShadow: {

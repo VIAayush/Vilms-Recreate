@@ -40,7 +40,7 @@ export function BrowserFrame({
   );
 }
 
-const AVATAR_TONES = ["bg-primary-tint text-primary", "bg-green-tint text-green", "bg-yellow-tint text-yellow-ink", "bg-red-tint text-red", "bg-sunken text-fg-muted"];
+const AVATAR_TONES = ["bg-primary-tint text-primary", "bg-green-tint text-green", "bg-panel text-gold-text ring-1 ring-inset ring-gold/70", "bg-red-tint text-red", "bg-sunken text-fg-muted"];
 
 export function Avatar({ name, size = "md", tone }: { name: string; size?: "sm" | "md" | "lg"; tone?: number }) {
   const initials = name
@@ -67,12 +67,12 @@ export function Avatar({ name, size = "md", tone }: { name: string; size?: "sm" 
 }
 
 // Status colours follow one rule everywhere: blue = active / selected,
-// green = done / paid, yellow = waiting on someone, red = live or refunded.
-type Tone = "primary" | "green" | "yellow" | "red" | "muted";
+// green = done / paid, gold = waiting on someone, red = live or refunded.
+type Tone = "primary" | "green" | "gold" | "red" | "muted";
 const PILL: Record<Tone, string> = {
   primary: "bg-primary-tint text-primary",
   green: "bg-green-tint text-green",
-  yellow: "bg-yellow-tint text-yellow-ink",
+  gold: "bg-panel text-gold-text ring-1 ring-inset ring-gold/70",
   red: "bg-red-tint text-red",
   muted: "bg-sunken text-fg-muted",
 };
@@ -95,7 +95,7 @@ export function LiveDot({ className }: { className?: string }) {
 }
 
 /** A labelled score bar, e.g. a rubric criterion. */
-export function Meter({ label, value, max, tone = "primary" }: { label: string; value: number; max: number; tone?: "primary" | "green" | "yellow" }) {
+export function Meter({ label, value, max, tone = "primary" }: { label: string; value: number; max: number; tone?: "primary" | "green" | "gold" }) {
   return (
     <div className="flex items-center gap-2 text-[11px]">
       <span className="w-[64px] shrink-0 text-fg-muted">{label}</span>
@@ -105,7 +105,7 @@ export function Meter({ label, value, max, tone = "primary" }: { label: string; 
             "absolute inset-y-0 left-0 rounded-full transition-[width] duration-700 ease-out",
             tone === "primary" && "bg-primary",
             tone === "green" && "bg-green",
-            tone === "yellow" && "bg-yellow",
+            tone === "gold" && "bg-gold",
           )}
           style={{ width: `${(value / max) * 100}%` }}
         />

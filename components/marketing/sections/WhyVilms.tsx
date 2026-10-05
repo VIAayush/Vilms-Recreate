@@ -10,12 +10,12 @@ const TERMS = why.statement.filter((p): p is Term => typeof p !== "string");
 // Every claim gets its own colour; hover one and it lights up.
 const TERM_TONE: Record<string, { rgb: string; text: string }> = {
   one: { rgb: "var(--primary)", text: "text-primary" },
-  brand: { rgb: "var(--teal)", text: "text-teal" },
-  payments: { rgb: "var(--yellow)", text: "text-yellow-ink" },
+  brand: { rgb: "var(--navy)", text: "text-navy" },
+  payments: { rgb: "var(--gold)", text: "text-gold-text" },
   crm: { rgb: "var(--green)", text: "text-green" },
   ai: { rgb: "var(--indigo)", text: "text-indigo" },
-  flat: { rgb: "var(--red)", text: "text-red" },
-  zero: { rgb: "var(--primary)", text: "text-primary" },
+  flat: { rgb: "var(--steel)", text: "text-steel" },
+  zero: { rgb: "var(--gold)", text: "text-gold-text" },
 };
 
 // The case for VILMS as one sentence. Each underlined term is a claim the

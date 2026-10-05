@@ -169,7 +169,7 @@ function AnswerVisual({ step }: { step: number }) {
           <span
             className={clsx(
               "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold transition-colors",
-              approved ? "bg-green-tint text-green" : reviewing ? "bg-yellow-tint text-yellow-ink" : drafted ? "bg-primary-tint text-primary" : "bg-sunken text-fg-muted",
+              approved ? "bg-green-tint text-green" : reviewing ? "bg-panel text-gold-text ring-1 ring-inset ring-gold/70" : drafted ? "bg-primary-tint text-primary" : "bg-sunken text-fg-muted",
             )}
           >
             {approved ? <Check aria-hidden className="h-3 w-3" /> : reviewing ? <PenLine aria-hidden className="h-3 w-3" /> : drafted ? <Sparkles aria-hidden className="h-3 w-3" /> : <Upload aria-hidden className="h-3 w-3" />}
@@ -196,7 +196,7 @@ function AnswerVisual({ step }: { step: number }) {
           </span>
         </div>
         <div className="mt-3 grid grid-cols-2 gap-2">
-          <span className={clsx("flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-[12px] font-semibold transition-colors", reviewing && !approved ? "border-yellow bg-yellow-tint text-yellow-ink" : "border-edge text-fg-muted")}>
+          <span className={clsx("flex items-center justify-center gap-1.5 rounded-xl border px-3 py-2 text-[12px] font-semibold transition-colors", reviewing && !approved ? "border-gold bg-panel text-gold-text" : "border-edge text-fg-muted")}>
             <PenLine aria-hidden className="h-3.5 w-3.5" /> Edit
           </span>
           <span

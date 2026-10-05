@@ -11,9 +11,9 @@ import { TONE, type Tone } from "../tone";
 
 const HIGHLIGHT_ICONS = [Workflow, FileText, Globe, MessageCircle, BarChart3, Download];
 // A thin bar on each column says where the money is: blue while it's
-// interest, yellow once someone is paying, green when the fee has landed.
-const COLUMN_TONE: Tone[] = ["blue", "blue", "yellow", "green"];
-const HIGHLIGHT_TONE: Tone[] = ["blue", "yellow", "teal", "green", "red", "blue"];
+// interest, gold once someone is paying, green when the fee has landed.
+const COLUMN_TONE: Tone[] = ["blue", "blue", "gold", "green"];
+const HIGHLIGHT_TONE: Tone[] = ["blue", "gold", "navy", "green", "steel", "blue"];
 
 /* ---------- a tiny pipeline simulation (sample data) ---------- */
 

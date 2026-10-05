@@ -7,8 +7,8 @@ const REACH = 170; // how far the cursor's influence spreads (px)
 
 /**
  * The hero's interactive backdrop: a quiet grid of dots. Near the cursor they
- * swell, lean away from it and pick up colour by direction — blue, green,
- * yellow and red around the pointer. With no mouse (phones), a slow
+ * swell, lean away from it and pick up the logo's colours by direction —
+ * blue, gold, navy and silver around the pointer. With no mouse (phones), a slow
  * "autopilot" point drifts across instead. Drawn on one canvas, only while
  * the hero is on screen; a single static frame under reduced motion.
  */
@@ -29,7 +29,7 @@ export function HeroField() {
     const readColours = () => {
       const cs = getComputedStyle(canvas);
       const v = (n: string) => cs.getPropertyValue(n).trim().replace(/ /g, ",");
-      colours = [v("--primary"), v("--green"), v("--yellow"), v("--red")];
+      colours = [v("--primary"), v("--gold"), v("--navy"), v("--steel")];
       base = v("--border-strong");
     };
 

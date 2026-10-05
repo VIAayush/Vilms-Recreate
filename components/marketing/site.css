@@ -2,136 +2,119 @@
    Colours are RGB triplets so Tailwind can apply opacity (bg-primary/10).
    The CRM never renders inside .site, so nothing here reaches it. */
 
+/* Palette taken from the VILMS logo:
+     navy   #003056   outer V + wordmark (light logo)
+     gold   #C9A24B   inner V (light logo) — fills, rings and lines only;
+                      a pale gold tint reads as beige, so there is none
+     blue   #1560A8   inner V of the dark logo, deepened for text contrast
+     steel  #BCBDC2   the silver of the dark logo
+     graphite #1B2026 the dark logo's background
+   Green and red stay as state colours (paid / live). White is the page. */
+
 .site {
-  /* neutrals */
-  --background: 255 255 255; /* #FFFFFF */
-  --background-alt: 248 249 250; /* #F8F9FA — alternate sections */
-  --sunken: 241 243 244; /* #F1F3F4 — inset rows, tracks, hover fills */
+  /* neutrals — cool, never warm */
+  --background: 255 255 255;
+  --background-alt: 244 246 249; /* #F4F6F9 */
+  --sunken: 237 240 244; /* #EDF0F4 */
   --surface: 255 255 255;
   --surface-elevated: 255 255 255;
-  --foreground: 32 33 36; /* #202124 */
-  --muted: 95 99 104; /* #5F6368 */
-  --faint: 128 134 139; /* #80868B */
-  --border: 218 220 224; /* #DADCE0 */
-  --border-strong: 189 193 198; /* #BDC1C6 */
+  --foreground: 17 28 43; /* #111C2B — navy-black */
+  --muted: 84 96 112; /* #546070 */
+  --faint: 128 138 151; /* #808A97 */
+  --border: 220 225 232; /* #DCE1E8 */
+  --border-strong: 192 200 210; /* #C0C8D2 */
 
-  /* blue: the one action colour */
-  --primary: 26 115 232; /* #1A73E8 */
-  --primary-hover: 25 103 210; /* #1967D2 */
-  --primary-tint: 232 240 254; /* #E8F0FE */
+  /* brand */
+  --primary: 21 96 168; /* #1560A8 — every action */
+  --primary-hover: 14 74 135; /* #0E4A87 */
+  --primary-tint: 231 240 249; /* #E7F0F9 */
   --primary-ink: 255 255 255;
+  --navy: 0 48 86; /* #003056 */
+  --navy-tint: 230 236 244; /* #E6ECF4 */
+  --gold: 201 162 75; /* #C9A24B */
+  --gold-text: 0 48 86; /* gold-toned text reads navy on white */
+  --steel: 90 101 116; /* #5A6574 */
+  --steel-tint: 237 240 244; /* #EDF0F4 */
 
-  /* supporting colours — states and small, meaningful accents only */
-  --green: 24 128 56; /* #188038 */
-  --green-tint: 230 244 234; /* #E6F4EA */
-  --yellow: 249 171 0; /* #F9AB00 — fills, dots */
-  --yellow-ink: 176 96 0; /* #B06000 — yellow as text */
-  --yellow-tint: 254 247 224; /* #FEF7E0 */
-  --red: 217 48 37; /* #D93025 */
-  --red-tint: 252 232 230; /* #FCE8E6 */
-  --indigo: 95 99 216; /* AI touches, used sparingly */
-  --teal: 0 123 131; /* #007B83 — the Brand area */
-  --teal-tint: 228 247 251; /* #E4F7FB */
+  /* states */
+  --green: 25 128 86; /* #198056 */
+  --green-tint: 229 243 236; /* #E5F3EC */
+  --red: 192 57 48; /* #C03930 */
+  --red-tint: 250 232 230; /* #FAE8E6 */
+  --indigo: 59 92 154; /* AI touches: a navy-blue */
 
-  /* section washes — big, quiet fields of colour */
-  --wash-blue: 240 245 254; /* #F0F5FE */
-  --wash-green: 238 248 241; /* #EEF8F1 */
+  /* section washes */
+  --wash-blue: 239 244 251; /* #EFF4FB */
+  --wash-green: 236 246 241; /* #ECF6F1 */
 
-  --shadow-window: 0 1px 2px rgb(60 64 67 / 0.08), 0 12px 32px -12px rgb(60 64 67 / 0.22);
-  --shadow-soft: 0 1px 2px rgb(60 64 67 / 0.1), 0 2px 6px rgb(60 64 67 / 0.06);
+  --shadow-window: 0 1px 2px rgb(0 48 86 / 0.08), 0 14px 34px -14px rgb(0 48 86 / 0.28);
+  --shadow-soft: 0 1px 2px rgb(0 48 86 / 0.1), 0 2px 6px rgb(0 48 86 / 0.06);
 
   --font-display: var(--font-sans);
   background: rgb(var(--background));
   color: rgb(var(--foreground));
 }
 
-/* Dark mode is its own palette, not an inversion: charcoal surfaces that
-   step up in lightness as they rise, and the lighter Google-style tones of
-   each colour so nothing glows. */
-html[data-theme="dark"] .site {
-  --background: 32 33 36; /* #202124 */
-  --background-alt: 23 23 23; /* #171717 */
-  --sunken: 48 49 52; /* #303134 */
-  --surface: 41 42 45; /* #292A2D */
-  --surface-elevated: 48 49 52; /* #303134 */
-  --foreground: 255 255 255;
-  --muted: 189 193 198; /* #BDC1C6 */
-  --faint: 154 160 166; /* #9AA0A6 */
-  --border: 60 64 67; /* #3C4043 */
-  --border-strong: 95 99 104;
-
-  --primary: 138 180 248; /* #8AB4F8 */
-  --primary-hover: 168 199 250; /* #A8C7FA */
-  --primary-tint: 37 52 77;
-  --primary-ink: 32 33 36;
-
-  --green: 129 201 149; /* #81C995 */
-  --green-tint: 30 52 38;
-  --yellow: 253 214 99; /* #FDD663 */
-  --yellow-ink: 253 214 99;
-  --yellow-tint: 61 52 22;
-  --red: 242 139 130; /* #F28B82 */
-  --red-tint: 66 36 33;
-  --indigo: 174 176 248;
-  --teal: 120 217 236; /* #78D9EC */
-  --teal-tint: 22 54 60;
-
-  --wash-blue: 27 33 46;
-  --wash-green: 25 36 30;
-
-  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -16px rgb(0 0 0 / 0.7);
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.3);
-}
-
-/* The closing section: dark in both themes. Inside it every token takes its
-   dark value. */
+/* Dark mode follows the dark logo: graphite surfaces that lighten as they
+   rise, silver text, the logo's lighter blue, and real gold. The closing
+   and AI sections (.band-dark) use the same values in both themes. */
+html[data-theme="dark"] .site,
 .band-dark {
-  --background: 32 33 36;
-  --background-alt: 23 23 23;
-  --sunken: 48 49 52;
-  --surface: 41 42 45;
-  --surface-elevated: 48 49 52;
-  --foreground: 255 255 255;
-  --muted: 189 193 198;
-  --faint: 154 160 166;
-  --border: 60 64 67;
-  --border-strong: 95 99 104;
-  --primary: 138 180 248;
-  --primary-hover: 168 199 250;
-  --primary-tint: 37 52 77;
-  --primary-ink: 32 33 36;
-  --green: 129 201 149;
-  --green-tint: 30 52 38;
-  --yellow: 253 214 99;
-  --yellow-ink: 253 214 99;
-  --yellow-tint: 61 52 22;
-  --red: 242 139 130;
-  --red-tint: 66 36 33;
-  --teal: 120 217 236;
-  --teal-tint: 22 54 60;
-  --indigo: 174 176 248;
-  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.4), 0 16px 40px -16px rgb(0 0 0 / 0.7);
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 6px rgb(0 0 0 / 0.3);
-  background: rgb(32 33 36);
+  --background: 27 32 38; /* #1B2026 */
+  --background-alt: 20 24 29; /* #14181D */
+  --sunken: 43 50 59; /* #2B323B */
+  --surface: 35 41 49; /* #232931 */
+  --surface-elevated: 43 50 59;
+  --foreground: 241 243 245;
+  --muted: 174 181 191; /* #AEB5BF — silver */
+  --faint: 132 141 153;
+  --border: 56 64 75; /* #38404B */
+  --border-strong: 88 97 110;
+
+  --primary: 106 170 222; /* #6AAADE — the logo's blue highlight */
+  --primary-hover: 145 194 234;
+  --primary-tint: 30 46 66;
+  --primary-ink: 15 21 29;
+  --navy: 150 180 220; /* navy, lifted to read on graphite */
+  --navy-tint: 31 42 60;
+  --gold: 214 178 96; /* #D6B260 */
+  --gold-text: 222 190 112;
+  --steel: 190 197 207; /* #BEC5CF */
+  --steel-tint: 44 50 58;
+
+  --green: 108 196 148;
+  --green-tint: 28 50 40;
+  --red: 238 133 122;
+  --red-tint: 62 36 34;
+  --indigo: 160 182 230;
+
+  --wash-blue: 26 34 46;
+  --wash-green: 24 36 31;
+
+  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.45), 0 18px 40px -16px rgb(0 0 0 / 0.75);
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.3);
+}
+.band-dark {
+  background: rgb(27 32 38);
   color: rgb(var(--foreground));
 }
 html[data-theme="dark"] .band-dark {
-  background: rgb(23 23 23);
+  background: rgb(17 20 24);
 }
 
-/* The one blue moment on the page (0% revenue share). */
-.band-blue {
-  background: rgb(26 115 232);
+/* The navy moment (0% revenue share): the light logo's navy with gold. */
+.band-navy {
+  background: rgb(0 48 86);
   color: #fff;
 }
-.band-blue .kicker {
+.band-navy .kicker {
   color: rgb(255 255 255 / 0.8);
 }
-.band-blue .kicker::before {
-  background: rgb(253 214 99);
+.band-navy .kicker::before {
+  background: rgb(201 162 75);
 }
-html[data-theme="dark"] .band-blue {
-  background: rgb(23 46 84);
+html[data-theme="dark"] .band-navy {
+  background: rgb(10 33 58);
 }
 
 /* The page behind the site (overscroll, scrollbars) follows the theme. */
@@ -140,7 +123,7 @@ html:has(.site) {
   scroll-padding-top: 84px;
 }
 html[data-theme="dark"]:has(.site) {
-  background: rgb(32 33 36);
+  background: rgb(27 32 38);
   color-scheme: dark;
 }
 
@@ -192,62 +175,62 @@ html.theme-fading .site * {
 .answer-sheet {
   --rule: 18px;
   background-color: #fff;
-  color: rgb(26 54 132);
+  color: rgb(0 48 86);
   background-image: repeating-linear-gradient(
     transparent,
     transparent calc(var(--rule) - 1px),
-    rgb(66 133 244 / 0.2) calc(var(--rule) - 1px),
-    rgb(66 133 244 / 0.2) var(--rule)
+    rgb(21 96 168 / 0.18) calc(var(--rule) - 1px),
+    rgb(21 96 168 / 0.18) var(--rule)
   );
 }
 /* with a red margin rule, like a real answer booklet */
 .answer-sheet.with-margin {
   background-image:
-    linear-gradient(90deg, transparent 34px, rgb(234 67 53 / 0.45) 34px, rgb(234 67 53 / 0.45) 35px, transparent 35px),
+    linear-gradient(90deg, transparent 34px, rgb(192 57 48 / 0.45) 34px, rgb(192 57 48 / 0.45) 35px, transparent 35px),
     repeating-linear-gradient(
       transparent,
       transparent calc(var(--rule) - 1px),
-      rgb(66 133 244 / 0.2) calc(var(--rule) - 1px),
-      rgb(66 133 244 / 0.2) var(--rule)
+      rgb(21 96 168 / 0.18) calc(var(--rule) - 1px),
+      rgb(21 96 168 / 0.18) var(--rule)
     );
 }
 html[data-theme="dark"] .answer-sheet {
-  background-color: rgb(232 234 237);
+  background-color: rgb(233 236 240);
 }
 .answer-highlight {
   border-radius: 3px;
-  background: rgb(251 188 4 / 0.38);
+  background: rgb(21 96 168 / 0.16);
 }
 
 /* Annotations on the paper: fixed light-paper colours (the paper never
-   goes dark), from the same blue / green / yellow family as the UI. */
+   goes dark), from the same blue / green / navy family as the UI. */
 .answer-sheet .paper-muted {
   color: #5f6368;
 }
 .paper-mark-ai {
-  background-image: linear-gradient(rgb(66 133 244 / 0.24), rgb(66 133 244 / 0.24));
+  background-image: linear-gradient(rgb(21 96 168 / 0.2), rgb(21 96 168 / 0.2));
 }
 .paper-mark-warn {
-  background-image: linear-gradient(rgb(251 188 4 / 0.4), rgb(251 188 4 / 0.4));
+  background-image: linear-gradient(rgb(192 57 48 / 0.16), rgb(192 57 48 / 0.16));
 }
 .paper-note-ai {
-  border-color: rgb(26 115 232 / 0.45);
-  background: #e8f0fe;
-  color: #1967d2;
+  border-color: rgb(21 96 168 / 0.45);
+  background: #e7f0f9;
+  color: #0e4a87;
 }
 .paper-note-mentor {
-  border-color: rgb(24 128 56 / 0.45);
-  background: #e6f4ea;
-  color: #137333;
+  border-color: rgb(25 128 86 / 0.45);
+  background: #e5f3ec;
+  color: #146c48;
 }
 .paper-stamp {
-  border-color: #188038;
-  color: #188038;
+  border-color: #198056;
+  color: #198056;
 }
 
 /* Lead dialog */
 .site dialog::backdrop {
-  background: rgb(32 33 36 / 0.55);
+  background: rgb(0 30 54 / 0.55);
   backdrop-filter: blur(2px);
 }
 
@@ -348,7 +331,7 @@ html[data-theme="dark"] .answer-sheet {
   border-radius: 999px;
   background: rgb(var(--surface));
   border: 2px solid rgb(var(--primary));
-  box-shadow: 0 1px 3px rgb(60 64 67 / 0.3);
+  box-shadow: 0 1px 3px rgb(0 48 86 / 0.3);
   transition: transform 0.2s ease;
 }
 .price-range::-moz-range-thumb {
@@ -370,6 +353,12 @@ html[data-theme="dark"] .answer-sheet {
 }
 .price-range:focus-visible::-moz-range-thumb {
   box-shadow: 0 0 0 5px rgb(var(--primary) / 0.25);
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 @keyframes travel {
@@ -567,12 +556,14 @@ html[data-theme="dark"] .answer-sheet {
 
 /* Buttons: a band of light sweeps across on hover. */
 .cta-primary,
-.cta-outline {
+.cta-outline,
+.cta-gold {
   overflow: hidden;
   isolation: isolate;
 }
 .cta-primary::after,
-.cta-outline::after {
+.cta-outline::after,
+.cta-gold::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -585,11 +576,13 @@ html[data-theme="dark"] .answer-sheet {
   background: linear-gradient(110deg, transparent 30%, rgb(var(--primary) / 0.14) 50%, transparent 70%);
 }
 .cta-primary:hover::after,
-.cta-outline:hover::after {
+.cta-outline:hover::after,
+.cta-gold:hover::after {
   transform: translateX(120%);
 }
 .cta-primary:hover,
-.cta-outline:hover {
+.cta-outline:hover,
+.cta-gold:hover {
   transform: translateY(-1px);
 }
 

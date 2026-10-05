@@ -68,7 +68,7 @@ function TeachScreen({ active }: ScreenProps) {
           <li className="flex items-center gap-2 rounded-lg bg-canvas-alt px-2 py-2">
             <GripVertical aria-hidden className="h-3.5 w-3.5 text-fg-faint" />
             Mock test 1 — answer writing
-            <Pill tone="yellow" className="ml-auto">
+            <Pill tone="gold" className="ml-auto">
               Coming soon
             </Pill>
           </li>
@@ -80,15 +80,15 @@ function TeachScreen({ active }: ScreenProps) {
 
       <div className="grid gap-3">
         <div className={clsx(box, "overflow-hidden")} {...spot("video", active)}>
-          <div className="relative grid aspect-[16/9] place-items-center bg-[rgb(32_33_36)]">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[rgb(32_33_36)]">
+          <div className="relative grid aspect-[16/9] place-items-center bg-[rgb(27_32_38)]">
+            <span className="grid h-9 w-9 place-items-center rounded-full bg-white text-[rgb(27_32_38)]">
               <Play aria-hidden className="ml-0.5 h-4 w-4" fill="currentColor" />
             </span>
             <span className="absolute bottom-2 left-2 flex items-center gap-1 rounded bg-black/40 px-1.5 py-0.5 text-[9.5px] text-white">
               <Lock aria-hidden className="h-2.5 w-2.5" /> Rahul K. · 98xxx
             </span>
             <span className="absolute inset-x-2 bottom-0 h-[3px] rounded-full bg-white/20">
-              <span className="block h-full w-[58%] rounded-full bg-[rgb(138_180_248)]" />
+              <span className="block h-full w-[58%] rounded-full bg-[rgb(106_170_222)]" />
             </span>
           </div>
           <p className="px-3 py-2 text-[11px] text-fg-muted">Plays inside the course · watermarked</p>
@@ -272,7 +272,7 @@ function PaymentsScreen({ active }: ScreenProps) {
               <span className="font-mono text-[10.5px] text-fg-muted">#2033</span>
               <span className="truncate">Arjun T.</span>
               <span className="ml-auto font-semibold tabular-nums">₹4,500</span>
-              <Pill tone="yellow">
+              <Pill tone="gold">
                 <RotateCcw aria-hidden className="h-2.5 w-2.5" /> Refunded
               </Pill>
             </li>
@@ -294,7 +294,7 @@ function PaymentsScreen({ active }: ScreenProps) {
 }
 
 function BrandScreen({ active }: ScreenProps) {
-  const swatches = ["#1A73E8", "#188038", "#D93025", "#E37400", "#202124"];
+  const swatches = ["#1560A8", "#003056", "#198056", "#C03930", "#1B2026"];
   return (
     <div className="grid gap-3 p-3 sm:grid-cols-[1fr_1fr] sm:p-4">
       <div className={clsx(box, "space-y-3 p-3")}>

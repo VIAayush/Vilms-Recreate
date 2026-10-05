@@ -17,7 +17,7 @@ export function RevenueShare() {
   const received = useCountUp(revenue.fee, inView, 2200);
 
   return (
-    <section id="why" aria-labelledby="why-title" data-glow style={{ "--glow": "255 255 255" } as React.CSSProperties} className="band-blue glow-section relative isolate overflow-hidden py-24 sm:py-36">
+    <section id="why" aria-labelledby="why-title" data-glow style={{ "--glow": "255 255 255" } as React.CSSProperties} className="band-navy glow-section relative isolate overflow-hidden py-24 sm:py-36">
       {/* oversized numeral, cropped by the section */}
       <p
         aria-hidden
@@ -34,7 +34,7 @@ export function RevenueShare() {
             100%
             {/* a quick marker stroke under the number */}
             <svg aria-hidden viewBox="0 0 200 14" preserveAspectRatio="none" className="absolute -bottom-[0.02em] left-0 h-[0.12em] w-full">
-              <path d="M3 9c40-6 98-8 194-3" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" className="text-[rgb(253_214_99)]" />
+              <path d="M3 9c40-6 98-8 194-3" fill="none" stroke="currentColor" strokeWidth="5" strokeLinecap="round" className="text-[rgb(201_162_75)]" />
             </svg>
           </span>
           <span className="serif-accent block text-white/80">of your students&apos; fees.</span>
@@ -70,7 +70,7 @@ export function RevenueShare() {
           {/* 3 · VILMS */}
           <Node icon={null} label={revenue.steps[2]} className="lg:ml-10" muted>
             <div className="flex items-center gap-3">
-              <BrandMark className="h-9 w-9 opacity-80" />
+              <BrandMark className="h-9 w-12" variant="dark" />
               <p className="font-display text-[clamp(34px,3.6vw,48px)] font-semibold tabular-nums tracking-tight">₹0</p>
             </div>
             <p className="mt-1 text-[13px] text-white/80">On every plan, at any size.</p>
@@ -81,7 +81,7 @@ export function RevenueShare() {
           <p className="max-w-[560px] text-[14px] text-white/80">
             One flat monthly price per plan, from ₹499/month. Prices exclude 18% GST. The ₹15,000 fee is an example.
           </p>
-          <Cta intent="demo" location="revenue" className="cta cta-outline border-transparent" arrow>
+          <Cta intent="demo" location="revenue" className="cta cta-gold" arrow>
             Talk to a VILMS expert
           </Cta>
         </div>
@@ -125,7 +125,7 @@ function Connector({ active, side, dashed, className }: { active: boolean; side:
           active ? "scale-x-100" : "scale-x-0",
         )}
       />
-      {!dashed && active ? <span className="absolute -top-[3px] left-0 h-[7px] w-[7px] rounded-full bg-[rgb(253_214_99)] [animation:travel_1.8s_ease-in-out_infinite]" /> : null}
+      {!dashed && active ? <span className="absolute -top-[3px] left-0 h-[7px] w-[7px] rounded-full bg-[rgb(201_162_75)] [animation:travel_1.8s_ease-in-out_infinite]" /> : null}
     </span>
   );
 }

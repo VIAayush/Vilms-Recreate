@@ -13,15 +13,15 @@ const INTERVAL = 2900;
 
 // Each event's colour says what kind of moment it is, the same way across
 // the page: blue = a lead or learning, green = money or enrolment landed,
-// red = live right now, yellow = waiting on a person.
+// red = live right now, gold = waiting on a person.
 const EVENT_DOT: Record<string, string> = {
   lead: "bg-primary",
   enrol: "bg-green",
   course: "bg-primary",
   live: "bg-red",
-  eval: "bg-yellow",
+  eval: "bg-gold",
   pay: "bg-green",
-  cert: "bg-yellow",
+  cert: "bg-gold",
 };
 
 // One student's journey, playing on a loop inside an illustrated VILMS admin:
@@ -121,7 +121,7 @@ export function HeroStage() {
                 ["New leads", "38", "this week", "bg-primary"],
                 ["Enrolments", "21", "this week", "bg-green"],
                 ["Fees collected", "₹3.1L", "to your account", "bg-green"],
-                ["To evaluate", "14", "AI drafts ready", "bg-yellow"],
+                ["To evaluate", "14", "AI drafts ready", "bg-gold"],
               ].map(([k, v, m, dot]) => (
                 <div key={k} className="bg-panel px-3 py-2.5">
                   <dt className="flex items-center gap-1.5 truncate text-[10.5px] text-fg-muted">

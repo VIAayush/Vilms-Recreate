@@ -6,10 +6,11 @@ const INTERACTIVE = 'a, button, select, summary, label, [role="switch"], [data-c
 const TEXT_ENTRY = 'input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), textarea';
 const TONES: Record<string, string> = {
   blue: "var(--primary)",
-  red: "var(--red)",
-  yellow: "var(--yellow)",
+  navy: "var(--navy)",
+  gold: "var(--gold)",
+  steel: "var(--steel)",
   green: "var(--green)",
-  teal: "var(--teal)",
+  red: "var(--red)",
 };
 
 /**

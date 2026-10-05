@@ -1,10 +1,16 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 export const alt = "VILMS — Your students pay you. Not your software.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+// The share card in the brand's light pairing: navy type, the gold-and-navy
+// mark, a gold rule. White background — no warm tints.
+export default async function OpengraphImage() {
+  const mark = await readFile(join(process.cwd(), "public/brand/mark-light.png"));
+  const src = `data:image/png;base64,${mark.toString("base64")}`;
   return new ImageResponse(
     (
       <div
@@ -15,27 +21,25 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "72px",
-          color: "#202124",
+          color: "#111C2B",
           fontFamily: "sans-serif",
           background: "#FFFFFF",
-          borderTop: "12px solid #1A73E8",
+          borderTop: "14px solid #003056",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <svg width="64" height="64" viewBox="0 0 64 64">
-            <rect width="64" height="64" rx="16" fill="#202124" />
-            <path d="M18 18h8.6L32 36.2 37.4 18H46L35.6 46h-7.2z" fill="#FFFFFF" />
-            <circle cx="48" cy="48" r="5" fill="#FBBC04" />
-          </svg>
-          <div style={{ fontSize: 40, fontWeight: 700, letterSpacing: -1 }}>VILMS</div>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={src} width={96} height={70} alt="" />
+          <div style={{ fontSize: 44, fontWeight: 600, letterSpacing: 4, color: "#003056" }}>VILMS</div>
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 86, fontWeight: 700, lineHeight: 1, letterSpacing: -3.5 }}>Your students pay you.</div>
-          <div style={{ fontSize: 86, fontWeight: 400, fontStyle: "italic", lineHeight: 1.1, letterSpacing: -2, color: "#5F6368" }}>Not your software.</div>
+          <div style={{ fontSize: 86, fontWeight: 400, fontStyle: "italic", lineHeight: 1.1, letterSpacing: -2, color: "#546070" }}>Not your software.</div>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26, color: "#5F6368" }}>
-          Courses · Live classes · Answer evaluation · Payments · Leads —
-          <span style={{ color: "#1A73E8", fontWeight: 700 }}>0% revenue share</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 25, color: "#546070" }}>
+          <div style={{ width: 48, height: 4, background: "#C9A24B" }} />
+          Courses · Live classes · Evaluation · Payments · Leads
+          <span style={{ color: "#003056", fontWeight: 700, whiteSpace: "nowrap" }}>— 0% revenue share</span>
         </div>
       </div>
     ),

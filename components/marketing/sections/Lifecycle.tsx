@@ -8,7 +8,7 @@ import { SCENES } from "../screens/scenes";
 import { TONE, type Tone } from "../tone";
 
 // Each stage keeps one colour from the rail to its card.
-const STAGE_TONE: Record<string, Tone> = { lead: "blue", enrol: "green", course: "teal", eval: "red", cert: "yellow", renew: "blue" };
+const STAGE_TONE: Record<string, Tone> = { lead: "blue", enrol: "green", course: "navy", eval: "steel", cert: "gold", renew: "blue" };
 
 // A horizontal film strip: one frame per stage of a student's life at the
 // institute. Native horizontal scrolling (swipe, trackpad, shift+wheel),

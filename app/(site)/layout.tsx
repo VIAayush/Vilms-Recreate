@@ -1,5 +1,5 @@
 import type { Viewport } from "next";
-import { Caveat, Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
+import { Caveat, Geist, Geist_Mono, Instrument_Serif, Montserrat } from "next/font/google";
 import { CursorFx } from "@/components/marketing/CursorFx";
 import { Footer } from "@/components/marketing/Footer";
 import { Header } from "@/components/marketing/Header";
@@ -17,11 +17,13 @@ const sans = Geist({ subsets: ["latin"], variable: "--font-sans", display: "swap
 const mono = Geist_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-mono", display: "swap" });
 const serif = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-serif", display: "swap" });
 const hand = Caveat({ subsets: ["latin"], weight: ["500"], variable: "--font-hand", display: "swap" });
+// The wordmark's wide geometric letters, as in the VILMS logo.
+const logo = Montserrat({ subsets: ["latin"], weight: ["600"], variable: "--font-logo", display: "swap" });
 
 export const viewport: Viewport = {
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
-    { media: "(prefers-color-scheme: dark)", color: "#202124" },
+    { media: "(prefers-color-scheme: dark)", color: "#1B2026" },
   ],
 };
 
@@ -29,7 +31,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   // GA4 / Meta Pixel IDs from enabled CRM integrations (cached 5 minutes).
   const analytics = await getSiteAnalyticsIds();
   return (
-    <div className={`site min-h-screen font-sans antialiased ${sans.variable} ${mono.variable} ${serif.variable} ${hand.variable}`}>
+    <div className={`site min-h-screen font-sans antialiased ${sans.variable} ${mono.variable} ${serif.variable} ${hand.variable} ${logo.variable}`}>
       <SiteProviders>
         <a
           href="#main"

@@ -9,7 +9,7 @@ import { Pill } from "../screens/primitives";
 import { TONE, type Tone } from "../tone";
 
 // Each kind of institute brings its own colour into the section.
-const AUDIENCE_TONE: Record<string, Tone> = { coaching: "blue", testprep: "red", skills: "yellow", training: "teal", schools: "green", online: "blue" };
+const AUDIENCE_TONE: Record<string, Tone> = { coaching: "blue", testprep: "gold", skills: "navy", training: "steel", schools: "green", online: "blue" };
 
 function TeamMini() {
   return (
@@ -38,7 +38,7 @@ function MaterialsMini() {
       <ul className="mt-2.5 space-y-2 text-[12.5px]">
         {[
           { t: "Syllabus breakdown.pdf", tag: <Pill tone="green">Public</Pill>, icon: Unlock },
-          { t: "Topper's notes — Polity.pdf", tag: <Pill tone="yellow">Lead-magnet gated</Pill>, icon: FileText },
+          { t: "Topper's notes — Polity.pdf", tag: <Pill tone="gold">Lead-magnet gated</Pill>, icon: FileText },
           { t: "Batch A worksheet 4.pdf", tag: <Pill tone="primary">Enrolled only</Pill>, icon: Lock },
         ].map(({ t, tag, icon: Icon }) => (
           <li key={t} className="flex items-center gap-2 rounded-lg bg-canvas-alt px-3 py-2">

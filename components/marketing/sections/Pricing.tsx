@@ -9,7 +9,7 @@ import { brand, pricing, type Plan } from "@/lib/content";
 import { TONE, type Tone } from "../tone";
 
 // A colour per plan, so the four read as four different sizes at a glance.
-const PLAN_TONE: Record<Plan["id"], Tone> = { base: "blue", growth: "green", scale: "yellow", institute: "red" };
+const PLAN_TONE: Record<Plan["id"], Tone> = { base: "blue", growth: "steel", scale: "gold", institute: "navy" };
 
 // Slider stops (students). The last stop means "more than the largest plan".
 const STOPS = [50, 100, 200, 300, 500, 750, 1000, 1500, 2000, 2500, 3000, 4000, 5000, 7500, 10000, 15000, 15001];

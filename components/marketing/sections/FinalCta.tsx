@@ -18,7 +18,7 @@ export function FinalCta() {
           <p className="sub mt-6 max-w-[520px]">{finalCta.sub}</p>
           <div className="mt-9 flex flex-col gap-3 min-[420px]:flex-row min-[420px]:flex-wrap">
             <Magnetic>
-              <Cta intent="trial" location="final_cta" className="cta cta-primary cta-lg w-full min-[420px]:w-auto" arrow>
+              <Cta intent="trial" location="final_cta" className="cta cta-gold cta-lg w-full min-[420px]:w-auto" arrow>
                 Start 14-Day Free Trial
               </Cta>
             </Magnetic>
@@ -57,7 +57,7 @@ export function FinalCta() {
           </div>
           <div className="absolute left-1/2 top-1/2 h-[26%] w-[26%] -translate-x-1/2 -translate-y-1/2">
             <div className="parallax grid h-full w-full place-items-center rounded-[28%] border border-edge bg-panel [--depth:-6]">
-              <BrandMark className="h-[64%] w-[64%]" />
+              <BrandMark className="h-[58%] w-[72%]" variant="dark" />
             </div>
           </div>
         </div>

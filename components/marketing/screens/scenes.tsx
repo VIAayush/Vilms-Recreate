@@ -75,7 +75,7 @@ export function EnrolScene() {
       </dl>
       <ol className="mt-3.5 space-y-2 border-l border-edge pl-3 text-[11.5px] text-fg-muted">
         <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-primary">Lead from Google Ads</li>
-        <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-yellow">Joined the free webinar</li>
+        <li className="relative before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-gold">Joined the free webinar</li>
         <li className="relative font-medium text-fg before:absolute before:-left-[15.5px] before:top-1 before:h-2 before:w-2 before:rounded-full before:bg-green">Paid via your Razorpay · enrolled</li>
       </ol>
     </div>
@@ -85,9 +85,9 @@ export function EnrolScene() {
 export function CourseScene() {
   return (
     <div className={clsx(card, "overflow-hidden")}>
-      <div className="relative aspect-[16/6] bg-[rgb(32_33_36)]">
+      <div className="relative aspect-[16/6] bg-[rgb(27_32_38)]">
         <div className="absolute inset-0 grid place-items-center">
-          <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[rgb(32_33_36)]">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-white text-[rgb(27_32_38)]">
             <Play aria-hidden className="ml-0.5 h-4 w-4" fill="currentColor" />
           </span>
         </div>
@@ -95,7 +95,7 @@ export function CourseScene() {
         <div className="absolute inset-x-3 bottom-2.5 flex items-center gap-2 text-[10px] text-white/85">
           <span className="font-mono">12:40</span>
           <span className="relative h-1 flex-1 rounded-full bg-white/25">
-            <span className="absolute inset-y-0 left-0 w-[41%] rounded-full bg-[rgb(138_180_248)]" />
+            <span className="absolute inset-y-0 left-0 w-[41%] rounded-full bg-[rgb(106_170_222)]" />
           </span>
           <span className="font-mono">31:05</span>
         </div>
@@ -216,7 +216,7 @@ export function CertScene({ name = "Your Institute", color }: { name?: string; c
             <br />
             <b className="text-[11px] text-fg">{name}</b>
           </span>
-          <Award aria-hidden className="h-6 w-6" style={{ color: color ?? "rgb(var(--yellow))" }} />
+          <Award aria-hidden className="h-6 w-6" style={{ color: color ?? "rgb(var(--gold))" }} />
         </div>
       </div>
     </div>

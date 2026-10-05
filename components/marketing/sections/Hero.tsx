@@ -23,7 +23,14 @@ export function Hero() {
         </p>
         <h1 id="hero-title" className="display max-w-[15ch] text-[clamp(42px,7vw,104px)] lg:max-w-none">
           <span className="block animate-rise-in text-balance">
-            {hero.titleTopLead} <span className="text-primary">{hero.titleTopEmphasis}</span>
+            {hero.titleTopLead}{" "}
+            <span className="relative whitespace-nowrap text-primary">
+              {hero.titleTopEmphasis}
+              {/* a gold stroke, the colour of the logo's inner V */}
+              <svg aria-hidden viewBox="0 0 300 16" preserveAspectRatio="none" className="absolute -bottom-[0.05em] left-[2%] h-[0.11em] w-[96%]">
+                <path d="M4 11C70 4 190 2 296 7" fill="none" strokeWidth="6" strokeLinecap="round" className="stroke-gold animate-[draw_1.1s_0.5s_cubic-bezier(.16,1,.3,1)_both] [stroke-dasharray:320] [stroke-dashoffset:320]" />
+              </svg>
+            </span>
           </span>
           <span className="serif-accent block animate-rise-in pl-[0.04em] text-fg-muted [animation-delay:120ms]">{hero.titleBottom}</span>
         </h1>
