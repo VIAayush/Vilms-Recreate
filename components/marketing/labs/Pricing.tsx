@@ -4,7 +4,9 @@ import { useId, useState } from "react";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
 import { Check, ChevronDown, Minus } from "lucide-react";
+import Link from "next/link";
 import { Cta } from "@/components/site/Cta";
+import { PAGES } from "@/lib/site/pages";
 import { brand, pricing } from "@/lib/content";
 import { useReducedMotion } from "../motion";
 
@@ -69,7 +71,7 @@ export function Pricing() {
                 <article className={clsx("relative flex h-full flex-col rounded-[28px] p-6 transition-colors duration-300", on ? "bg-panel" : "bg-canvas-alt")}>
                   <div className="flex items-center justify-between">
                     <h3 className="text-[22px] font-normal tracking-[-0.02em]">{p.name}</h3>
-                    {on ? <span className="rounded-full bg-navy px-2.5 py-1 text-[11.5px] font-semibold text-white dark:text-[rgb(12_18_26)]">Your fit</span> : null}
+                    {on ? <span className="rounded-full bg-navy px-2.5 py-1 text-[11.5px] font-semibold text-white ">Your fit</span> : null}
                   </div>
                   <p className="mt-1 text-[13.5px] text-fg-muted">{p.bestFor}</p>
                   <p className="mt-6 flex items-baseline gap-1">
@@ -88,7 +90,7 @@ export function Pricing() {
           })}
         </div>
 
-        <div className={clsx("mt-4 flex flex-col items-center justify-between gap-3 rounded-[24px] px-6 py-5 transition-colors sm:flex-row", custom ? "bg-navy text-white dark:text-[rgb(12_18_26)]" : "bg-canvas-alt")}>
+        <div className={clsx("mt-4 flex flex-col items-center justify-between gap-3 rounded-[24px] px-6 py-5 transition-colors sm:flex-row", custom ? "bg-navy text-white " : "bg-canvas-alt")}>
           <p className="text-[15px]">
             <span className="font-semibold">{pricing.custom.title}</span> {pricing.custom.text}
           </p>
@@ -108,6 +110,9 @@ export function Pricing() {
             {compare ? "Hide" : "Compare"} all features
             <ChevronDown aria-hidden className={clsx("h-4 w-4 transition-transform duration-300", compare && "rotate-180")} />
           </button>
+          <Link href={PAGES.pricing.path} className="link ml-5 hidden text-[14.5px] sm:inline-block">
+            Full pricing details →
+          </Link>
         </div>
 
         <AnimatePresence initial={false}>

@@ -25,14 +25,12 @@ export const metadata: Metadata = {
     "white label LMS",
     "education management platform",
   ],
-  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: "VILMS",
     locale: "en_IN",
     title: "VILMS — Your students pay you. Not your software.",
     description,
-    url: "/",
   },
   twitter: {
     card: "summary_large_image",
@@ -47,16 +45,9 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-// Sets the public site's theme before first paint: the visitor's saved choice,
-// else their system preference. The CRM ignores the attribute.
-const themeScript = `(function(){try{var t=localStorage.getItem("vilms-theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}document.documentElement.dataset.theme=t}catch(e){document.documentElement.dataset.theme="light"}})();`;
-
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-IN" className={`${display.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
+    <html lang="en-IN" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body>{children}</body>
     </html>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { Cta } from "@/components/site/Cta";
 import { useScrolledPast } from "./motion";
@@ -9,6 +10,7 @@ import { useScrolledPast } from "./motion";
 // actions in reach. It steps aside when the closing CTA or footer is on
 // screen, where the same buttons are already visible.
 export function MobileCtaBar() {
+  const pathname = usePathname();
   const past = useScrolledPast(640);
   const [nearEnd, setNearEnd] = useState(false);
 
@@ -24,7 +26,9 @@ export function MobileCtaBar() {
     return () => io.disconnect();
   }, []);
 
-  const show = past && !nearEnd;
+  // The demo and contact pages already have the form on screen.
+  const onForm = pathname === "/book-a-demo" || pathname === "/contact";
+  const show = past && !nearEnd && !onForm;
   return (
     <div
       aria-hidden={!show}

@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import clsx from "clsx";
 import { AnimatePresence, LayoutGroup, animate, motion } from "motion/react";
-import { Award, BookOpen, CreditCard, LayoutGrid, PenLine, Radio, Sparkles, UserPlus, Users } from "lucide-react";
+import { Award, BookOpen, CreditCard, LayoutGrid, PenLine, Radio, ScanText, UserPlus, Users } from "lucide-react";
 import { useInView, useReducedMotion } from "../motion";
 import { Avatar, BrowserFrame, InstituteMark, LiveDot } from "./primitives";
 
@@ -27,12 +27,12 @@ const HOLD = 1800; // linger on the last beat before looping
 
 const BARS = [42, 55, 48, 61, 58, 66, 72, 69, 77, 81, 86, 88]; // last bar = this month
 
-type Toast = { id: number; icon: typeof Sparkles; title: string; meta: string; tone: string };
+type Toast = { id: number; icon: typeof ScanText; title: string; meta: string; tone: string };
 const TOASTS: Record<number, Toast> = {
   1: { id: 1, icon: UserPlus, title: "New lead", meta: "Rahul K. · Google Ads", tone: "bg-primary" },
   4: { id: 4, icon: CreditCard, title: "₹15,000 received", meta: "Razorpay → your account", tone: "bg-green" },
   6: { id: 6, icon: Radio, title: "Live class started", meta: "Polity · Batch A · 42 joined", tone: "bg-red" },
-  7: { id: 7, icon: Sparkles, title: "AI draft ready", meta: "Q3 answer · mentor to approve", tone: "bg-purple" },
+  7: { id: 7, icon: ScanText, title: "AI draft ready", meta: "Q3 answer · mentor to approve", tone: "bg-purple" },
   8: { id: 8, icon: Award, title: "Certificate issued", meta: "Rahul Kumar · Prelims Foundation", tone: "bg-yellow" },
 };
 

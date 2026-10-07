@@ -6,7 +6,8 @@ import { Building2, GraduationCap } from "lucide-react";
 import { brand } from "@/lib/content";
 import { inr, useCountUp, useInView, useReducedMotion } from "../motion";
 import { BrandMark } from "../BrandMark";
-import { Shape } from "./Shapes";
+import Link from "next/link";
+import { PAGES } from "@/lib/site/pages";
 
 // 0% revenue share, shown as money moving: the student pays ₹15,000, the
 // institute receives ₹15,000, and VILMS takes ₹0.
@@ -23,8 +24,6 @@ export function Revenue() {
     <section id="revenue" className="scroll-mt-20 py-10 sm:py-16">
       <div className="wrap">
         <div ref={ref} className="relative isolate overflow-hidden rounded-[32px] bg-canvas-alt px-5 py-14 sm:px-10 sm:py-20 lg:px-16">
-          <Shape kind="flower" className="absolute -right-20 -top-20 -z-10 w-64 rotate-12 text-gold/90 sm:w-80" />
-          <Shape kind="circle" className="absolute -bottom-28 -left-20 -z-10 w-72 text-sky/60" />
 
           <p className="text-[12px] font-bold uppercase tracking-[0.06em] text-primary">0% revenue share</p>
           <h2 className="mt-4 max-w-[860px] text-[clamp(36px,5.6vw,72px)] font-normal leading-[1.02] tracking-[-0.04em]">
@@ -52,6 +51,9 @@ export function Revenue() {
             </motion.div>
           </div>
           <p className="mt-6 text-[12.5px] text-fg-faint">Example fee. Payment gateway charges are set by your Razorpay account.</p>
+          <Link href={PAGES.why.path} className="link mt-4 inline-block text-[14.5px]">
+            Why institutes choose a flat plan →
+          </Link>
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { Award, BookOpen, CalendarClock, Check, FileText, IndianRupee, MessageCircle, Play, Repeat2, Sparkles, Users, Video } from "lucide-react";
+import { Award, BookOpen, CalendarClock, Check, FileText, IndianRupee, MessageCircle, Play, Repeat2, ScanText, Users, Video } from "lucide-react";
 import { Avatar, InstituteMark, LiveDot, Meter, Pill } from "./primitives";
 
 // One student's journey through VILMS, as interface fragments. Every scene is
@@ -160,7 +160,7 @@ export function EvalScene({ approved = true }: { approved?: boolean }) {
         <div className="flex items-center justify-between">
           <p className="text-[11.5px] font-semibold">Rubric</p>
           <Pill tone="primary">
-            <Sparkles aria-hidden className="h-3 w-3" /> AI draft
+            <ScanText aria-hidden className="h-3 w-3" /> AI draft
           </Pill>
         </div>
         <Meter label="Content" value={7} max={8} />

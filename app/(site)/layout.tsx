@@ -22,10 +22,7 @@ const hand = Caveat({ subsets: ["latin"], weight: ["500"], variable: "--font-han
 const logo = Montserrat({ subsets: ["latin"], weight: ["600"], variable: "--font-logo", display: "swap" });
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
-    { media: "(prefers-color-scheme: dark)", color: "#1B2026" },
-  ],
+  themeColor: "#FFFFFF",
 };
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {

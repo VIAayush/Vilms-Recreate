@@ -57,55 +57,7 @@
   color: rgb(var(--foreground));
 }
 
-/* Dark: the dark logo's graphite, silver type, its lighter blue, real gold. */
-html[data-theme="dark"] .site,
-.band-dark {
-  --background: 23 27 33; /* #171B21 */
-  --background-alt: 18 21 26;
-  --sunken: 40 46 55;
-  --surface: 31 36 44;
-  --surface-elevated: 40 46 55;
-  --foreground: 240 243 247;
-  --muted: 170 178 190;
-  --faint: 128 137 150;
-  --border: 52 60 72;
-  --border-strong: 82 92 106;
-
-  --primary: 110 168 226;
-  --primary-hover: 146 192 238;
-  --primary-tint: 30 46 68;
-  --primary-ink: 12 18 26;
-  --navy: 150 184 226;
-  --navy-tint: 30 42 60;
-  --gold: 216 182 104;
-  --gold-text: 222 192 120;
-  --silver: 120 128 140;
-  --sky: 60 98 140;
-  --steel: 170 178 190;
-  --steel-tint: 40 46 55;
-
-  --green: 120 200 150;
-  --green-tint: 28 50 40;
-  --yellow: 216 182 104;
-  --yellow-text: 222 192 120;
-  --red: 240 135 125;
-  --red-tint: 64 36 34;
-  --purple: 110 168 226;
-  --purple-tint: 30 46 68;
-  --indigo: 110 168 226;
-
-  --wash-blue: 26 34 46;
-  --wash-green: 24 36 31;
-
-  --shadow-window: 0 1px 2px rgb(0 0 0 / 0.45), 0 18px 40px -16px rgb(0 0 0 / 0.75);
-  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.45), 0 2px 6px rgb(0 0 0 / 0.3);
-}
-.band-dark {
-  background: rgb(23 27 33);
-  color: rgb(var(--foreground));
-}
-
-/* The hero stage: the logo's deep navy, in both themes. */
+/* The hero / feature stage: the logo's deep navy. */
 .band-navy {
   --background: 3 24 46;
   --background-alt: 2 18 36;
@@ -142,10 +94,6 @@ html:has(.site) {
   background: #fff;
   scroll-padding-top: 76px;
 }
-html[data-theme="dark"]:has(.site) {
-  background: rgb(23 27 33);
-  color-scheme: dark;
-}
 
 .site ::selection {
   background: rgb(var(--primary) / 0.22);
@@ -165,17 +113,6 @@ html[data-theme="dark"]:has(.site) {
   letter-spacing: -0.03em;
 }
 
-/* Theme switch: a short colour cross-fade when View Transitions aren't
-   available. Only colour properties transition, so nothing shifts. */
-html.theme-fading .site,
-html.theme-fading .site * {
-  transition:
-    background-color 0.35s ease,
-    border-color 0.35s ease,
-    color 0.35s ease,
-    fill 0.35s ease,
-    stroke 0.35s ease !important;
-}
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none;
@@ -213,9 +150,6 @@ html.theme-fading .site * {
       rgb(21 96 168 / 0.18) calc(var(--rule) - 1px),
       rgb(21 96 168 / 0.18) var(--rule)
     );
-}
-html[data-theme="dark"] .answer-sheet {
-  background-color: rgb(233 236 240);
 }
 .answer-highlight {
   border-radius: 3px;
@@ -695,11 +629,89 @@ html[data-theme="dark"] .answer-sheet {
   .coin { top: 50%; left: 0; animation-name: coin-x; }
 }
 
-/* mock-ups forced light inside dark stages keep their paper light too */
-html[data-theme="dark"] .band-light .answer-sheet {
-  background-color: #fff;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .coin { animation: none; display: none; }
+}
+
+/* ---------- Page chrome used by every inner page ---------- */
+
+/* Design tokens that aren't colours. Colours live at the top of this file;
+   motion tokens for JS live in components/site-ui/motion-tokens.ts. */
+.site {
+  --radius-card: 24px;
+  --radius-panel: 32px;
+  --radius-chip: 9999px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 180ms;
+  --dur-base: 350ms;
+  --dur-slow: 600ms;
+}
+
+/* A fine blueprint grid that fades out from the top — the technical backdrop
+   behind page heroes. Two hairlines, no gradients, no blobs. */
+.grid-bg {
+  background-image:
+    linear-gradient(to right, rgb(var(--border) / 0.7) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--border) / 0.7) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 0%, #000 0%, transparent 75%);
+  mask-image: radial-gradient(ellipse 80% 70% at 70% 0%, #000 0%, transparent 75%);
+}
+.grid-bg-dark {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 100% at 50% 0%, #000 0%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 100% at 50% 0%, #000 0%, transparent 80%);
+}
+
+/* Long-form reading width and rhythm (articles, legal pages). */
+.prose-vilms {
+  max-width: 720px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgb(var(--muted));
+}
+.prose-vilms h2 {
+  margin-top: 2.75rem;
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: rgb(var(--foreground));
+  scroll-margin-top: 96px;
+}
+.prose-vilms h3 {
+  margin-top: 1.75rem;
+  font-size: 20px;
+  font-weight: 500;
+  color: rgb(var(--foreground));
+}
+.prose-vilms p,
+.prose-vilms ul,
+.prose-vilms ol {
+  margin-top: 1rem;
+}
+.prose-vilms ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.prose-vilms ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.prose-vilms li + li {
+  margin-top: 0.4rem;
+}
+.prose-vilms a {
+  color: rgb(var(--primary));
+  text-underline-offset: 4px;
+}
+.prose-vilms a:hover {
+  text-decoration: underline;
+}
+.prose-vilms strong {
+  color: rgb(var(--foreground));
+  font-weight: 600;
 }

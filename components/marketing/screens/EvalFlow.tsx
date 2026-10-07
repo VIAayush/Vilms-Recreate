@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import clsx from "clsx";
 import { AnimatePresence, motion } from "motion/react";
-import { Check, Loader2, PenLine, Sparkles, Upload } from "lucide-react";
+import { Check, Loader2, PenLine, ScanText, Upload } from "lucide-react";
 import { useAutoplay, useInView, useReducedMotion } from "../motion";
 import { Avatar } from "./primitives";
 
@@ -49,7 +49,7 @@ export function EvalFlow({ showSteps = true }: { showSteps?: boolean }) {
   );
 }
 
-function EvalStage({ step }: { step: number }) {
+export function EvalStage({ step }: { step: number }) {
   const analysing = step === 1;
   const drafted = step >= 2;
   const reviewing = step >= 3;
@@ -132,7 +132,7 @@ function EvalStage({ step }: { step: number }) {
               <ul className="mt-5 space-y-3 text-[13px]">
                 {["Checking content against the rubric", "Looking for structure and examples", "Drafting comments"].map((t, i) => (
                   <motion.li key={t} initial={{ opacity: 0, x: 10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: i * 0.35 }} className="flex items-center gap-2">
-                    <Sparkles aria-hidden className="h-4 w-4 text-purple" /> {t}
+                    <ScanText aria-hidden className="h-4 w-4 text-purple" /> {t}
                   </motion.li>
                 ))}
               </ul>
@@ -150,7 +150,7 @@ function EvalStage({ step }: { step: number }) {
                     Mentor reviewing
                   </Badge>
                 ) : (
-                  <Badge tone="purple" icon={Sparkles}>
+                  <Badge tone="purple" icon={ScanText}>
                     AI draft
                   </Badge>
                 )}

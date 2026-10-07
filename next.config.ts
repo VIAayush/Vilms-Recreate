@@ -9,6 +9,14 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Pages moved to the URLs in the site structure; the old ones (including
+  // ad links like /demo?utm_source=…, whose query string is kept) still work.
+  async redirects() {
+    return [
+      { source: "/demo", destination: "/book-a-demo", permanent: true },
+      { source: "/privacy", destination: "/privacy-policy", permanent: true },
+    ];
+  },
   async headers() {
     return [
       { source: "/:path*", headers: securityHeaders },

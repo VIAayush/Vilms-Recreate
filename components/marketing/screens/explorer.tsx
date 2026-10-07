@@ -15,11 +15,11 @@ import {
   Radio,
   RotateCcw,
   Smartphone,
-  Sparkles,
+  ScanText,
   Upload,
   Video,
 } from "lucide-react";
-import type { AreaId } from "@/lib/content";
+type AreaId = "teach" | "assess" | "grow" | "payments" | "brand" | "manage";
 import { Avatar, InstituteMark, Meter, Pill } from "./primitives";
 
 // The product explorer's screens. Each region a feature refers to carries
@@ -147,7 +147,7 @@ function AssessScreen({ active }: ScreenProps) {
             <p className="text-[11.5px] font-semibold">Rubric</p>
             <span {...spot("ai", active)} className="rounded-full">
               <Pill tone="primary">
-                <Sparkles aria-hidden className="h-3 w-3" /> AI draft · mentor approves
+                <ScanText aria-hidden className="h-3 w-3" /> AI draft · mentor approves
               </Pill>
             </span>
           </div>

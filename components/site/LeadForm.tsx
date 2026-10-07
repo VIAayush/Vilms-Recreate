@@ -15,6 +15,10 @@ type Props = {
   interest: Interest;
   location: string;
   onClose?: () => void;
+  /** Open the "Add more details" section by default (full-page forms). */
+  expanded?: boolean;
+  /** "contact": the message comes first and the copy suits a general message. */
+  variant?: "default" | "contact";
 };
 
 type Status = { kind: "idle" } | { kind: "error"; message: string } | { kind: "done" };
@@ -25,13 +29,13 @@ function newId() {
     : `${Date.now().toString(16)}-0000-4000-8000-${Math.random().toString(16).slice(2, 14).padEnd(12, "0")}`;
 }
 
-export function LeadForm({ interest, location, onClose }: Props) {
+export function LeadForm({ interest, location, onClose, expanded = false, variant = "default" }: Props) {
   const uid = useId();
   const submissionId = useRef(newId());
   const openedAt = useRef(0);
   const formRef = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
-  const [moreOpen, setMoreOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(expanded);
   const [doneInterest, setDoneInterest] = useState<Interest>(interest);
 
   const openTracked = useRef(false);
@@ -108,7 +112,7 @@ export function LeadForm({ interest, location, onClose }: Props) {
   };
 
   if (status.kind === "done") {
-    return <SuccessState interest={doneInterest} onClose={onClose} />;
+    return <SuccessState interest={doneInterest} onClose={onClose} variant={variant} />;
   }
 
   const fieldId = (name: string) => `${uid}-${name}`;
@@ -135,6 +139,14 @@ export function LeadForm({ interest, location, onClose }: Props) {
         <label htmlFor={fieldId("company_fax")}>Company fax</label>
         <input id={fieldId("company_fax")} name="company_fax" type="text" tabIndex={-1} autoComplete="off" />
       </div>
+
+      {variant === "contact" ? (
+        <div>
+          <label htmlFor={fieldId("message")} className="v-label">Your message</label>
+          <textarea {...register("message")} {...a11y("message")} rows={5} className="v-field resize-y" placeholder="How can we help? Tell us about your institute or your question." />
+          {err("message")}
+        </div>
+      ) : null}
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div>
@@ -219,11 +231,13 @@ export function LeadForm({ interest, location, onClose }: Props) {
             <input {...register("website")} {...a11y("website")} className="v-field" autoComplete="url" placeholder="yourinstitute.in" />
             {err("website")}
           </div>
-          <div className="sm:col-span-2">
-            <label htmlFor={fieldId("message")} className="v-label">Message</label>
-            <textarea {...register("message")} {...a11y("message")} rows={3} className="v-field resize-y" placeholder="Tell us about your batches, tests or what you'd like to see in the demo." />
-            {err("message")}
-          </div>
+          {variant !== "contact" ? (
+            <div className="sm:col-span-2">
+              <label htmlFor={fieldId("message")} className="v-label">Message</label>
+              <textarea {...register("message")} {...a11y("message")} rows={3} className="v-field resize-y" placeholder="Tell us about your batches, tests or what you'd like to see in the demo." />
+              {err("message")}
+            </div>
+          ) : null}
         </div>
       </div>
 
@@ -239,7 +253,7 @@ export function LeadForm({ interest, location, onClose }: Props) {
           />
           <span>
             I agree to be contacted by VILMS about my enquiry by phone, WhatsApp or email, and to the{" "}
-            <a href="/privacy" target="_blank" className="link underline">privacy policy</a>.
+            <a href="/privacy-policy" target="_blank" className="link underline">privacy policy</a>.
           </span>
         </label>
         {err("consent")}
@@ -258,17 +272,39 @@ export function LeadForm({ interest, location, onClose }: Props) {
           </>
         ) : (
           <>
-            {interest === "free_trial" ? "Continue to my free trial" : "Book my VILMS demo"} <ArrowRight aria-hidden className="h-4 w-4" />
+            {variant === "contact" ? "Send message" : interest === "free_trial" ? "Continue to my free trial" : "Book my VILMS demo"} <ArrowRight aria-hidden className="h-4 w-4" />
           </>
         )}
       </button>
-      <p className="text-center text-[12.5px] text-fg-faint">No spam. One person from our team will reach out.</p>
+      <p className="text-center text-[12.5px] text-fg-faint">{variant === "contact" ? "We reply to the email address you share." : "No spam. One person from our team will reach out."}</p>
     </form>
   );
 }
 
-function SuccessState({ interest, onClose }: { interest: Interest; onClose?: () => void }) {
+function SuccessState({ interest, onClose, variant }: { interest: Interest; onClose?: () => void; variant: "default" | "contact" }) {
   const isTrial = interest === "free_trial";
+  if (variant === "contact") {
+    return (
+      <div className="py-4 text-center" role="status" aria-live="polite">
+        <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-green-tint text-green">
+          <CheckCircle2 aria-hidden className="h-8 w-8" />
+        </div>
+        <h3 className="font-display text-[30px] font-semibold leading-tight tracking-tight">Message sent.</h3>
+        <p className="mx-auto mt-3 max-w-md text-[15.5px] leading-relaxed text-fg-muted">
+          Thanks for writing to VILMS. Your message is with our team, and we will reply to the email address you gave us.
+        </p>
+        <div className="mt-7 flex justify-center">
+          {onClose ? (
+            <button type="button" className="cta cta-ink" onClick={onClose}>
+              Back to VILMS
+            </button>
+          ) : (
+            <Link href="/" className="cta cta-ink">Back to VILMS</Link>
+          )}
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="py-4 text-center" role="status" aria-live="polite">
       <div className="mx-auto mb-5 grid h-16 w-16 place-items-center rounded-full bg-green-tint text-green">

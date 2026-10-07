@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { MotionConfig } from "motion/react";
 import type { Interest } from "@/lib/lead-options";
 import { captureTouch, track } from "@/lib/client/tracking";
 import { LeadDialog } from "./LeadDialog";
@@ -47,10 +48,12 @@ export function SiteProviders({ children }: { children: React.ReactNode }) {
   const value = useMemo(() => ({ openLeadForm }), [openLeadForm]);
 
   return (
-    <LeadFormContext.Provider value={value}>
-      {children}
-      <LeadDialog intent={intent} onClose={() => setIntent(null)} />
-    </LeadFormContext.Provider>
+    <MotionConfig reducedMotion="user">
+      <LeadFormContext.Provider value={value}>
+        {children}
+        <LeadDialog intent={intent} onClose={() => setIntent(null)} />
+      </LeadFormContext.Provider>
+    </MotionConfig>
   );
 }
 

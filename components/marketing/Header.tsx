@@ -1,112 +1,164 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { ArrowRight, Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import { Cta } from "@/components/site/Cta";
-import { nav } from "@/lib/content";
+import { MENU, PAGES } from "@/lib/site/pages";
 import { Wordmark } from "./BrandMark";
-import { ThemeToggle } from "./ThemeToggle";
+import { MegaPanel } from "./nav/MegaMenu";
+import { MobileMenu } from "./nav/MobileMenu";
 import { useScrolledPast } from "./motion";
 
-// Minimal and sticky. On the home page it starts transparent with light type
-// over the dark hero; once you scroll it turns white and picks up a hairline.
+// Logo · Product · Solutions · Business · Resources ........ Pricing · Book a
+// Demo · Start Free Trial. No public sign-in (the CRM keeps its own login).
+//
+// Panels open on hover for a mouse and on click / Enter / Space for everyone
+// else; Escape closes and returns focus to the trigger. The bar is
+// transparent at the top of the page and turns white with a hairline once you
+// scroll or open a panel.
 export function Header() {
-  const scrolled = useScrolledPast(12);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const closeMenu = useCallback(() => setMenuOpen(false), []);
-  const overHero = usePathname() === "/";
-  const solid = scrolled || menuOpen || !overHero;
-  const light = !solid; // white type over the hero
+  const pathname = usePathname();
+  const scrolled = useScrolledPast(8);
+  const [open, setOpen] = useState<string | null>(null);
+  const [mobile, setMobile] = useState(false);
+  const closeTimer = useRef<number | undefined>(undefined);
+  const root = useRef<HTMLElement>(null);
+
+  const closeAll = useCallback(() => {
+    setOpen(null);
+    setMobile(false);
+  }, []);
+
+  // Close whatever is open when the route changes (state adjusted during
+  // render, the React-recommended alternative to an effect).
+  const [lastPath, setLastPath] = useState(pathname);
+  if (lastPath !== pathname) {
+    setLastPath(pathname);
+    setOpen(null);
+    setMobile(false);
+  }
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const trigger = root.current?.querySelector<HTMLElement>(`[data-trigger="${open}"]`);
+      setOpen(null);
+      trigger?.focus();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
+  const hoverOpen = (id: string) => (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(id), 70);
+  };
+  const hoverClose = (e: React.PointerEvent) => {
+    if (e.pointerType !== "mouse") return;
+    window.clearTimeout(closeTimer.current);
+    closeTimer.current = window.setTimeout(() => setOpen(null), 160);
+  };
+  const keepOpen = () => window.clearTimeout(closeTimer.current);
+
+  const groupOf = (menuId: string) => MENU.find((m) => m.id === menuId)!.groups.some((g) => g.keys.some((k) => PAGES[k].path === pathname));
+  const solid = scrolled || open !== null || mobile;
 
   return (
     <header
+      ref={root}
+      onPointerLeave={hoverClose}
+      onPointerEnter={keepOpen}
+      onBlur={(e) => {
+        if (open && !e.currentTarget.contains(e.relatedTarget as Node)) setOpen(null);
+      }}
       className={clsx(
-        "fixed inset-x-0 top-0 z-40 transition-[background-color,box-shadow,border-color] duration-300",
-        solid ? "border-b border-edge bg-canvas/85 backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
+        "fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300",
+        solid ? "border-b border-edge bg-canvas/90 backdrop-blur-xl backdrop-saturate-150" : "border-b border-transparent",
+        open && "border-transparent",
       )}
     >
-      <div className={clsx("wrap flex items-center gap-6 transition-[height] duration-300", solid ? "h-14" : "h-[72px]")}>
-        <Link href="/" aria-label="VILMS home" className="rounded-lg" onClick={closeMenu}>
-          <Wordmark variant={light ? "dark" : "auto"} />
+      <div className={clsx("wrap flex items-center gap-4 transition-[height] duration-300 lg:gap-6", solid ? "h-14" : "h-[68px]")}>
+        <Link href="/" aria-label="VILMS home" className="rounded-lg" onClick={closeAll}>
+          <Wordmark />
         </Link>
 
-        <nav aria-label="Main" className="mx-auto hidden items-center gap-1 md:flex">
-          {nav.map((l) => (
-            <a key={l.href} href={l.href} className={clsx("nav-link rounded-full px-4 py-2 text-[14.5px] font-medium transition-colors", light ? "text-white/80 hover:text-white" : "text-fg-muted hover:text-fg")}>
-              {l.label}
-            </a>
-          ))}
+        <nav aria-label="Main" className="ml-2 hidden items-center lg:flex">
+          {MENU.map((m) => {
+            const active = groupOf(m.id);
+            const isOpen = open === m.id;
+            return (
+              <div key={m.id} onPointerEnter={hoverOpen(m.id)}>
+                <button
+                  type="button"
+                  data-trigger={m.id}
+                  aria-expanded={isOpen}
+                  aria-controls={`mega-${m.id}`}
+                  onClick={() => setOpen(isOpen ? null : m.id)}
+                  className={clsx(
+                    "nav-link group inline-flex items-center gap-1 rounded-full px-3.5 py-2 text-[14.5px] font-medium transition-colors",
+                    isOpen || active ? "text-fg" : "text-fg-muted hover:text-fg",
+                  )}
+                >
+                  {m.label}
+                  <ChevronDown aria-hidden className={clsx("h-3.5 w-3.5 transition-transform duration-300", isOpen && "rotate-180")} />
+                </button>
+              </div>
+            );
+          })}
         </nav>
 
-        <div className="ml-auto flex items-center gap-2 md:ml-0">
-          <div className={clsx("contents", light && "[&>button:first-child]:text-white [&>button:first-child]:hover:bg-white/10")}>
-            <ThemeToggle />
-          </div>
-          <Cta intent="demo" location="nav" className={clsx("cta cta-sm hidden lg:inline-flex", light ? "text-white hover:bg-white/10" : "cta-ghost border-transparent bg-transparent")}>
-            Book a Demo
-          </Cta>
-          <Cta
-            intent="trial"
-            location="nav"
-            className={clsx("cta cta-sm hidden min-[400px]:inline-flex", light ? "bg-white text-[rgb(0_48_86)] hover:bg-[rgb(220_234_250)]" : "cta-primary")}
+        <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
+          <Link
+            href={PAGES.pricing.path}
+            aria-current={pathname === PAGES.pricing.path ? "page" : undefined}
+            className="nav-link hidden rounded-full px-3.5 py-2 text-[14.5px] font-medium text-fg-muted transition-colors hover:text-fg lg:inline-block"
           >
+            Pricing
+          </Link>
+          <Link href={PAGES.demo.path} className="cta cta-ghost cta-sm hidden lg:inline-flex">
+            Book a Demo
+          </Link>
+          <Cta intent="trial" location="nav" className="cta cta-primary cta-sm hidden lg:inline-flex">
             Start Free Trial
           </Cta>
           <button
             type="button"
-            className={clsx("grid h-10 w-10 place-items-center rounded-full transition md:hidden", light ? "text-white hover:bg-white/10" : "text-fg hover:bg-sunken")}
-            aria-expanded={menuOpen}
+            className="grid h-10 w-10 place-items-center rounded-full text-fg transition hover:bg-sunken lg:hidden"
+            aria-expanded={mobile}
             aria-controls="mobile-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMenuOpen((v) => !v)}
+            aria-label={mobile ? "Close menu" : "Open menu"}
+            onClick={() => setMobile((v) => !v)}
           >
-            {menuOpen ? <X aria-hidden className="h-5 w-5" /> : <Menu aria-hidden className="h-5 w-5" />}
+            {mobile ? <X aria-hidden className="h-5 w-5" /> : <Menu aria-hidden className="h-5 w-5" />}
           </button>
         </div>
       </div>
 
-      <MobileMenu open={menuOpen} onClose={closeMenu} />
+      {/* a soft veil over the page while a panel is open */}
+      <AnimatePresence>
+        {open ? (
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="pointer-events-none fixed inset-x-0 bottom-0 top-14 -z-10 hidden bg-[rgb(14_27_44/0.14)] backdrop-blur-[2px] lg:block"
+          />
+        ) : null}
+      </AnimatePresence>
+
+      <div className="hidden lg:block" onPointerEnter={keepOpen}>
+        <AnimatePresence mode="wait">{open ? <MegaPanel key={open} menuId={open} pathname={pathname} onNavigate={closeAll} /> : null}</AnimatePresence>
+      </div>
+
+      <MobileMenu open={mobile} onClose={closeAll} pathname={pathname} />
     </header>
-  );
-}
-
-function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
-  useEffect(() => {
-    if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [open, onClose]);
-
-  return (
-    <div id="mobile-menu" hidden={!open} className="h-[calc(100dvh-56px)] overflow-y-auto bg-canvas md:hidden">
-      <nav aria-label="Mobile" className="wrap flex min-h-full flex-col pb-8 pt-4">
-        <ul className="divide-y divide-edge border-y border-edge">
-          {nav.map((l) => (
-            <li key={l.href}>
-              <a href={l.href} onClick={onClose} className="flex items-center justify-between py-5 font-display text-[28px] font-semibold tracking-tight">
-                {l.label}
-                <ArrowRight aria-hidden className="h-5 w-5 text-fg-faint" />
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-auto grid gap-3 pt-8">
-          <Cta intent="trial" location="mobile_menu" className="cta cta-primary cta-lg w-full" arrow>
-            Start 14-Day Free Trial
-          </Cta>
-          <Cta intent="demo" location="mobile_menu" className="cta cta-outline cta-lg w-full">
-            Book a Demo
-          </Cta>
-        </div>
-      </nav>
-    </div>
   );
 }

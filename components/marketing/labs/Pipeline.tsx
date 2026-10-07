@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import { motion } from "motion/react";
 import { FileDown, LayoutTemplate, Megaphone, Search, Video } from "lucide-react";
-import { Cta } from "@/components/site/Cta";
+import Link from "next/link";
+import { PAGES } from "@/lib/site/pages";
 import { useInView, useReducedMotion } from "../motion";
 import { CrmBoard } from "../screens/CrmBoard";
 
@@ -29,9 +30,9 @@ export function Pipeline() {
             <p className="text-[12px] font-bold uppercase tracking-[0.06em] text-primary">Lead CRM</p>
             <h2 className="mt-4 max-w-[760px] text-[clamp(36px,5vw,64px)] font-normal leading-[1.04] tracking-[-0.035em]">Turn ad clicks into paid enrolments</h2>
           </div>
-          <Cta intent="demo" location="crm" className="cta cta-outline rounded-full">
+          <Link href={PAGES.leadCrm.path} className="cta cta-outline rounded-full">
             See the CRM
-          </Cta>
+          </Link>
         </div>
 
         <div ref={ref} className="mt-12 rounded-[32px] bg-canvas-alt p-4 sm:p-8">
